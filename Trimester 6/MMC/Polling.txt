@@ -1,0 +1,14 @@
+org 0000h
+Mov TMOD,#10h
+clr P0.7
+again:
+Mov TH1,#0FFh
+Mov TL1,#0F0h
+Setb 8Eh
+Here:
+JNB 8Fh, Here
+Clr 8Eh
+Clr 8Fh
+CPL A
+MOV P1, A
+SJMP again

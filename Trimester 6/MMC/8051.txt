@@ -1,0 +1,26 @@
+ORG 0000H
+Mov R0,#40h
+Mov R1,#42h
+Mov A,@R1
+Mov B,A
+Mov A,@R0
+Mul AB
+Mov R0,#52h
+Mov @R0,A
+Mov R3,B
+Mov R0,#41h
+Mov R1,#42h
+Mov A,@R1
+Mov B,A
+Mov A,@R1
+Mov B,A
+Mov A,@r0
+Mul AB
+ADD A,R3
+Mov R0,#51h
+Mov @R0,A
+Mov A,#00
+ADDC A,B
+Mov R0,#50h
+Mov @R0,A
+End

@@ -1,0 +1,19 @@
+org 0000h
+clr P0.7
+MOV IE, #88h
+Mov TMOD,#10h
+Mov TL1,#0FAh
+Mov TH1,#0FFh
+Setb 8Eh
+Here:
+SJMP Here
+org 001bH
+Clr 8Eh
+CLR 8Fh
+CPL A
+MOV P1, A
+Mov TL1,#0FAh
+Mov TH1,#0FFh
+Setb 8Eh
+RETI
+_
