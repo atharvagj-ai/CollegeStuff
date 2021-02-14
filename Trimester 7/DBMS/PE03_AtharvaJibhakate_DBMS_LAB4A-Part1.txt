@@ -1,0 +1,274 @@
+
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| company            |
+| information_schema |
+| mysql              |
+| organization       |
+| performance_schema |
+| sakila             |
+| staff              |
+| staff_schema       |
+| supplychain        |
+| sys                |
+| world              |
++--------------------+
+11 rows in set (0.25 sec)
+
+mysql> USE supplychain
+Database changed
+
+mysql> SHOW TABLES;
++-----------------------+
+| Tables_in_supplychain |
++-----------------------+
+| parts                 |
+| projects              |
+| shipment              |
+| suppliers             |
++-----------------------+
+4 rows in set (0.19 sec)
+
+mysql> DESC suppliers;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| S_No   | int         | NO   | PRI | NULL    |       |
+| S_Name | varchar(30) | YES  |     | NULL    |       |
+| Status | varchar(10) | YES  |     | NULL    |       |
+| City   | varchar(40) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.11 sec)
+
+mysql> DESC parts;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| P_No   | int         | NO   | PRI | NULL    |       |
+| P_Name | varchar(30) | YES  |     | NULL    |       |
+| Colour | varchar(20) | YES  |     | NULL    |       |
+| Weight | float(5,2)  | YES  |     | NULL    |       |
+| City   | varchar(40) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> DESC projects;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| J_No   | int         | NO   | PRI | NULL    | auto_increment |
+| J_Name | varchar(30) | YES  | UNI | NULL    |                |
+| City   | varchar(40) | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> DESC shipment;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| S_No     | int  | NO   | MUL | NULL    |       |
+| P_No     | int  | NO   | MUL | NULL    |       |
+| J_No     | int  | NO   | MUL | NULL    |       |
+| Quantity | int  | NO   |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+4 rows in set (0.10 sec)
+
+mysql> SELECT * FROM suppliers;
++------+-------------------+------------+--------+
+| S_No | S_Name            | Status     | City   |
++------+-------------------+------------+--------+
+|    1 | Bhonsle_Suppliers | Completed  | Mumbai |
+|    2 | Jadhav_Suppliers  | Processing | Pune   |
+|    3 | Kadam_Suppliers   | Completed  | Nagpur |
+|    4 | Mohite_Suppliers  | Completed  | Nagpur |
++------+-------------------+------------+--------+
+4 rows in set (0.03 sec)
+
+mysql> SELECT * FROM parts;
++------+--------------+--------+--------+--------+
+| P_No | P_Name       | Colour | Weight | City   |
++------+--------------+--------+--------+--------+
+|  101 | Processors   | Green  |   0.20 | Mumbai |
+|  102 | LEDs         | Red    |   0.05 | Mumbai |
+|  103 | Motherboards | Blue   |   1.00 | Pune   |
+|  104 | Speakers     | Red    |   0.90 | Pune   |
+|  105 | Displays     | Blue   |   1.20 | Pune   |
+|  106 | Cameras      | Red    |   0.20 | Pune   |
+|  107 | Body         | Black  |   1.00 | Nagpur |
+|  108 | Frames       | Red    |   1.20 | Nagpur |
+|  109 | Guards       | Blue   |   0.90 | Nagpur |
++------+--------------+--------+--------+--------+
+9 rows in set (0.02 sec)
+
+mysql> SELECT * FROM projects;
++------+--------------------------+--------+
+| J_No | J_Name                   | City   |
++------+--------------------------+--------+
+|  201 | Sentiment Analysis       | Mumbai |
+|  202 | Image Segmentation       | Mumbai |
+|  203 | Covol NeuralNets         | Pune   |
+|  204 | LSTM Cells               | Pune   |
+|  205 | Time Series              | Pune   |
+|  206 | DCGANS                   | Nagpur |
+|  207 | Smart Traffic Management | Nagpur |
+|  208 | IBM Chatbot              | Nagpur |
++------+--------------------------+--------+
+8 rows in set (0.12 sec)
+
+mysql> SELECT * FROM shipment;
++------+------+------+----------+
+| S_No | P_No | J_No | Quantity |
++------+------+------+----------+
+|    1 |  101 |  201 |        3 |
+|    1 |  101 |  204 |        7 |
+|    1 |  102 |  203 |        4 |
+|    2 |  102 |  205 |       12 |
+|    2 |  102 |  207 |        2 |
+|    2 |  103 |  204 |        5 |
+|    2 |  104 |  205 |        6 |
+|    3 |  103 |  204 |        8 |
+|    3 |  104 |  205 |        9 |
+|    3 |  106 |  206 |       10 |
+|    3 |  106 |  203 |       17 |
+|    4 |  107 |  207 |       10 |
+|    4 |  106 |  206 |        6 |
+|    4 |  108 |  207 |        9 |
+|    4 |  109 |  208 |       10 |
+|    4 |  108 |  207 |       13 |
++------+------+------+----------+
+16 rows in set (0.00 sec)
+
+//Solve the following queries
+//1.Get S# for suppliers who supply project J1.
+mysql> SELECT * FROM suppliers NATURAL JOIN projects;
++--------+------+-------------------+------------+------+--------------------------+
+| City   | S_No | S_Name            | Status     | J_No | J_Name                   |
++--------+------+-------------------+------------+------+--------------------------+
+| Mumbai |    1 | Bhonsle_Suppliers | Completed  |  201 | Sentiment Analysis       |
+| Mumbai |    1 | Bhonsle_Suppliers | Completed  |  202 | Image Segmentation       |
+| Pune   |    2 | Jadhav_Suppliers  | Processing |  203 | Covol NeuralNets         |
+| Pune   |    2 | Jadhav_Suppliers  | Processing |  204 | LSTM Cells               |
+| Pune   |    2 | Jadhav_Suppliers  | Processing |  205 | Time Series              |
+| Nagpur |    3 | Kadam_Suppliers   | Completed  |  206 | DCGANS                   |
+| Nagpur |    4 | Mohite_Suppliers  | Completed  |  206 | DCGANS                   |
+| Nagpur |    3 | Kadam_Suppliers   | Completed  |  207 | Smart Traffic Management |
+| Nagpur |    4 | Mohite_Suppliers  | Completed  |  207 | Smart Traffic Management |
+| Nagpur |    3 | Kadam_Suppliers   | Completed  |  208 | IBM Chatbot              |
+| Nagpur |    4 | Mohite_Suppliers  | Completed  |  208 | IBM Chatbot              |
++--------+------+-------------------+------------+------+--------------------------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Suppliers NATURAL JOIN projects WHERE J_No = 206;
++--------+------+------------------+-----------+------+--------+
+| City   | S_No | S_Name           | Status    | J_No | J_Name |
++--------+------+------------------+-----------+------+--------+
+| Nagpur |    3 | Kadam_Suppliers  | Completed |  206 | DCGANS |
+| Nagpur |    4 | Mohite_Suppliers | Completed |  206 | DCGANS |
++--------+------+------------------+-----------+------+--------+
+2 rows in set (0.00 sec)
+
+//2.Get P# for parts supplied by a supplier in London.
+mysql> SELECT * FROM parts NATURAL JOIN suppliers WHERE city = "Nagpur";
++--------+------+--------+--------+--------+------+------------------+-----------+
+| City   | P_No | P_Name | Colour | Weight | S_No | S_Name           | Status    |
++--------+------+--------+--------+--------+------+------------------+-----------+
+| Nagpur |  107 | Body   | Black  |   1.00 |    3 | Kadam_Suppliers  | Completed |
+| Nagpur |  107 | Body   | Black  |   1.00 |    4 | Mohite_Suppliers | Completed |
+| Nagpur |  108 | Frames | Red    |   1.20 |    3 | Kadam_Suppliers  | Completed |
+| Nagpur |  108 | Frames | Red    |   1.20 |    4 | Mohite_Suppliers | Completed |
+| Nagpur |  109 | Guards | Blue   |   0.90 |    3 | Kadam_Suppliers  | Completed |
+| Nagpur |  109 | Guards | Blue   |   0.90 |    4 | Mohite_Suppliers | Completed |
++--------+------+--------+--------+--------+------+------------------+-----------+
+6 rows in set (0.00 sec)
+
+//3.Get the total quantity of part P1 supplied by S1.
+mysql> SELECT SUM(Quantity) FROM shipment WHERE P_No = 106 AND S_No = 3;
++---------------+
+| SUM(Quantity) |
++---------------+
+|            27 |
++---------------+
+1 row in set (0.07 sec)
+
+//4.Get project names for projects supplied by supplier S1.
+mysql> SELECT J_Name FROM projects WHERE J_No in (SELECT J_No FROM shipment WHERE S_No = 1);
++--------------------+
+| J_Name             |
++--------------------+
+| Sentiment Analysis |
+| LSTM Cells         |
+| Covol NeuralNets   |
++--------------------+
+3 rows in set (0.20 sec)
+
+//5.Get colors of parts supplied by S1.
+mysql> SELECT P_Name, Colour FROM parts WHERE P_No in (SELECT P_No FROM shipment WHERE S_No = 1);
++------------+--------+
+| P_Name     | Colour |
++------------+--------+
+| Processors | Green  |
+| LEDs       | Red    |
++------------+--------+
+2 rows in set (0.00 sec)
+
+//6.Get all part-color/part-city combinations.
+mysql> SELECT DISTINCT Colour, City FROM parts;
++--------+--------+
+| Colour | City   |
++--------+--------+
+| Green  | Mumbai |
+| Red    | Mumbai |
+| Blue   | Pune   |
+| Red    | Pune   |
+| Black  | Nagpur |
+| Red    | Nagpur |
+| Blue   | Nagpur |
++--------+--------+
+7 rows in set (0.01 sec)
+
+//7.Get J# for projects supplied by at least one supplier
+mysql> SELECT J_No FROM shipment GROUP BY J_No HAVING COUNT(S_No)>=1;
++------+
+| J_No |
++------+
+|  201 |
+|  203 |
+|  204 |
+|  205 |
+|  206 |
+|  207 |
+|  208 |
++------+
+7 rows in set (0.23 sec)
+
+//8.Get colors of parts supplied by S1.
+mysql> SELECT Colour FROM parts WHERE P_No IN (SELECT P_No FROM shipment WHERE S_No = 1);
++--------+
+| Colour |
++--------+
+| Green  |
+| Red    |
++--------+
+2 rows in set (0.00 sec)
+
+//9.Delete all parts whose color is green.
+mysql> DELETE FROM parts WHERE Colour = 'Green';
+Query OK, 1 row affected (0.08 sec)
+
+//10.Create one view
+mysql> CREATE VIEW Supply_View AS SELECT P_Name, Weight FROM parts WHERE Colour = "Red";
+Query OK, 0 rows affected (0.87 sec)
+
+mysql> SELECT * FROM Supply_View;
++----------+--------+
+| P_Name   | Weight |
++----------+--------+
+| LEDs     |   0.05 |
+| Speakers |   0.90 |
+| Cameras  |   0.20 |
+| Frames   |   1.20 |
++----------+--------+
+4 rows in set (0.16 sec)

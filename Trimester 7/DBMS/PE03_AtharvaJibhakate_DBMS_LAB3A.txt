@@ -1,0 +1,313 @@
+NAME: Atharva G. Jibhakate
+Roll No. : PE 03
+Panel: 5 (E1)
+PRN: S1032180110
+
+//Creating Table for given Schema
+
+mysql> CREATE TABLE STAFF(
+    -> S_No VARCHAR(10) PRIMARY KEY,
+    -> F_Name VARCHAR(30),
+    -> L_Name VARCHAR(30),
+    -> Position VARCHAR(50),
+    -> Sex VARCHAR(10),
+    -> DOB DATE,
+    -> Salary INT,
+    -> B_No VARCHAR(10));
+Query OK, 0 rows affected (2.55 sec)
+
+mysql> DESC STAFF;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| S_No     | varchar(10) | YES  | PRI | NULL    |       |
+| F_Name   | varchar(30) | YES  |     | NULL    |       |
+| L_Name   | varchar(30) | YES  |     | NULL    |       |
+| Position | varchar(50) | YES  |     | NULL    |       |
+| Sex      | varchar(10) | YES  |     | NULL    |       |
+| DOB      | date        | YES  |     | NULL    |       |
+| Salary   | int         | YES  |     | NULL    |       |
+| B_No     | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+8 rows in set (0.26 sec)
+
+//Table Created with Primary key as "S_NO"
+//Now adding values into table
+
+//Single Row Insertion
+
+mysql> INSERT INTO STAFF VALUES ('SL21','John','White','Manager','M','45-10-1',30000,'B005');
+Query OK, 1 row affected (0.28 sec)
+
+//Multiple Row Insertion
+
+mysql> INSERT INTO STAFF VALUES('SG37','Ann','Beech','Assistant','F','60-11-10',12000,'B003'),('SG14','David','Ford','Supervisor','M','58-3-24',18000,'B003'),('SA14','Mary','Howe','Assistant','F','70-2-19',9000,'B007'),('SG5','Susan','Brand','Manager','F','40-6-13',24000,'B003');
+Query OK, 4 rows affected (0.10 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM STAFF;
++------+--------+--------+------------+------+------------+--------+------+
+| S_NO | F_Name | L_Name | Position   | Sex  | DOB        | Salary | B_No |
++------+--------+--------+------------+------+------------+--------+------+
+| SA14 | Mary   | Howe   | Assistant  | F    | 1970-02-19 |   9000 | B007 |
+| SG14 | David  | Ford   | Supervisor | M    | 2058-03-24 |  18000 | B003 |
+| SG37 | Ann    | Beech  | Assistant  | F    | 2060-11-10 |  12000 | B003 |
+| SG5  | Susan  | Brand  | Manager    | F    | 2040-06-13 |  24000 | B003 |
+| SL21 | John   | White  | Manager    | M    | 2045-10-01 |  30000 | B005 |
++------+--------+--------+------------+------+------------+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO STAFF VALUES('SG27','Rachel','Greene','Marketer','F','75-11-10',18000,'B203'),('SG21','Ross','Geller','Paliontologist','M','73-3-24',40000,'B303'),('SA69','Chandler','Bing','Advertiser','M','70-2-27',30000,'B303'),('SA15','Monica','Bing','Manager','F','75-5-13',24000,'B203'),('SF07','Joey','Tribbiani','Tech Lead','M','75-7-30',18000,'B203'),('SF21','Phoebe','Buffay','Supervisor','F','73-4-24',40000,'B203');
+Query OK, 6 rows affected (0.18 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM STAFF;
++------+----------+-----------+----------------+------+------------+--------+------+
+| S_NO | F_Name   | L_Name    | Position       | Sex  | DOB        | Salary | B_No |
++------+----------+-----------+----------------+------+------------+--------+------+
+| SA14 | Mary     | Howe      | Assistant      | F    | 1970-02-19 |   9000 | B007 |
+| SA15 | Monica   | Bing      | Manager        | F    | 1975-05-13 |  24000 | B203 |
+| SA69 | Chandler | Bing      | Advertiser     | M    | 1970-02-27 |  30000 | B303 |
+| SF07 | Joey     | Tribbiani | Tech Lead      | M    | 1975-07-30 |  18000 | B203 |
+| SF21 | Phoebe   | Buffay    | Supervisor     | F    | 1973-04-24 |  40000 | B203 |
+| SG14 | David    | Ford      | Supervisor     | M    | 2058-03-24 |  18000 | B003 |
+| SG21 | Ross     | Geller    | Paliontologist | M    | 1973-03-24 |  40000 | B303 |
+| SG27 | Rachel   | Greene    | Marketer       | F    | 1975-11-10 |  18000 | B203 |
+| SG37 | Ann      | Beech     | Assistant      | F    | 2060-11-10 |  12000 | B003 |
+| SG5  | Susan    | Brand     | Manager        | F    | 2040-06-13 |  24000 | B003 |
+| SL21 | John     | White     | Manager        | M    | 2045-10-01 |  30000 | B005 |
++------+----------+-----------+----------------+------+------------+--------+------+
+11 rows in set (0.11 sec)
+
+//Using UPDATE Command on Position and Salary Columns
+
+mysql> UPDATE STAFF SET Position = 'Chief Executive Officer', Salary = 45000 WHERE S_NO = 'SA14';
+Query OK, 1 row affected (0.22 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM STAFF;
++------+----------+-----------+-------------------------+------+------------+--------+------+
+| S_NO | F_Name   | L_Name    | Position                | Sex  | DOB        | Salary | B_No |
++------+----------+-----------+-------------------------+------+------------+--------+------+
+| SA14 | Mary     | Howe      | Chief Executive Officer | F    | 1970-02-19 |  45000 | B007 |
+| SA15 | Monica   | Bing      | Manager                 | F    | 1975-05-13 |  24000 | B203 |
+| SA69 | Chandler | Bing      | Advertiser              | M    | 1970-02-27 |  30000 | B303 |
+| SF07 | Joey     | Tribbiani | Tech Lead               | M    | 1975-07-30 |  18000 | B203 |
+| SF21 | Phoebe   | Buffay    | Supervisor              | F    | 1973-04-24 |  40000 | B203 |
+| SG14 | David    | Ford      | Supervisor              | M    | 2058-03-24 |  18000 | B003 |
+| SG21 | Ross     | Geller    | Paliontologist          | M    | 1973-03-24 |  40000 | B303 |
+| SG27 | Rachel   | Greene    | Marketer                | F    | 1975-11-10 |  18000 | B203 |
+| SG37 | Ann      | Beech     | Assistant               | F    | 2060-11-10 |  12000 | B003 |
+| SG5  | Susan    | Brand     | Manager                 | F    | 2040-06-13 |  24000 | B003 |
+| SL21 | John     | White     | Manager                 | M    | 2045-10-01 |  30000 | B005 |
++------+----------+-----------+-------------------------+------+------------+--------+------+
+11 rows in set (0.00 sec)
+//Values Updated Successfully
+
+//Using WHERE Command
+
+mysql> SELECT * FROM STAFF WHERE Position = "Supervisor";
++------+--------+--------+------------+------+------------+--------+------+
+| S_NO | F_Name | L_Name | Position   | Sex  | DOB        | Salary | B_No |
++------+--------+--------+------------+------+------------+--------+------+
+| SF21 | Phoebe | Buffay | Supervisor | F    | 1973-04-24 |  40000 | B203 |
+| SG14 | David  | Ford   | Supervisor | M    | 2058-03-24 |  18000 | B003 |
++------+--------+--------+------------+------+------------+--------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STAFF WHERE Position = "Manager";
++------+--------+--------+----------+------+------------+--------+------+
+| S_NO | F_Name | L_Name | Position | Sex  | DOB        | Salary | B_No |
++------+--------+--------+----------+------+------------+--------+------+
+| SA15 | Monica | Bing   | Manager  | F    | 1975-05-13 |  24000 | B203 |
+| SG5  | Susan  | Brand  | Manager  | F    | 2040-06-13 |  24000 | B003 |
+| SL21 | John   | White  | Manager  | M    | 2045-10-01 |  30000 | B005 |
++------+--------+--------+----------+------+------------+--------+------+
+3 rows in set (0.00 sec)
+
+//Using LOGICAL OPERATORS
+
+//Using AND Command
+
+mysql> SELECT * FROM STAFF WHERE Position = "Manager" AND Sex = "F";
++------+--------+--------+----------+------+------------+--------+------+
+| S_NO | F_Name | L_Name | Position | Sex  | DOB        | Salary | B_No |
++------+--------+--------+----------+------+------------+--------+------+
+| SA15 | Monica | Bing   | Manager  | F    | 1975-05-13 |  24000 | B203 |
+| SG5  | Susan  | Brand  | Manager  | F    | 2040-06-13 |  24000 | B003 |
++------+--------+--------+----------+------+------------+--------+------+
+2 rows in set (0.00 sec)
+
+//Using OR Command
+
+mysql> SELECT * FROM STAFF WHERE Position = "Manager" OR Position = "Supervisor";
++------+--------+--------+------------+------+------------+--------+------+
+| S_NO | F_Name | L_Name | Position   | Sex  | DOB        | Salary | B_No |
++------+--------+--------+------------+------+------------+--------+------+
+| SA15 | Monica | Bing   | Manager    | F    | 1975-05-13 |  24000 | B203 |
+| SF21 | Phoebe | Buffay | Supervisor | F    | 1973-04-24 |  40000 | B203 |
+| SG14 | David  | Ford   | Supervisor | M    | 2058-03-24 |  18000 | B003 |
+| SG5  | Susan  | Brand  | Manager    | F    | 2040-06-13 |  24000 | B003 |
+| SL21 | John   | White  | Manager    | M    | 2045-10-01 |  30000 | B005 |
++------+--------+--------+------------+------+------------+--------+------+
+5 rows in set (0.00 sec)
+
+//Using NOT Command
+
+mysql> SELECT * FROM STAFF WHERE NOT B_No = 'B203';
++------+----------+--------+-------------------------+------+------------+--------+------+
+| S_NO | F_Name   | L_Name | Position                | Sex  | DOB        | Salary | B_No |
++------+----------+--------+-------------------------+------+------------+--------+------+
+| SA14 | Mary     | Howe   | Chief Executive Officer | F    | 1970-02-19 |  45000 | B007 |
+| SA69 | Chandler | Bing   | Advertiser              | M    | 1970-02-27 |  30000 | B303 |
+| SG14 | David    | Ford   | Supervisor              | M    | 2058-03-24 |  18000 | B003 |
+| SG21 | Ross     | Geller | Paliontologist          | M    | 1973-03-24 |  40000 | B303 |
+| SG37 | Ann      | Beech  | Assistant               | F    | 2060-11-10 |  12000 | B003 |
+| SG5  | Susan    | Brand  | Manager                 | F    | 2040-06-13 |  24000 | B003 |
+| SL21 | John     | White  | Manager                 | M    | 2045-10-01 |  30000 | B005 |
++------+----------+--------+-------------------------+------+------------+--------+------+
+7 rows in set (0.00 sec)
+
+// IN AND NOT IN OPERATORS
+
+//Using IN Command
+
+mysql> SELECT * FROM STAFF WHERE Position IN ('Manager','Supervisor','Assistant');
++------+--------+--------+------------+------+------------+--------+------+
+| S_NO | F_Name | L_Name | Position   | Sex  | DOB        | Salary | B_No |
++------+--------+--------+------------+------+------------+--------+------+
+| SA15 | Monica | Bing   | Manager    | F    | 1975-05-13 |  24000 | B203 |
+| SF21 | Phoebe | Buffay | Supervisor | F    | 1973-04-24 |  40000 | B203 |
+| SG14 | David  | Ford   | Supervisor | M    | 2058-03-24 |  18000 | B003 |
+| SG37 | Ann    | Beech  | Assistant  | F    | 2060-11-10 |  12000 | B003 |
+| SG5  | Susan  | Brand  | Manager    | F    | 2040-06-13 |  24000 | B003 |
+| SL21 | John   | White  | Manager    | M    | 2045-10-01 |  30000 | B005 |
++------+--------+--------+------------+------+------------+--------+------+
+6 rows in set (0.11 sec)
+
+//Using NOT IN Command
+
+mysql> SELECT * FROM STAFF WHERE Position NOT IN ('Manager','Supervisor','Assistant');
++------+----------+-----------+-------------------------+------+------------+--------+------+
+| S_NO | F_Name   | L_Name    | Position                | Sex  | DOB        | Salary | B_No |
++------+----------+-----------+-------------------------+------+------------+--------+------+
+| SA14 | Mary     | Howe      | Chief Executive Officer | F    | 1970-02-19 |  45000 | B007 |
+| SA69 | Chandler | Bing      | Advertiser              | M    | 1970-02-27 |  30000 | B303 |
+| SF07 | Joey     | Tribbiani | Tech Lead               | M    | 1975-07-30 |  18000 | B203 |
+| SG21 | Ross     | Geller    | Paliontologist          | M    | 1973-03-24 |  40000 | B303 |
+| SG27 | Rachel   | Greene    | Marketer                | F    | 1975-11-10 |  18000 | B203 |
++------+----------+-----------+-------------------------+------+------------+--------+------+
+5 rows in set (0.00 sec)
+
+//USING Comaparision Operators
+
+//Using > (Greater then) Command
+
+mysql> SELECT * FROM STAFF WHERE Salary > 20000;
++------+----------+--------+-------------------------+------+------------+--------+------+
+| S_NO | F_Name   | L_Name | Position                | Sex  | DOB        | Salary | B_No |
++------+----------+--------+-------------------------+------+------------+--------+------+
+| SA14 | Mary     | Howe   | Chief Executive Officer | F    | 1970-02-19 |  45000 | B007 |
+| SA15 | Monica   | Bing   | Manager                 | F    | 1975-05-13 |  24000 | B203 |
+| SA69 | Chandler | Bing   | Advertiser              | M    | 1970-02-27 |  30000 | B303 |
+| SF21 | Phoebe   | Buffay | Supervisor              | F    | 1973-04-24 |  40000 | B203 |
+| SG21 | Ross     | Geller | Paliontologist          | M    | 1973-03-24 |  40000 | B303 |
+| SG5  | Susan    | Brand  | Manager                 | F    | 2040-06-13 |  24000 | B003 |
+| SL21 | John     | White  | Manager                 | M    | 2045-10-01 |  30000 | B005 |
++------+----------+--------+-------------------------+------+------------+--------+------+
+7 rows in set (0.00 sec)
+
+//Using < (Less then) Command
+
+mysql> SELECT * FROM STAFF WHERE Salary < 20000;
++------+--------+-----------+------------+------+------------+--------+------+
+| S_NO | F_Name | L_Name    | Position   | Sex  | DOB        | Salary | B_No |
++------+--------+-----------+------------+------+------------+--------+------+
+| SF07 | Joey   | Tribbiani | Tech Lead  | M    | 1975-07-30 |  18000 | B203 |
+| SG14 | David  | Ford      | Supervisor | M    | 2058-03-24 |  18000 | B003 |
+| SG27 | Rachel | Greene    | Marketer   | F    | 1975-11-10 |  18000 | B203 |
+| SG37 | Ann    | Beech     | Assistant  | F    | 2060-11-10 |  12000 | B003 |
++------+--------+-----------+------------+------+------------+--------+------+
+4 rows in set (0.00 sec)
+
+//Using <= (Less then or equal to) Command
+
+mysql> SELECT * FROM STAFF WHERE Salary <= 20000;
++------+--------+-----------+------------+------+------------+--------+------+
+| S_NO | F_Name | L_Name    | Position   | Sex  | DOB        | Salary | B_No |
++------+--------+-----------+------------+------+------------+--------+------+
+| SF07 | Joey   | Tribbiani | Tech Lead  | M    | 1975-07-30 |  18000 | B203 |
+| SG14 | David  | Ford      | Supervisor | M    | 2058-03-24 |  18000 | B003 |
+| SG27 | Rachel | Greene    | Marketer   | F    | 1975-11-10 |  18000 | B203 |
+| SG37 | Ann    | Beech     | Assistant  | F    | 2060-11-10 |  12000 | B003 |
++------+--------+-----------+------------+------+------------+--------+------+
+4 rows in set (0.00 sec)
+
+//Using = (Equals to) Command
+
+mysql> SELECT * FROM STAFF WHERE Salary = 20000;
+Empty set (0.00 sec)
+
+//Using BETWEEN Command
+
+mysql> SELECT * FROM STAFF WHERE Salary BETWEEN 20000 AND 40000;
++------+----------+--------+----------------+------+------------+--------+------+
+| S_NO | F_Name   | L_Name | Position       | Sex  | DOB        | Salary | B_No |
++------+----------+--------+----------------+------+------------+--------+------+
+| SA15 | Monica   | Bing   | Manager        | F    | 1975-05-13 |  24000 | B203 |
+| SA69 | Chandler | Bing   | Advertiser     | M    | 1970-02-27 |  30000 | B303 |
+| SF21 | Phoebe   | Buffay | Supervisor     | F    | 1973-04-24 |  40000 | B203 |
+| SG21 | Ross     | Geller | Paliontologist | M    | 1973-03-24 |  40000 | B303 |
+| SG5  | Susan    | Brand  | Manager        | F    | 2040-06-13 |  24000 | B003 |
+| SL21 | John     | White  | Manager        | M    | 2045-10-01 |  30000 | B005 |
++------+----------+--------+----------------+------+------------+--------+------+
+6 rows in set (0.12 sec)
+
+//Using LIKE Command for Underscore
+
+mysql> SELECT * FROM STAFF WHERE S_NO LIKE 'SA__';
++------+----------+--------+-------------------------+------+------------+--------+------+
+| S_NO | F_Name   | L_Name | Position                | Sex  | DOB        | Salary | B_No |
++------+----------+--------+-------------------------+------+------------+--------+------+
+| SA14 | Mary     | Howe   | Chief Executive Officer | F    | 1970-02-19 |  45000 | B007 |
+| SA15 | Monica   | Bing   | Manager                 | F    | 1975-05-13 |  24000 | B203 |
+| SA69 | Chandler | Bing   | Advertiser              | M    | 1970-02-27 |  30000 | B303 |
++------+----------+--------+-------------------------+------+------------+--------+------+
+3 rows in set (0.05 sec)
+
+//Using LIKE Command for %
+
+mysql> SELECT * FROM STAFF WHERE B_NO LIKE '%03';
++------+----------+-----------+----------------+------+------------+--------+------+
+| S_NO | F_Name   | L_Name    | Position       | Sex  | DOB        | Salary | B_No |
++------+----------+-----------+----------------+------+------------+--------+------+
+| SA15 | Monica   | Bing      | Manager        | F    | 1975-05-13 |  24000 | B203 |
+| SA69 | Chandler | Bing      | Advertiser     | M    | 1970-02-27 |  30000 | B303 |
+| SF07 | Joey     | Tribbiani | Tech Lead      | M    | 1975-07-30 |  18000 | B203 |
+| SF21 | Phoebe   | Buffay    | Supervisor     | F    | 1973-04-24 |  40000 | B203 |
+| SG14 | David    | Ford      | Supervisor     | M    | 2058-03-24 |  18000 | B003 |
+| SG21 | Ross     | Geller    | Paliontologist | M    | 1973-03-24 |  40000 | B303 |
+| SG27 | Rachel   | Greene    | Marketer       | F    | 1975-11-10 |  18000 | B203 |
+| SG37 | Ann      | Beech     | Assistant      | F    | 2060-11-10 |  12000 | B003 |
+| SG5  | Susan    | Brand     | Manager        | F    | 2040-06-13 |  24000 | B003 |
++------+----------+-----------+----------------+------+------------+--------+------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STAFF WHERE S_NO LIKE '%7';
++------+--------+-----------+-----------+------+------------+--------+------+
+| S_NO | F_Name | L_Name    | Position  | Sex  | DOB        | Salary | B_No |
++------+--------+-----------+-----------+------+------------+--------+------+
+| SF07 | Joey   | Tribbiani | Tech Lead | M    | 1975-07-30 |  18000 | B203 |
+| SG27 | Rachel | Greene    | Marketer  | F    | 1975-11-10 |  18000 | B203 |
+| SG37 | Ann    | Beech     | Assistant | F    | 2060-11-10 |  12000 | B003 |
++------+--------+-----------+-----------+------+------------+--------+------+
+3 rows in set (0.00 sec)
+
+//Using DELETE Command
+
+mysql> DELETE FROM STAFF WHERE Position = 'Chief Executive Officer';
+Query OK, 1 row affected (0.31 sec)
+
+
+
+

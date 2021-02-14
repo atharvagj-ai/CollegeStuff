@@ -1,0 +1,130 @@
+NAME: Atharva G. Jibhakate
+ROLL NO.: PE03
+PANEL: 5 (E1)
+S1032180110
+
+mysql> CREATE DATABASE Organization;
+Query OK, 1 row affected (0.32 sec)
+
+mysql> USE Organization;
+Database changed
+mysql> CREATE TABLE Employee(
+    -> Emp_Name VARCHAR(30) NOT NULL PRIMARY KEY,
+    -> Street VARCHAR(50),
+    -> City VARCHAR(50));
+Query OK, 0 rows affected (1.55 sec)
+
+mysql> CREATE TABLE Company(
+    -> Comp_Name VARCHAR(30) NOT NULL PRIMARY KEY,
+    -> City VARCHAR(50));
+Query OK, 0 rows affected (1.36 sec)
+
+mysql> CREATE TABLE Works(
+    -> Salary FLOAT(7,2));
+Query OK, 0 rows affected, 1 warning (1.57 sec)
+
+mysql> ALTER TABLE Works ADD Emp_Name VARCHAR(30) NOT NULL;
+Query OK, 0 rows affected (0.54 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Works ADD Comp_Name VARCHAR(30) NOT NULL;
+Query OK, 0 rows affected (0.86 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Works ADD FOREIGN KEY(Emp_Name) REFERENCES Employee(Emp_Name);
+Query OK, 0 rows affected (2.78 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Works ADD FOREIGN KEY(Comp_Name) REFERENCES Company(Comp_Name);
+Query OK, 0 rows affected (4.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC Works;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Salary    | float(7,2)  | YES  |     | NULL    |       |
+| Emp_Name  | varchar(30) | NO   | MUL | NULL    |       |
+| Comp_Name | varchar(30) | NO   | MUL | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.04 sec)
+
+mysql> CREATE TABLE Manages(
+    -> Manager_Name VARCHAR(30),
+    -> Emp_Name VARCHAR(30));
+Query OK, 0 rows affected (1.28 sec)
+
+mysql> ALTER TABLE Works ADD FOREIGN KEY(Emp_Name) REFERENCES Employee(Emp_Name);
+Query OK, 0 rows affected (2.98 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC Works;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| Salary    | float(7,2)  | YES  |     | NULL    |       |
+| Emp_Name  | varchar(30) | NO   | MUL | NULL    |       |
+| Comp_Name | varchar(30) | NO   | MUL | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.03 sec)
+
+mysql> ALTER TABLE Manages ADD FOREIGN KEY(Emp_Name) REFERENCES Employee(Emp_Name);
+Query OK, 0 rows affected (2.59 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC Manages;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Manager_Name | varchar(30) | YES  |     | NULL    |       |
+| Emp_Name     | varchar(30) | YES  | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE Project(
+    -> P_No INT NOT NULL PRIMARY KEY,
+    -> P_Name VARCHAR(30));
+Query OK, 0 rows affected (1.12 sec)
+
+mysql> ALTER TABLE Project RENAME TO Project_Work;
+Query OK, 0 rows affected (0.84 sec)
+
+mysql> DESC Project_Work;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| P_No   | int         | NO   | PRI | NULL    |       |
+| P_Name | varchar(30) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.12 sec)
+
+mysql> SELECT * FROM Project_Work;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO Project_Work VALUES(101, "Emotional_Detector");
+Query OK, 1 row affected (0.21 sec)
+
+mysql> INSERT INTO Project_Work VALUES(132, "Sentiment Analysis"), (217, "Stock_Predictor");
+Query OK, 2 rows affected (0.19 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Project_Work;
++------+--------------------+
+| P_No | P_Name             |
++------+--------------------+
+|  101 | Emotional_Detector |
+|  132 | Sentiment Analysis |
+|  217 | Stock_Predictor    |
++------+--------------------+
+3 rows in set (0.00 sec)
+
+mysql> TRUNCATE TABLE Project_Work;
+Query OK, 0 rows affected (1.60 sec)
+
+mysql> SELECT * FROM Project_Work;
+Empty set (0.06 sec)
+
+mysql> DROP TABLE Project_Work;
+Query OK, 0 rows affected (1.19 sec)
+
+mysql>

@@ -1,0 +1,315 @@
+//Name: Atharva G. Jibhakate
+//PE06
+//TY-CSE (Panel-5)
+//DBMS-Lab Assignment 6
+
+//Q1.
+//1. Write one or more triggers to maintain symmetry in friend relationships. Specifically, if (A,B) is deleted from Friend, then (B,A) should be deleted too. 
+//If (A,B) is inserted into Friend then (B,A) should be inserted too. Don't worry about updates to the Friend table
+
+-----Trigger 1(for insert)-----
+
+DELIMITER //
+CREATE TRIGGER Symmetry
+AFTER INSERT ON Friends
+FOR EACH ROW
+BEGIN
+INSERT INTO Likes VALUES(new.ID1,new.ID2),(new.ID2,new.ID1);
+END//
+DELIMITER ;
+
+
+----Trigger 2(for delete)-----
+
+DELIMITER //
+CREATE TRIGGER Symmetry_delete
+BEFORE DELETE ON Friends
+FOR EACH ROW
+BEGIN
+DELETE FROM Likes 
+WHERE Likes.ID1 = old.ID1 AND Likes.ID2 = old.ID2;
+DELETE FROM Likes 
+WHERE Likes.ID1 = old.ID2 AND Likes.ID2 = old.ID1;
+END//
+DELIMITER ;
+
+
+----Creating Tables----
+ CREATE DATABASE ASSI_6;
+Query OK, 1 row affected (2.11 sec)
+
+mysql> USE ASSI_6;
+Database changed
+mysql> CREATE TABLE Highschooler
+    -> (ID INT NOT NULL,
+    -> Name VARCHAR(30),
+    -> Grade INT,
+    -> PRIMARY KEY(ID));
+Query OK, 0 rows affected (2.97 sec)
+
+mysql> CREATE TABLE FRIENDS
+    -> (
+    -> ID1 INT,
+    -> ID2 INT,
+    -> FOREIGN KEY(ID1)
+    -> REFERENCES Highschooler(ID),
+    -> FOREIGN KEY(ID2)
+    -> REFERENCES Highschooler(ID));
+Query OK, 0 rows affected (2.27 sec)
+
+mysql> CREATE TABLE Likes
+    -> (
+    -> ID1 INT,
+    -> ID2 INT,
+    -> FOREIGN KEY(ID1)
+    -> REFERENCES Highschooler(ID),
+    -> FOREIGN KEY(ID2)
+    -> REFERENCES Highschooler(ID));
+Query OK, 0 rows affected (1.57 sec)
+
+
+-----Inserting values to highschooler----
+
+INSERT INTO Highschooler VALUES(1,'Palak',98),(2,'Tom',96),(3,'Shruti',67),(5,'Jerry',79),(10,'John',45),(8,'Kunal',85);
+
+
+-----Use Triggers-----
+
+DELIMITER //
+CREATE TRIGGER Symmetry
+AFTER INSERT ON Friends
+FOR EACH ROW
+BEGIN
+INSERT INTO Likes VALUES(new.ID1,new.ID2),(new.ID2,new.ID1);
+END//
+DELIMITER ;
+Query OK, 0 rows affected (0.36 sec)
+
+
+DELIMITER //
+CREATE TRIGGER Symmetry_delete
+BEFORE DELETE ON Friends
+FOR EACH ROW
+BEGIN
+DELETE FROM Likes 
+WHERE Likes.ID1 = old.ID1 AND Likes.ID2 = old.ID2;
+DELETE FROM Likes 
+WHERE Likes.ID1 = old.ID2 AND Likes.ID2 = old.ID1;
+END//
+DELIMITER ;
+Query OK, 0 rows affected (0.36 sec)
+
+
+-----Showing use of triggers-----
+
+
+ INSERT INTO Friends VALUES(1,2);
+Query OK, 1 row affected (0.45 sec)
+
+mysql> SELECT * FROM Friends;
++------+------+
+| ID1  | ID2  |
++------+------+
+|    1 |    2 |
++------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM Likes;
++------+------+
+| ID1  | ID2  |
++------+------+
+|    1 |    2 |
+|    2 |    1 |
++------+------+
+2 rows in set (0.00 sec)
+
+
+INSERT INTO Friends VALUES(3,5);
+Query OK, 1 row affected (0.29 sec)
+
+mysql> SELECT * FROM Friends;
++------+------+
+| ID1  | ID2  |
++------+------+
+|    3 |    5 |
++------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM Likes;
++------+------+
+| ID1  | ID2  |
++------+------+
+|    1 |    2 |
+|    2 |    1 |
+|    5 |   10 |
+|   10 |    5 |
+|    3 |    5 |
+|    5 |    3 |
++------+------+
+6 rows in set (0.00 sec)
+
+mysql>  DELETE FROM Friends WHERE ID1 = 3 AND ID2 = 5;
+Query OK, 1 row affected (0.15 sec)
+
+mysql> SELECT * FROM Friends;
+Empty set (0.05 sec)
+
+mysql> SELECT * FROM Likes;
++------+------+
+| ID1  | ID2  |
++------+------+
+|    1 |    2 |
+|    2 |    1 |
+|    5 |   10 |
+|   10 |    5 |
++------+------+
+4 rows in set (0.00 sec)
+
+
+---------------------------------------------------------------------------------
+
+//Q2.
+//Create table EMPLOYEE with 5 columns: ENo Number (Employee Number) FName Varchar2 (First name ) Age Number (Age of Employee) 
+//Grade Varchar2 (Grade of Employee such Asst. prof, Associate Prof. or Professor) Salary Number (Salary of the Empoyee)
+//Create a Cursor Emp_Cursor that fetches the record of employee and their salary are incremented according to grade such as for Asst prof, the salary increment is 10000, for Associate Prof 20,000 and for Professor 30,000
+
+
+-----Cursor-----
+
+CREATE PROCEDURE EMP_INC()
+BEGIN
+DECLARE FINISH INT DEFAULT 0;
+DECLARE EMP_ID INT;
+DECLARE POS VARCHAR(25);
+DECLARE EMPSAL CURSOR FOR SELECT ENO,GRADE FROM EMPLOYEE;
+DECLARE  CONTINUE HANDLER
+FOR NOT FOUND SET FINISH=1;
+OPEN EMPSAL;
+TEMP:LOOP
+FETCH EMPSAL INTO EMP_ID,POS;
+IF FINISH = 1 THEN
+LEAVE TEMP;
+ELSEIF POS='PROFESSOR' THEN
+UPDATE EMPLOYEE SET SALARY=SALARY+30000 WHERE EMP_ID=ENO;
+ELSEIF POS='ASSO_PROF' THEN
+UPDATE EMPLOYEE SET SALARY=SALARY+20000 WHERE EMP_ID=ENO;
+ELSEIF POS='ASST_PROF' THEN
+UPDATE EMPLOYEE SET SALARY=SALARY+10000 WHERE EMP_ID=ENO;
+END IF;
+END LOOP TEMP;
+CLOSE EMPSAL;
+END
+//
+
+
+-----Creating Tables-----
+
+
+mysql> CREATE DATABASE EMPLOYEE_COL;
+Query OK, 1 row affected (0.16 sec)
+
+mysql> USE EMPLOYEE_COL;
+Database changed
+
+mysql> CREATE TABLE EMPLOYEE
+    -> (ENO INT PRIMARY KEY,
+    -> F_NAME VARCHAR(30),
+    -> AGE INT,
+    -> GRADE VARCHAR(25),
+    -> SALARY INT);
+Query OK, 0 rows affected (0.87 sec)
+
+
+-----Inserting values to Employees-----
+
+
+mysql> INSERT INTO EMPLOYEE VALUES
+    -> ('101','JAMES','22','PROFESSOR','45000'),
+    -> ('102','SMITH','21','ASST_PROF','24000'),
+    -> ('103','MARY','24','ASSO_PROF','33000'),
+    -> ('104','JAIN','21','ASST_PROF','25000'),
+    -> ('105','JOHN','20','ASST_PROF','23000'),
+    -> ('106','WICK','19','ASST_PROF','21000'),
+    -> ('107','PATRICA','26','PROFESSOR','49000'),
+    -> ('108','PARKER','24','ASSO_PROF','28000'),
+    -> ('109','JENNIFER','22','ASST_PROF','25000');
+Query OK, 9 rows affected (0.27 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+
+-----Use Cursor-----
+
+
+mysql> DELIMITER //
+mysql> CREATE PROCEDURE EMP_INC()
+    -> BEGIN
+    -> DECLARE FINISH INT DEFAULT 0;
+    -> DECLARE EMP_ID INT;
+    -> DECLARE POS VARCHAR(25);
+    -> DECLARE EMPSAL CURSOR FOR SELECT ENO,GRADE FROM EMPLOYEE;
+    -> DECLARE  CONTINUE HANDLER
+    -> FOR NOT FOUND SET FINISH=1;
+    -> OPEN EMPSAL;
+    -> TEMP:LOOP
+    -> FETCH EMPSAL INTO EMP_ID,POS;
+    -> IF FINISH = 1 THEN
+    -> LEAVE TEMP;
+    -> ELSEIF POS='PROFESSOR' THEN
+    -> UPDATE EMPLOYEE SET SALARY=SALARY+30000 WHERE EMP_ID=ENO;
+    -> ELSEIF POS='ASSO_PROF' THEN
+    -> UPDATE EMPLOYEE SET SALARY=SALARY+20000 WHERE EMP_ID=ENO;
+    -> ELSEIF POS='ASST_PROF' THEN
+    -> UPDATE EMPLOYEE SET SALARY=SALARY+10000 WHERE EMP_ID=ENO;
+    -> END IF;
+    -> END LOOP TEMP;
+    -> CLOSE EMPSAL;
+    -> END
+    -> //
+Query OK, 0 rows affected (0.11 sec)
+
+
+-----Showing the use of Cursors-----
+
+
+mysql> DELIMITER ;
+mysql> SELECT * FROM EMPLOYEE;
++-----+----------+------+-----------+--------+
+| ENO | F_NAME   | AGE  | GRADE     | SALARY |
++-----+----------+------+-----------+--------+
+| 101 | JAMES    |   22 | PROFESSOR |  45000 |
+| 102 | SMITH    |   21 | ASST_PROF |  24000 |
+| 103 | MARY     |   24 | ASSO_PROF |  33000 |
+| 104 | JAIN     |   21 | ASST_PROF |  25000 |
+| 105 | JOHN     |   20 | ASST_PROF |  23000 |
+| 106 | WICK     |   19 | ASST_PROF |  21000 |
+| 107 | PATRICA  |   26 | PROFESSOR |  49000 |
+| 108 | PARKER   |   24 | ASSO_PROF |  28000 |
+| 109 | JENNIFER |   22 | ASST_PROF |  25000 |
++-----+----------+------+-----------+--------+
+9 rows in set (0.00 sec)
+
+mysql> CALL EMP_INC();
+Query OK, 0 rows affected (1.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++-----+----------+------+-----------+--------+
+| ENO | F_NAME   | AGE  | GRADE     | SALARY |
++-----+----------+------+-----------+--------+
+| 101 | JAMES    |   22 | PROFESSOR |  75000 |
+| 102 | SMITH    |   21 | ASST_PROF |  34000 |
+| 103 | MARY     |   24 | ASSO_PROF |  53000 |
+| 104 | JAIN     |   21 | ASST_PROF |  35000 |
+| 105 | JOHN     |   20 | ASST_PROF |  33000 |
+| 106 | WICK     |   19 | ASST_PROF |  31000 |
+| 107 | PATRICA  |   26 | PROFESSOR |  79000 |
+| 108 | PARKER   |   24 | ASSO_PROF |  48000 |
+| 109 | JENNIFER |   22 | ASST_PROF |  35000 |
++-----+----------+------+-----------+--------+
+9 rows in set (0.00 sec)
+
+
+
+
+
+
+

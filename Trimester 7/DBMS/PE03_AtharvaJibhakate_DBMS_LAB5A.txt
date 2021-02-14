@@ -1,0 +1,175 @@
+//Name : Atharva Jibhakate
+//Roll No.: PE 03
+//TY CSE PANEL 5 (Batch : E1)
+//Lab Assignment No 5- Procedure and Function
+
+//Q.No.1
+//Consider the employee tableEmployee (emp_id, first_name,last_name,hiredate)
+//Write a stored procedure to take the emp_idas input parameter. 
+//Procedure must raise the salary of an employee based on following conditions.
+//If experience is less than 2 years then salary raise is 5%.
+//If experience is between 2 to 5 years then raise is 7%.
+//If experience is more than 5 years raise is 10%Display appropriate messages. 
+
+mysql> CREATE DATABASE EMPLOYEE;
+Query OK, 1 row affected (0.26 sec)
+
+mysql> SHOW DATABASES;
++----------------------+
+| Database             |
++----------------------+
+| books                |
+| company              |
+| company_organization |
+| employee             |
+| information_schema   |
+| mysql                |
+| performance_schema   |
+| sakila               |
+| shop                 |
+| staff_schema         |
+| supplyshop           |
+| sys                  |
+| world                |
++----------------------+
+13 rows in set (0.24 sec)
+
+mysql> CREATE TABLE EMPLOYEE
+(EMP_id INT PRIMARY KEY,
+F_NAME VARCHAR(20),
+L_NAME VARCHAR(20),
+HIRE_date DATE);
+Query OK, 0 rows affected (1.74 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (100,'JAMES','SMITH','2015-03-19'),(101,'MARY','JAIN','2016-02-20'),(102,'JOHN','WICK','2015-09-18'),(103,'PATRICA','PARKER','2015-10-21'),(104,'ROBERT','BROWN','2015-11-18'),(105,'JENNIFER','WHITE','2016-08-16'),(106,'MICHEAL','STARK','2015-07-19'),(107,'LINDA','ROSE','2016-09-29'),(108,'WILLIAM','SMITH','2016-01-23');
+Query OK, 9 rows affected (0.27 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEE;
++--------+----------+--------+------------+
+| EMP_id | F_NAME   | L_NAME | HIRE_date  |
++--------+----------+--------+------------+
+|    100 | JAMES    | SMITH  | 2015-03-19 |
+|    101 | MARY     | JAIN   | 2016-02-20 |
+|    102 | JOHN     | WICK   | 2015-09-18 |
+|    103 | PATRICA  | PARKER | 2015-10-21 |
+|    104 | ROBERT   | BROWN  | 2015-11-18 |
+|    105 | JENNIFER | WHITE  | 2016-08-16 |
+|    106 | MICHEAL  | STARK  | 2015-07-19 |
+|    107 | LINDA    | ROSE   | 2016-09-29 |
+|    108 | WILLIAM  | SMITH  | 2016-01-23 |
++--------+----------+--------+------------+
+9 rows in set (0.04 sec)
+mysql> DELIMITER $$
+CREATE PROCEDURE INCREASE_SAL(
+IN  EMPLOYEE_ID INT)
+BEGIN
+DECLARE experience INT DEFAULT 0;
+DECLARE CUR_date Date;
+DECLARE EMP_date Date;
+SELECT CURRENT_DATE() INTO CUR_date;
+SELECT HIRE_date FROM EMPLOYEE WHERE EMP_id=EMPLOYEE_ID INTO EMP_date;
+set experience = year(CUR_date)-year(EMP_date);
+IF experience>5 THEN
+UPDATE EMPLOYEE SET SALARY = SALARY*1.1 WHERE EMP_id=EMPLOYEE_ID;
+ELSEIF experience<2 THEN
+UPDATE EMPLOYEE SET SALARY = SALARY*1.05 WHERE EMP_id=EMPLOYEE_ID;
+ELSE
+UPDATE EMPLOYEE SET SALARY = SALARY*1.07 WHERE EMP_id=EMPLOYEE_ID;
+END IF;
+END$$
+DELIMITER ;
+mysql> CALL INCREASE_SAL(100);
+Query OK, 1 row affected (0.22 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++--------+----------+--------+------------+--------+
+| EMP_id | F_NAME   | L_NAME | HIRE_date  | SALARY |
++--------+----------+--------+------------+--------+
+|    100 | JAMES    | SMITH  | 2013-03-19 |  11000 |
+|    101 | MARY     | JAIN   | 2016-02-20 |  10000 |
+|    102 | JOHN     | WICK   | 2019-09-13 |  10000 |
+|    103 | PATRICA  | PARKER | 2013-10-21 |  10000 |
+|    104 | ROBERT   | BROWN  | 2015-11-18 |  10000 |
+|    105 | JENNIFER | WHITE  | 2016-08-16 |  10000 |
+|    106 | MICHEAL  | STARK  | 2015-07-19 |  10000 |
+|    107 | LINDA    | ROSE   | 2019-09-19 |  10000 |
+|    108 | WILLIAM  | SMITH  | 2016-01-23 |  10000 |
++--------+----------+--------+------------+--------+
+9 rows in set (0.00 sec)
+
+mysql> CALL INCREASE_SAL(101);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> CALL INCREASE_SAL(102);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> CALL INCREASE_SAL(103);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> CALL INCREASE_SAL(104);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> CALL INCREASE_SAL(105);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> CALL INCREASE_SAL(106);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> CALL INCREASE_SAL(107);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> CALL INCREASE_SAL(108);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++--------+----------+--------+------------+--------+
+| EMP_id | F_NAME   | L_NAME | HIRE_date  | SALARY |
++--------+----------+--------+------------+--------+
+|    100 | JAMES    | SMITH  | 2013-03-19 |  11000 |
+|    101 | MARY     | JAIN   | 2016-02-20 |  10700 |
+|    102 | JOHN     | WICK   | 2019-09-13 |  10500 |
+|    103 | PATRICA  | PARKER | 2013-10-21 |  11000 |
+|    104 | ROBERT   | BROWN  | 2015-11-18 |  10700 |
+|    105 | JENNIFER | WHITE  | 2016-08-16 |  10700 |
+|    106 | MICHEAL  | STARK  | 2015-07-19 |  10700 |
+|    107 | LINDA    | ROSE   | 2019-09-19 |  10500 |
+|    108 | WILLIAM  | SMITH  | 2016-01-23 |  10700 |
++--------+----------+--------+------------+--------+
+9 rows in set (0.00 sec)
+
+------------------------------------------------------------------------
+
+
+//Q.No.2
+//Write a function to return and display the number of years of service for an employee. 
+//The function should take the hiredateas parameter.
+//•Also write a code to call the function
+mysql> delimiter :
+mysql> create function experience(hiredate date)
+    -> returns int
+    -> deterministic
+    -> begin
+    -> declare cur_date DATE;
+    -> select current_date() into cur_date;
+    -> return year(cur_date)-year(hiredate);
+    -> end :
+Query OK, 0 rows affected (1.13 sec)
+mysql> delimiter ;
+mysql> select experience('2010-01-01');
++--------------------------+
+| experience('2010-01-01') |
++--------------------------+
+|                       10 |
++--------------------------+
+1 row in set (0.13 sec)
+mysql> SELECT *,experience(hiredate) FROM employe;
++--------+------------+-----------+------------+--------+----------------------+
+| emp_id | first_name | last_name | hiredate   | Salary | experience(hiredate) |
++--------+------------+-----------+------------+--------+----------------------+
+|      1 | Ross       | Geller    | 2019-01-01 |  10000 |                    1 |
+|      2 | Rachel     | Green     | 2018-01-01 |  10000 |                    2 |
+|      3 | Monika     | Geller    | 2017-01-01 |  10000 |                    3 |
+|      4 | Chandler   | Bing      | 2010-01-01 |  10000 |                   10 |
++--------+------------+-----------+------------+--------+----------------------+
+4 rows in set (0.00 sec)

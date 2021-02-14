@@ -1,0 +1,672 @@
+//Atharva G. Jibhakate
+//Roll NO.: PE03
+//Panel E (E1)
+//S1032180110
+
+//Assignment Title -Design  at  least  10  SQL/NoSQL  queries  for  suitable database  application  using  SQL/NoSQL  DMLstatements:  Insert,  Select, Update, Delete with operators, functions, and set operator
+
+//NOTE: As we were asked to prform them on STAFF Schema, we've not used the same column names, but have performed the same query which has been asked, please check.
+
+//1.Display all the information of the EMP table?
+mysql> DESC STAFF;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| S_NO     | varchar(10) | NO   | PRI | NULL    |       |
+| F_Name   | varchar(30) | NO   |     | NULL    |       |
+| L_Name   | varchar(30) | NO   |     | NULL    |       |
+| Position | varchar(50) | YES  |     | NULL    |       |
+| Sex      | varchar(10) | YES  |     | NULL    |       |
+| DOB      | date        | YES  |     | NULL    |       |
+| Salary   | int         | NO   |     | NULL    |       |
+| B_No     | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+8 rows in set (1.35 sec)
+
+mysql> SELECT * FROM  STAFF;
++------+----------+-----------+----------------+------+------------+--------+------+
+| S_NO | F_Name   | L_Name    | Position       | Sex  | DOB        | Salary | B_No |
++------+----------+-----------+----------------+------+------------+--------+------+
+| SA15 | Monica   | Bing      | Manager        | F    | 1975-05-13 |  24000 | B203 |
+| SA69 | Chandler | Bing      | Advertiser     | M    | 1970-02-27 |  30000 | B303 |
+| SF07 | Joey     | Tribbiani | Tech Lead      | M    | 1975-07-30 |  18000 | B203 |
+| SF21 | Phoebe   | Buffay    | Supervisor     | F    | 1973-04-24 |  40000 | B203 |
+| SG14 | David    | Ford      | Supervisor     | M    | 2058-03-24 |  18000 | B003 |
+| SG21 | Ross     | Geller    | Paliontologist | M    | 1973-03-24 |  40000 | B303 |
+| SG27 | Rachel   | Greene    | Marketer       | F    | 1975-11-10 |  18000 | B203 |
+| SG37 | Ann      | Beech     | Assistant      | F    | 2060-11-10 |  12000 | B003 |
+| SG5  | Susan    | Brand     | Manager        | F    | 2040-06-13 |  24000 | B003 |
+| SL21 | John     | White     | Manager        | M    | 2045-10-01 |  30000 | B005 |
++------+----------+-----------+----------------+------+------------+--------+------+
+10 rows in set (0.21 sec)
+
+//2.Display unique Jobs from EMP table?
+
+mysql> SELECT DISTINCT Position
+    -> FROM STAFF;
++----------------+
+| Position       |
++----------------+
+| Manager        |
+| Advertiser     |
+| Tech Lead      |
+| Supervisor     |
+| Paliontologist |
+| Marketer       |
+| Assistant      |
++----------------+
+7 rows in set (0.11 sec)
+
+//3.List the Employeesin the asc order of their Salaries?
+
+mysql> SELECT F_Name, L_Name, Salary FROM STAFF ORDER BY Salary;
++----------+-----------+--------+
+| F_Name   | L_Name    | Salary |
++----------+-----------+--------+
+| Ann      | Beech     |  12000 |
+| Joey     | Tribbiani |  18000 |
+| David    | Ford      |  18000 |
+| Rachel   | Greene    |  18000 |
+| Monica   | Bing      |  24000 |
+| Susan    | Brand     |  24000 |
+| Chandler | Bing      |  30000 |
+| John     | White     |  30000 |
+| Phoebe   | Buffay    |  40000 |
+| Ross     | Geller    |  40000 |
++----------+-----------+--------+
+10 rows in set (0.00 sec)
+
+//4.List the details of the Employees in asc order of the Dptnos and desc of Jobs?
+mysql> SELECT * FROM STAFF ORDER BY S_No;
++------+----------+-----------+----------------+------+------------+--------+------+
+| S_NO | F_Name   | L_Name    | Position       | Sex  | DOB        | Salary | B_No |
++------+----------+-----------+----------------+------+------------+--------+------+
+| SA15 | Monica   | Bing      | Manager        | F    | 1975-05-13 |  24000 | B203 |
+| SA69 | Chandler | Bing      | Advertiser     | M    | 1970-02-27 |  30000 | B303 |
+| SF07 | Joey     | Tribbiani | Tech Lead      | M    | 1975-07-30 |  18000 | B203 |
+| SF21 | Phoebe   | Buffay    | Supervisor     | F    | 1973-04-24 |  40000 | B203 |
+| SG14 | David    | Ford      | Supervisor     | M    | 2058-03-24 |  18000 | B003 |
+| SG21 | Ross     | Geller    | Paliontologist | M    | 1973-03-24 |  40000 | B303 |
+| SG27 | Rachel   | Greene    | Marketer       | F    | 1975-11-10 |  18000 | B203 |
+| SG37 | Ann      | Beech     | Assistant      | F    | 2060-11-10 |  12000 | B003 |
+| SG5  | Susan    | Brand     | Manager        | F    | 2040-06-13 |  24000 | B003 |
+| SL21 | John     | White     | Manager        | M    | 2045-10-01 |  30000 | B005 |
++------+----------+-----------+----------------+------+------------+--------+------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STAFF ORDER BY Position DESC;
++------+----------+-----------+----------------+------+------------+--------+------+
+| S_NO | F_Name   | L_Name    | Position       | Sex  | DOB        | Salary | B_No |
++------+----------+-----------+----------------+------+------------+--------+------+
+| SF07 | Joey     | Tribbiani | Tech Lead      | M    | 1975-07-30 |  18000 | B203 |
+| SF21 | Phoebe   | Buffay    | Supervisor     | F    | 1973-04-24 |  40000 | B203 |
+| SG14 | David    | Ford      | Supervisor     | M    | 2058-03-24 |  18000 | B003 |
+| SG21 | Ross     | Geller    | Paliontologist | M    | 1973-03-24 |  40000 | B303 |
+| SG27 | Rachel   | Greene    | Marketer       | F    | 1975-11-10 |  18000 | B203 |
+| SA15 | Monica   | Bing      | Manager        | F    | 1975-05-13 |  24000 | B203 |
+| SG5  | Susan    | Brand     | Manager        | F    | 2040-06-13 |  24000 | B003 |
+| SL21 | John     | White     | Manager        | M    | 2045-10-01 |  30000 | B005 |
+| SG37 | Ann      | Beech     | Assistant      | F    | 2060-11-10 |  12000 | B003 |
+| SA69 | Chandler | Bing      | Advertiser     | M    | 1970-02-27 |  30000 | B303 |
++------+----------+-----------+----------------+------+------------+--------+------+
+10 rows in set (0.00 sec)
+
+//5.Display all the unique job groups in the descending order?
+
+mysql> SELECT DISTINCT Position FROM STAFF ORDER BY Position DESC;
++----------------+
+| Position       |
++----------------+
+| Tech Lead      |
+| Supervisor     |
+| Paliontologist |
+| Marketer       |
+| Manager        |
+| Assistant      |
+| Advertiser     |
++----------------+
+7 rows in set (0.00 sec)
+
+//6.Display all the details of all ‘Mgrs'.
+
+mysql> SELECT * FROM STAFF WHERE Position = 'Manager';
++------+--------+--------+----------+------+------------+--------+------+
+| S_NO | F_Name | L_Name | Position | Sex  | DOB        | Salary | B_No |
++------+--------+--------+----------+------+------------+--------+------+
+| SA15 | Monica | Bing   | Manager  | F    | 1975-05-13 |  24000 | B203 |
+| SG5  | Susan  | Brand  | Manager  | F    | 2040-06-13 |  24000 | B003 |
+| SL21 | John   | White  | Manager  | M    | 2045-10-01 |  30000 | B005 |
++------+--------+--------+----------+------+------------+--------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STAFF WHERE Position LIKE 'Manager';
++------+--------+--------+----------+------+------------+--------+------+
+| S_NO | F_Name | L_Name | Position | Sex  | DOB        | Salary | B_No |
++------+--------+--------+----------+------+------------+--------+------+
+| SA15 | Monica | Bing   | Manager  | F    | 1975-05-13 |  24000 | B203 |
+| SG5  | Susan  | Brand  | Manager  | F    | 2040-06-13 |  24000 | B003 |
+| SL21 | John   | White  | Manager  | M    | 2045-10-01 |  30000 | B005 |
++------+--------+--------+----------+------+------------+--------+------+
+3 rows in set (0.10 sec)
+
+//7.List the Employeeswho joined before 1981.
+mysql> SELECT F_Name, L_Name, DOB FROM STAFF WHERE DOB < '1976/01/01';
++----------+-----------+------------+
+| F_Name   | L_Name    | DOB        |
++----------+-----------+------------+
+| Monica   | Bing      | 1975-05-13 |
+| Chandler | Bing      | 1970-02-27 |
+| Joey     | Tribbiani | 1975-07-30 |
+| Phoebe   | Buffay    | 1973-04-24 |
+| Ross     | Geller    | 1973-03-24 |
+| Rachel   | Greene    | 1975-11-10 |
++----------+-----------+------------+
+6 rows in set (0.10 sec)
+
+//8.List  the  Empno,  Ename,  Sal,  Daily  sal  of  all Employeesin  the  asc  order  of Annsal.
+mysql> SELECT S_No, F_Name, L_Name, Salary, Salary*12 AS Annual_Salary FROM STAFF ORDER BY Annual_Salary;
++------+----------+-----------+--------+---------------+
+| S_No | F_Name   | L_Name    | Salary | Annual_Salary |
++------+----------+-----------+--------+---------------+
+| SG37 | Ann      | Beech     |  12000 |        144000 |
+| SF07 | Joey     | Tribbiani |  18000 |        216000 |
+| SG14 | David    | Ford      |  18000 |        216000 |
+| SG27 | Rachel   | Greene    |  18000 |        216000 |
+| SA15 | Monica   | Bing      |  24000 |        288000 |
+| SG5  | Susan    | Brand     |  24000 |        288000 |
+| SA69 | Chandler | Bing      |  30000 |        360000 |
+| SL21 | John     | White     |  30000 |        360000 |
+| SF21 | Phoebe   | Buffay    |  40000 |        480000 |
+| SG21 | Ross     | Geller    |  40000 |        480000 |
++------+----------+-----------+--------+---------------+
+10 rows in set (0.00 sec)
+
+//9.Display the Empno, Ename, job, Hiredate, Exp of all Mgrs.
+mysql> SELECT S_NO, F_Name, L_Name, Position, DOB FROM STAFF WHERE Position = 'Manager';
++------+--------+--------+----------+------------+
+| S_NO | F_Name | L_Name | Position | DOB        |
++------+--------+--------+----------+------------+
+| SA15 | Monica | Bing   | Manager  | 1975-05-13 |
+| SG5  | Susan  | Brand  | Manager  | 2040-06-13 |
+| SL21 | John   | White  | Manager  | 2045-10-01 |
++------+--------+--------+----------+------------+
+3 rows in set (0.00 sec)
+
+//10.List the Empno, Ename, Sal, Exp of all Employeesworking for Mgr 7369.
+mysql> SELECT S_No, F_Name, L_Name, Salary FROM STAFF Where Works_Under = 'SG5';
++------+--------+-----------+--------+
+| S_No | F_Name | L_Name    | Salary |
++------+--------+-----------+--------+
+| SF07 | Joey   | Tribbiani |  18000 |
+| SG14 | David  | Ford      |  18000 |
+| SG21 | Ross   | Geller    |  40000 |
+| SG5  | Susan  | Brand     |  24000 |
++------+--------+-----------+--------+
+4 rows in set (0.02 sec)
+
+//11.Display all the details of the Employees whose Comm. Is more than their Sal.
+
+------------------------------------------------------------------------------------
+
+//12.List  the Employeesin  the  asc  order  of  Designations  of  those  joined  after  the second halfof 1981.
+mysql> SELECT *  FROM STAFF WHERE DOB > '1975/06/01' ORDER BY Position;
++------+--------+-----------+------------+------+------------+--------+------+-------------+
+| S_NO | F_Name | L_Name    | Position   | Sex  | DOB        | Salary | B_No | Works_Under |
++------+--------+-----------+------------+------+------------+--------+------+-------------+
+| SG37 | Ann    | Beech     | Assistant  | F    | 2060-11-10 |  12000 | B003 | SL21        |
+| SG5  | Susan  | Brand     | Manager    | F    | 2040-06-13 |  24000 | B003 | SG5         |
+| SL21 | John   | White     | Manager    | M    | 2045-10-01 |  30000 | B005 | SL21        |
+| SG27 | Rachel | Greene    | Marketer   | F    | 1975-11-10 |  18000 | B203 | SL21        |
+| SG14 | David  | Ford      | Supervisor | M    | 2058-03-24 |  18000 | B003 | SG5         |
+| SF07 | Joey   | Tribbiani | Tech Lead  | M    | 1975-07-30 |  18000 | B203 | SG5         |
++------+--------+-----------+------------+------+------------+--------+------+-------------+
+
+//13.List the Employeesalong with their Exp and Daily Sal is more than Rs.100.
+mysql> SELECT *,Salary/30 AS Daily_Sal FROM STAFF WHERE Salary/30 > 800;
++------+----------+--------+----------------+------+------------+--------+------+-------------+-----------+
+| S_NO | F_Name   | L_Name | Position       | Sex  | DOB        | Salary | B_No | Works_Under | Daily_Sal |
++------+----------+--------+----------------+------+------------+--------+------+-------------+-----------+
+| SA69 | Chandler | Bing   | Advertiser     | M    | 1970-02-27 |  30000 | B303 | SA15        | 1000.0000 |
+| SF21 | Phoebe   | Buffay | Supervisor     | F    | 1973-04-24 |  40000 | B203 | SA15        | 1333.3333 |
+| SG21 | Ross     | Geller | Paliontologist | M    | 1973-03-24 |  40000 | B303 | SG5         | 1333.3333 |
+| SL21 | John     | White  | Manager        | M    | 2045-10-01 |  30000 | B005 | SL21        | 1000.0000 |
++------+----------+--------+----------------+------+------------+--------+------+-------------+-----------+
+4 rows in set (0.00 sec)
+
+//14.List the Employeeswho are either ‘CLERK’ or ‘ANALYST’ in the Desc order.
+mysql> SELECT * FROM STAFF WHERE Position = 'Manager' OR Position = 'Supervisor';
++------+--------+--------+------------+------+------------+--------+------+-------------+
+| S_NO | F_Name | L_Name | Position   | Sex  | DOB        | Salary | B_No | Works_Under |
++------+--------+--------+------------+------+------------+--------+------+-------------+
+| SA15 | Monica | Bing   | Manager    | F    | 1975-05-13 |  24000 | B203 | SA15        |
+| SF21 | Phoebe | Buffay | Supervisor | F    | 1973-04-24 |  40000 | B203 | SA15        |
+| SG14 | David  | Ford   | Supervisor | M    | 2058-03-24 |  18000 | B003 | SG5         |
+| SG5  | Susan  | Brand  | Manager    | F    | 2040-06-13 |  24000 | B003 | SG5         |
+| SL21 | John   | White  | Manager    | M    | 2045-10-01 |  30000 | B005 | SL21        |
++------+--------+--------+------------+------+------------+--------+------+-------------+
+5 rows in set (0.00 sec)
+
+//15.
+
+//16.List the Employeewho are working for the Deptno 10 or20.
+mysql> SELECT * FROM STAFF WHERE B_No = 'B203';
++------+--------+-----------+------------+------+------------+--------+------+-------------+
+| S_NO | F_Name | L_Name    | Position   | Sex  | DOB        | Salary | B_No | Works_Under |
++------+--------+-----------+------------+------+------------+--------+------+-------------+
+| SA15 | Monica | Bing      | Manager    | F    | 1975-05-13 |  24000 | B203 | SA15        |
+| SF07 | Joey   | Tribbiani | Tech Lead  | M    | 1975-07-30 |  18000 | B203 | SG5         |
+| SF21 | Phoebe | Buffay    | Supervisor | F    | 1973-04-24 |  40000 | B203 | SA15        |
+| SG27 | Rachel | Greene    | Marketer   | F    | 1975-11-10 |  18000 | B203 | SL21        |
++------+--------+-----------+------------+------+------------+--------+------+-------------+
+4 rows in set (0.00 sec)
+
+//17.List the Employeeswho are joined in the year 81.
+mysql> SELECT * FROM STAFF WHERE DOB BETWEEN '1975/01/01' AND '1975/12/31';
++------+--------+-----------+-----------+------+------------+--------+------+-------------+
+| S_NO | F_Name | L_Name    | Position  | Sex  | DOB        | Salary | B_No | Works_Under |
++------+--------+-----------+-----------+------+------------+--------+------+-------------+
+| SA15 | Monica | Bing      | Manager   | F    | 1975-05-13 |  24000 | B203 | SA15        |
+| SF07 | Joey   | Tribbiani | Tech Lead | M    | 1975-07-30 |  18000 | B203 | SG5         |
+| SG27 | Rachel | Greene    | Marketer  | F    | 1975-11-10 |  18000 | B203 | SL21        |
++------+--------+-----------+-----------+------+------------+--------+------+-------------+
+3 rows in set (0.16 sec)
+
+//18.List the Employeeswho are joined in the month of Aug 1980.
+mysql> SELECT * FROM STAFF WHERE DOB BETWEEN '1975/07/01' AND '1975/07/31';
++------+--------+-----------+-----------+------+------------+--------+------+-------------+
+| S_NO | F_Name | L_Name    | Position  | Sex  | DOB        | Salary | B_No | Works_Under |
++------+--------+-----------+-----------+------+------------+--------+------+-------------+
+| SF07 | Joey   | Tribbiani | Tech Lead | M    | 1975-07-30 |  18000 | B203 | SG5         |
++------+--------+-----------+-----------+------+------------+--------+------+-------------+
+1 row in set (0.00 sec)
+
+//19.List the EmployeesWho Annual sal ranging from 22000 and 45000.
+mysql> SELECT * FROM STAFF WHERE Salary BETWEEN 20000 AND 35000;
++------+----------+--------+------------+------+------------+--------+------+-------------+
+| S_NO | F_Name   | L_Name | Position   | Sex  | DOB        | Salary | B_No | Works_Under |
++------+----------+--------+------------+------+------------+--------+------+-------------+
+| SA15 | Monica   | Bing   | Manager    | F    | 1975-05-13 |  24000 | B203 | SA15        |
+| SA69 | Chandler | Bing   | Advertiser | M    | 1970-02-27 |  30000 | B303 | SA15        |
+| SG5  | Susan    | Brand  | Manager    | F    | 2040-06-13 |  24000 | B003 | SG5         |
+| SL21 | John     | White  | Manager    | M    | 2045-10-01 |  30000 | B005 | SL21        |
++------+----------+--------+------------+------+------------+--------+------+-------------+
+4 rows in set (0.00 sec)
+
+//20.List the Enames those are having five characters in their Names.
+mysql> SELECT * FROM STAFF WHERE F_Name LIKE '_____';
++------+--------+--------+------------+------+------------+--------+------+-------------+
+| S_NO | F_Name | L_Name | Position   | Sex  | DOB        | Salary | B_No | Works_Under |
++------+--------+--------+------------+------+------------+--------+------+-------------+
+| SG14 | David  | Ford   | Supervisor | M    | 2058-03-24 |  18000 | B003 | SG5         |
+| SG5  | Susan  | Brand  | Manager    | F    | 2040-06-13 |  24000 | B003 | SG5         |
++------+--------+--------+------------+------+------------+--------+------+-------------+
+2 rows in set (0.02 sec)
+
+//21.List the Enames those are starting with ‘S’ and with five characters.
+mysql> SELECT * FROM STAFF WHERE F_Name LIKE 'S____';
++------+--------+--------+----------+------+------------+--------+------+-------------+
+| S_NO | F_Name | L_Name | Position | Sex  | DOB        | Salary | B_No | Works_Under |
++------+--------+--------+----------+------+------------+--------+------+-------------+
+| SG5  | Susan  | Brand  | Manager  | F    | 2040-06-13 |  24000 | B003 | SG5         |
++------+--------+--------+----------+------+------------+--------+------+-------------+
+1 row in set (0.10 sec)
+
+//22.List the Employeesthose are having four chars and third character must be ‘r’.
+mysql> SELECT * FROM STAFF WHERE F_Name LIKE '__s_';
++------+--------+--------+----------------+------+------------+--------+------+-------------+
+| S_NO | F_Name | L_Name | Position       | Sex  | DOB        | Salary | B_No | Works_Under |
++------+--------+--------+----------------+------+------------+--------+------+-------------+
+| SG21 | Ross   | Geller | Paliontologist | M    | 1973-03-24 |  40000 | B303 | SG5         |
++------+--------+--------+----------------+------+------------+--------+------+-------------+
+1 row in set (0.00 sec)
+
+
+//23.List the Five character names starting with ‘S’ and ending with ‘H’
+mysql> SELECT * FROM STAFF WHERE F_Name LIKE 'S___H';
+Empty set (0.00 sec)
+
+//24.List the Employeeswho joined in January.
+mysql> SELECT * FROM STAFF WHERE DOB LIKE '____-11-%';
++------+--------+--------+-----------+------+------------+--------+------+-------------+
+| S_NO | F_Name | L_Name | Position  | Sex  | DOB        | Salary | B_No | Works_Under |
++------+--------+--------+-----------+------+------------+--------+------+-------------+
+| SG27 | Rachel | Greene | Marketer  | F    | 1975-11-10 |  18000 | B203 | SL21        |
+| SG37 | Ann    | Beech  | Assistant | F    | 2060-11-10 |  12000 | B003 | SL21        |
++------+--------+--------+-----------+------+------------+--------+------+-------------+
+2 rows in set (0.00 sec)
+
+//25.List the Employeeswho joined in the month of which second character is ‘a’.
+//(First  month, third month and fifth month have a in their second )
+mysql> SELECT * FROM STAFF WHERE DOB LIKE '____-01-%' OR DOB LIKE '____-03-%' OR DOB LIKE '____-05-%';
++------+--------+--------+----------------+------+------------+--------+------+-------------+
+| S_NO | F_Name | L_Name | Position       | Sex  | DOB        | Salary | B_No | Works_Under |
++------+--------+--------+----------------+------+------------+--------+------+-------------+
+| SA15 | Monica | Bing   | Manager        | F    | 1975-05-13 |  24000 | B203 | SA15        |
+| SG14 | David  | Ford   | Supervisor     | M    | 2058-03-24 |  18000 | B003 | SG5         |
+| SG21 | Ross   | Geller | Paliontologist | M    | 1973-03-24 |  40000 | B303 | SG5         |
++------+--------+--------+----------------+------+------------+--------+------+-------------+
+3 rows in set (0.02 sec)
+
+//26.List the Employeeswhose Sal is four digit number ending with Zero.
+mysql> SELECT * FROM STAFF WHERE Salary LIKE '____0';
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+| S_NO | F_Name   | L_Name    | Position       | Sex  | DOB        | Salary | B_No | Works_Under |
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+| SA15 | Monica   | Bing      | Manager        | F    | 1975-05-13 |  24000 | B203 | SA15        |
+| SA69 | Chandler | Bing      | Advertiser     | M    | 1970-02-27 |  30000 | B303 | SA15        |
+| SF07 | Joey     | Tribbiani | Tech Lead      | M    | 1975-07-30 |  18000 | B203 | SG5         |
+| SF21 | Phoebe   | Buffay    | Supervisor     | F    | 1973-04-24 |  40000 | B203 | SA15        |
+| SG14 | David    | Ford      | Supervisor     | M    | 2058-03-24 |  18000 | B003 | SG5         |
+| SG21 | Ross     | Geller    | Paliontologist | M    | 1973-03-24 |  40000 | B303 | SG5         |
+| SG27 | Rachel   | Greene    | Marketer       | F    | 1975-11-10 |  18000 | B203 | SL21        |
+| SG37 | Ann      | Beech     | Assistant      | F    | 2060-11-10 |  12000 | B003 | SL21        |
+| SG5  | Susan    | Brand     | Manager        | F    | 2040-06-13 |  24000 | B003 | SG5         |
+| SL21 | John     | White     | Manager        | M    | 2045-10-01 |  30000 | B005 | SL21        |
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+10 rows in set (0.00 sec)
+
+//27.List the Employeeswhose names having a character set ‘ll’ together.
+mysql> SELECT * FROM STAFF WHERE F_Name LIKE '%oe%';
++------+--------+-----------+------------+------+------------+--------+------+-------------+
+| S_NO | F_Name | L_Name    | Position   | Sex  | DOB        | Salary | B_No | Works_Under |
++------+--------+-----------+------------+------+------------+--------+------+-------------+
+| SF07 | Joey   | Tribbiani | Tech Lead  | M    | 1975-07-30 |  18000 | B203 | SG5         |
+| SF21 | Phoebe | Buffay    | Supervisor | F    | 1973-04-24 |  40000 | B203 | SA15        |
++------+--------+-----------+------------+------+------------+--------+------+-------------+
+2 rows in set (0.23 sec)
+
+//28.List the Employeesthose who joined in 80’s.
+mysql> SELECT * FROM STAFF WHERE DOB LIKE '__7_-__-__';
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+| S_NO | F_Name   | L_Name    | Position       | Sex  | DOB        | Salary | B_No | Works_Under |
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+| SA15 | Monica   | Bing      | Manager        | F    | 1975-05-13 |  24000 | B203 | SA15        |
+| SA69 | Chandler | Bing      | Advertiser     | M    | 1970-02-27 |  30000 | B303 | SA15        |
+| SF07 | Joey     | Tribbiani | Tech Lead      | M    | 1975-07-30 |  18000 | B203 | SG5         |
+| SF21 | Phoebe   | Buffay    | Supervisor     | F    | 1973-04-24 |  40000 | B203 | SA15        |
+| SG21 | Ross     | Geller    | Paliontologist | M    | 1973-03-24 |  40000 | B303 | SG5         |
+| SG27 | Rachel   | Greene    | Marketer       | F    | 1975-11-10 |  18000 | B203 | SL21        |
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+6 rows in set (0.00 sec)
+
+//29.List the Employeeswho does not belong to Deptno 20.
+mysql> SELECT * FROM STAFF WHERE NOT B_No = 'B203';
++------+----------+--------+----------------+------+------------+--------+------+-------------+
+| S_NO | F_Name   | L_Name | Position       | Sex  | DOB        | Salary | B_No | Works_Under |
++------+----------+--------+----------------+------+------------+--------+------+-------------+
+| SA69 | Chandler | Bing   | Advertiser     | M    | 1970-02-27 |  30000 | B303 | SA15        |
+| SG14 | David    | Ford   | Supervisor     | M    | 2058-03-24 |  18000 | B003 | SG5         |
+| SG21 | Ross     | Geller | Paliontologist | M    | 1973-03-24 |  40000 | B303 | SG5         |
+| SG37 | Ann      | Beech  | Assistant      | F    | 2060-11-10 |  12000 | B003 | SL21        |
+| SG5  | Susan    | Brand  | Manager        | F    | 2040-06-13 |  24000 | B003 | SG5         |
+| SL21 | John     | White  | Manager        | M    | 2045-10-01 |  30000 | B005 | SL21        |
++------+----------+--------+----------------+------+------------+--------+------+-------------+
+6 rows in set (0.02 sec)
+
+//30.List all the Employeesexcept ‘PRESIDENT’ & ‘MGR” in asc order of Salaries.
+mysql> SELECT * FROM STAFF WHERE NOT Position = 'Manager' AND NOT Position = 'Supervisor' ORDER BY Salary;
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+| S_NO | F_Name   | L_Name    | Position       | Sex  | DOB        | Salary | B_No | Works_Under |
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+| SG37 | Ann      | Beech     | Assistant      | F    | 2060-11-10 |  12000 | B003 | SL21        |
+| SF07 | Joey     | Tribbiani | Tech Lead      | M    | 1975-07-30 |  18000 | B203 | SG5         |
+| SG27 | Rachel   | Greene    | Marketer       | F    | 1975-11-10 |  18000 | B203 | SL21        |
+| SA69 | Chandler | Bing      | Advertiser     | M    | 1970-02-27 |  30000 | B303 | SA15        |
+| SG21 | Ross     | Geller    | Paliontologist | M    | 1973-03-24 |  40000 | B303 | SG5         |
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+5 rows in set (0.00 sec)
+
+//31.List all the Employeeswho joined before or after 1981.
+mysql> SELECT * FROM STAFF WHERE DOB < '1981/01/01';
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+| S_NO | F_Name   | L_Name    | Position       | Sex  | DOB        | Salary | B_No | Works_Under |
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+| SA15 | Monica   | Bing      | Manager        | F    | 1975-05-13 |  24000 | B203 | SA15        |
+| SA69 | Chandler | Bing      | Advertiser     | M    | 1970-02-27 |  30000 | B303 | SA15        |
+| SF07 | Joey     | Tribbiani | Tech Lead      | M    | 1975-07-30 |  18000 | B203 | SG5         |
+| SF21 | Phoebe   | Buffay    | Supervisor     | F    | 1973-04-24 |  40000 | B203 | SA15        |
+| SG21 | Ross     | Geller    | Paliontologist | M    | 1973-03-24 |  40000 | B303 | SG5         |
+| SG27 | Rachel   | Greene    | Marketer       | F    | 1975-11-10 |  18000 | B203 | SL21        |
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+6 rows in set (0.07 sec)
+
+//32.List the Employeeswhose Empno not starting with digit78.
+mysql> SELECT * FROM STAFF WHERE NOT S_No LIKE 'SA%';
++------+--------+-----------+----------------+------+------------+--------+------+-------------+
+| S_NO | F_Name | L_Name    | Position       | Sex  | DOB        | Salary | B_No | Works_Under |
++------+--------+-----------+----------------+------+------------+--------+------+-------------+
+| SF07 | Joey   | Tribbiani | Tech Lead      | M    | 1975-07-30 |  18000 | B203 | SG5         |
+| SF21 | Phoebe | Buffay    | Supervisor     | F    | 1973-04-24 |  40000 | B203 | SA15        |
+| SG14 | David  | Ford      | Supervisor     | M    | 2058-03-24 |  18000 | B003 | SG5         |
+| SG21 | Ross   | Geller    | Paliontologist | M    | 1973-03-24 |  40000 | B303 | SG5         |
+| SG27 | Rachel | Greene    | Marketer       | F    | 1975-11-10 |  18000 | B203 | SL21        |
+| SG37 | Ann    | Beech     | Assistant      | F    | 2060-11-10 |  12000 | B003 | SL21        |
+| SG5  | Susan  | Brand     | Manager        | F    | 2040-06-13 |  24000 | B003 | SG5         |
+| SL21 | John   | White     | Manager        | M    | 2045-10-01 |  30000 | B005 | SL21        |
++------+--------+-----------+----------------+------+------------+--------+------+-------------+
+8 rows in set (0.10 sec)
+
+//33.List the Employeeswho are working under ‘MGR’.
+mysql> SELECT * FROM STAFF WHERE NOT Works_Under = 'NULL';
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+| S_NO | F_Name   | L_Name    | Position       | Sex  | DOB        | Salary | B_No | Works_Under |
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+| SA15 | Monica   | Bing      | Manager        | F    | 1975-05-13 |  24000 | B203 | SA15        |
+| SA69 | Chandler | Bing      | Advertiser     | M    | 1970-02-27 |  30000 | B303 | SA15        |
+| SF07 | Joey     | Tribbiani | Tech Lead      | M    | 1975-07-30 |  18000 | B203 | SG5         |
+| SF21 | Phoebe   | Buffay    | Supervisor     | F    | 1973-04-24 |  40000 | B203 | SA15        |
+| SG14 | David    | Ford      | Supervisor     | M    | 2058-03-24 |  18000 | B003 | SG5         |
+| SG21 | Ross     | Geller    | Paliontologist | M    | 1973-03-24 |  40000 | B303 | SG5         |
+| SG27 | Rachel   | Greene    | Marketer       | F    | 1975-11-10 |  18000 | B203 | SL21        |
+| SG37 | Ann      | Beech     | Assistant      | F    | 2060-11-10 |  12000 | B003 | SL21        |
+| SG5  | Susan    | Brand     | Manager        | F    | 2040-06-13 |  24000 | B003 | SG5         |
+| SL21 | John     | White     | Manager        | M    | 2045-10-01 |  30000 | B005 | SL21        |
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+10 rows in set (0.02 sec)
+
+//34.List  the Employeeswho  joined  in  any  year  but  not  belongs  to  the  month  of March.
+mysql> SELECT * FROM STAFF WHERE DOB LIKE '____-03-__';
++------+--------+--------+----------------+------+------------+--------+------+-------------+
+| S_NO | F_Name | L_Name | Position       | Sex  | DOB        | Salary | B_No | Works_Under |
++------+--------+--------+----------------+------+------------+--------+------+-------------+
+| SG14 | David  | Ford   | Supervisor     | M    | 2058-03-24 |  18000 | B003 | SG5         |
+| SG21 | Ross   | Geller | Paliontologist | M    | 1973-03-24 |  40000 | B303 | SG5         |
++------+--------+--------+----------------+------+------------+--------+------+-------------+
+2 rows in set (0.00 sec)
+
+//35.List all the Clerks of Deptno 20.
+mysql> SELECT * FROM STAFF WHERE Position = 'Supervisor' AND B_No = 'B003';
++------+--------+--------+------------+------+------------+--------+------+-------------+
+| S_NO | F_Name | L_Name | Position   | Sex  | DOB        | Salary | B_No | Works_Under |
++------+--------+--------+------------+------+------------+--------+------+-------------+
+| SG14 | David  | Ford   | Supervisor | M    | 2058-03-24 |  18000 | B003 | SG5         |
++------+--------+--------+------------+------+------------+--------+------+-------------+
+1 row in set (0.00 sec)
+
+//36.List the Employeesof Deptno 30 or 10 joined in the year 1981.
+mysql> SELECT * FROM STAFF WHERE B_No = 'B203' AND DOB LIKE '1975-%';
++------+--------+-----------+-----------+------+------------+--------+------+-------------+
+| S_NO | F_Name | L_Name    | Position  | Sex  | DOB        | Salary | B_No | Works_Under |
++------+--------+-----------+-----------+------+------------+--------+------+-------------+
+| SA15 | Monica | Bing      | Manager   | F    | 1975-05-13 |  24000 | B203 | SA15        |
+| SF07 | Joey   | Tribbiani | Tech Lead | M    | 1975-07-30 |  18000 | B203 | SG5         |
+| SG27 | Rachel | Greene    | Marketer  | F    | 1975-11-10 |  18000 | B203 | SL21        |
++------+--------+-----------+-----------+------+------------+--------+------+-------------+
+3 rows in set (0.00 sec)
+
+//37.Display the details of SMITH.
+mysql> SELECT * FROM STAFF WHERE F_Name = 'Rachel';
++------+--------+--------+----------+------+------------+--------+------+-------------+
+| S_NO | F_Name | L_Name | Position | Sex  | DOB        | Salary | B_No | Works_Under |
++------+--------+--------+----------+------+------------+--------+------+-------------+
+| SG27 | Rachel | Greene | Marketer | F    | 1975-11-10 |  18000 | B203 | SL21        |
++------+--------+--------+----------+------+------------+--------+------+-------------+
+1 row in set (0.00 sec)
+
+//38.Display the location of SMITH.
+mysql> SELECT F_Name, Position FROM STAFF WHERE F_Name = 'Rachel';
++--------+----------+
+| F_Name | Position |
++--------+----------+
+| Rachel | Marketer |
++--------+----------+
+1 row in set (0.00 sec)
+
+//40.List the Empno, Ename, Sal, Dname of all the ‘MGRS’ and ‘ANALYST’
+mysql> SELECT S_No, F_Name, L_Name, Salary, B_No FROM STAFF WHERE Position = 'Manager' OR Position = 'Supervisor';
++------+--------+--------+--------+------+
+| S_No | F_Name | L_Name | Salary | B_No |
++------+--------+--------+--------+------+
+| SA15 | Monica | Bing   |  24000 | B203 |
+| SF21 | Phoebe | Buffay |  40000 | B203 |
+| SG14 | David  | Ford   |  18000 | B003 |
+| SG5  | Susan  | Brand  |  24000 | B003 |
+| SL21 | John   | White  |  30000 | B005 |
++------+--------+--------+--------+------+
+5 rows in set (0.00 sec)
+
+//42.Display  the  Empno,  Ename,  Sal,  Dname,  Loc,  Deptno,  Job  of  all Employeesworking atCJICAGO or working for ACCOUNTING dept with Ann Sal>28000, but the Salshould not be=3000 or 2800 who doesn’t belongs to the Mgr and whose no ishaving a digit ‘7’ or ‘8’ in 3 rd position in the asc order of Deptno and desc orderof job.
+mysql> SELECT S_No, F_Name, L_Name, Salary, B_No FROM STAFF WHERE B_No = 'B003' OR B_No = 'B005' AND Salary*12 > 240000 AND NOT Salary = 18000 AND NOT Salary = 12000 AND NOT Position  = 'Manager';
++------+--------+--------+--------+------+
+| S_No | F_Name | L_Name | Salary | B_No |
++------+--------+--------+--------+------+
+| SG14 | David  | Ford   |  18000 | B003 |
+| SG37 | Ann    | Beech  |  12000 | B003 |
+| SG5  | Susan  | Brand  |  24000 | B003 |
++------+--------+--------+--------+------+
+3 rows in set (0.11 sec)
+
+//43.Display  the  total  information  of  the Employeesalong  with  Grades  in  the  asc order.
+mysql> SELECT * FROM STAFF ORDER BY S_No;
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+| S_NO | F_Name   | L_Name    | Position       | Sex  | DOB        | Salary | B_No | Works_Under |
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+| SA15 | Monica   | Bing      | Manager        | F    | 1975-05-13 |  24000 | B203 | SA15        |
+| SA69 | Chandler | Bing      | Advertiser     | M    | 1970-02-27 |  30000 | B303 | SA15        |
+| SF07 | Joey     | Tribbiani | Tech Lead      | M    | 1975-07-30 |  18000 | B203 | SG5         |
+| SF21 | Phoebe   | Buffay    | Supervisor     | F    | 1973-04-24 |  40000 | B203 | SA15        |
+| SG14 | David    | Ford      | Supervisor     | M    | 2058-03-24 |  18000 | B003 | SG5         |
+| SG21 | Ross     | Geller    | Paliontologist | M    | 1973-03-24 |  40000 | B303 | SG5         |
+| SG27 | Rachel   | Greene    | Marketer       | F    | 1975-11-10 |  18000 | B203 | SL21        |
+| SG37 | Ann      | Beech     | Assistant      | F    | 2060-11-10 |  12000 | B003 | SL21        |
+| SG5  | Susan    | Brand     | Manager        | F    | 2040-06-13 |  24000 | B003 | SG5         |
+| SL21 | John     | White     | Manager        | M    | 2045-10-01 |  30000 | B005 | SL21        |
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+10 rows in set (0.00 sec)
+
+//44.List all the Grade2 and Grade 3 Employees.
+mysql> SELECT * FROM STAFF WHERE Works_Under = 'SA15' OR Works_Under = 'SG5';
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+| S_NO | F_Name   | L_Name    | Position       | Sex  | DOB        | Salary | B_No | Works_Under |
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+| SA15 | Monica   | Bing      | Manager        | F    | 1975-05-13 |  24000 | B203 | SA15        |
+| SA69 | Chandler | Bing      | Advertiser     | M    | 1970-02-27 |  30000 | B303 | SA15        |
+| SF21 | Phoebe   | Buffay    | Supervisor     | F    | 1973-04-24 |  40000 | B203 | SA15        |
+| SF07 | Joey     | Tribbiani | Tech Lead      | M    | 1975-07-30 |  18000 | B203 | SG5         |
+| SG14 | David    | Ford      | Supervisor     | M    | 2058-03-24 |  18000 | B003 | SG5         |
+| SG21 | Ross     | Geller    | Paliontologist | M    | 1973-03-24 |  40000 | B303 | SG5         |
+| SG5  | Susan    | Brand     | Manager        | F    | 2040-06-13 |  24000 | B003 | SG5         |
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+7 rows in set (0.11 sec)
+
+//45.Display all Grade 4,5 Analyst and Mgr.
+mysql> SELECT * FROM STAFF WHERE Position = 'Manager'
+    -> AND (Works_Under =  'SA15' OR Works_Under = 'SG');
++------+--------+--------+----------+------+------------+--------+------+-------------+
+| S_NO | F_Name | L_Name | Position | Sex  | DOB        | Salary | B_No | Works_Under |
++------+--------+--------+----------+------+------------+--------+------+-------------+
+| SA15 | Monica | Bing   | Manager  | F    | 1975-05-13 |  24000 | B203 | SA15        |
++------+--------+--------+----------+------+------------+--------+------+-------------+
+1 row in set (0.00 sec)
+
+
+//46.List  the  Empno,  Ename,  Sal,  Dname,  Grade,  Exp,  and  Ann  Sal  of Employeesworkingfor Dept10 or20.
+mysql> SELECT S_No, F_Name, L_Name, Salary, B_No, Works_Under, Salary*12 AS Annual_Salary FROM STAFF WHERE B_No = 'B203' OR B_No = 'B003';
++------+--------+-----------+--------+------+-------------+---------------+
+| S_No | F_Name | L_Name    | Salary | B_No | Works_Under | Annual_Salary |
++------+--------+-----------+--------+------+-------------+---------------+
+| SA15 | Monica | Bing      |  24000 | B203 | SA15        |        288000 |
+| SF07 | Joey   | Tribbiani |  18000 | B203 | SG5         |        216000 |
+| SF21 | Phoebe | Buffay    |  40000 | B203 | SA15        |        480000 |
+| SG14 | David  | Ford      |  18000 | B003 | SG5         |        216000 |
+| SG27 | Rachel | Greene    |  18000 | B203 | SL21        |        216000 |
+| SG37 | Ann    | Beech     |  12000 | B003 | SL21        |        144000 |
+| SG5  | Susan  | Brand     |  24000 | B003 | SG5         |        288000 |
++------+--------+-----------+--------+------+-------------+---------------+
+7 rows in set (0.00 sec)
+
+//48.List the details of the Depts along with Empno, Ename or without the Employees
+mysql> SELECT S_No, B_No FROM STAFF;
++------+------+
+| S_No | B_No |
++------+------+
+| SA15 | B203 |
+| SA69 | B303 |
+| SF07 | B203 |
+| SF21 | B203 |
+| SG14 | B003 |
+| SG21 | B303 |
+| SG27 | B203 |
+| SG37 | B003 |
+| SG5  | B003 |
+| SL21 | B005 |
++------+------+
+10 rows in set (0.00 sec)
+
+//49.List  the  details  of  the Employeeswhose  Salaries  more  than  the  employee BLAKE.
+mysql> SELECT * FROM STAFF WHERE Salary > (SELECT SALARY FROM STAFF WHERE S_No = 'SA15');
++------+----------+--------+----------------+------+------------+--------+------+-------------+
+| S_NO | F_Name   | L_Name | Position       | Sex  | DOB        | Salary | B_No | Works_Under |
++------+----------+--------+----------------+------+------------+--------+------+-------------+
+| SA69 | Chandler | Bing   | Advertiser     | M    | 1970-02-27 |  30000 | B303 | SA15        |
+| SF21 | Phoebe   | Buffay | Supervisor     | F    | 1973-04-24 |  40000 | B203 | SA15        |
+| SG21 | Ross     | Geller | Paliontologist | M    | 1973-03-24 |  40000 | B303 | SG5         |
+| SL21 | John     | White  | Manager        | M    | 2045-10-01 |  30000 | B005 | SL21        |
++------+----------+--------+----------------+------+------------+--------+------+-------------+
+4 rows in set (0.21 sec)
+
+//GROUPBY AND COUNT
+mysql> SELECT Position,COUNT(*) AS Count FROM STAFF GROUP BY Position;
++----------------+-------+
+| Position       | Count |
++----------------+-------+
+| Manager        |     3 |
+| Advertiser     |     1 |
+| Tech Lead      |     1 |
+| Supervisor     |     2 |
+| Paliontologist |     1 |
+| Marketer       |     1 |
+| Assistant      |     1 |
++----------------+-------+
+7 rows in set (0.03 sec)
+
+//HAVING Clause
+mysql> SELECT * FROM STAFF
+    -> GROUP BY Position
+    -> HAVING Salary > 12000;
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+| S_NO | F_Name   | L_Name    | Position       | Sex  | DOB        | Salary | B_No | Works_Under |
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+| SA15 | Monica   | Bing      | Manager        | F    | 1975-05-13 |  24000 | B203 | SA15        |
+| SA69 | Chandler | Bing      | Advertiser     | M    | 1970-02-27 |  30000 | B303 | SA15        |
+| SF07 | Joey     | Tribbiani | Tech Lead      | M    | 1975-07-30 |  18000 | B203 | SG5         |
+| SF21 | Phoebe   | Buffay    | Supervisor     | F    | 1973-04-24 |  40000 | B203 | SA15        |
+| SG21 | Ross     | Geller    | Paliontologist | M    | 1973-03-24 |  40000 | B303 | SG5         |
+| SG27 | Rachel   | Greene    | Marketer       | F    | 1975-11-10 |  18000 | B203 | SL21        |
++------+----------+-----------+----------------+------+------------+--------+------+-------------+
+6 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

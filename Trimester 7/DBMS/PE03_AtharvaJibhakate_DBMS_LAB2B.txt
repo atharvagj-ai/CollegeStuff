@@ -1,0 +1,210 @@
+NAME : ATHARVA G. JIBHAKATE
+ROLL NO.: PE 03
+PANEL:5 (E-1)
+ERP: S1032180110
+
+mysql> CREATE DATABASE SUPPLYCHAIN;
+Query OK, 1 row affected (0.81 sec)
+
+mysql> USE SUPPLYCHAIN;
+Database changed
+mysql> CREATE TABLE Suppliers(
+    -> S_No INT NOT NULL PRIMARY KEY,
+    -> S_Name VARCHAR(30),
+    -> Status VARCHAR(10),
+    -> City VARCHAR(40));
+Query OK, 0 rows affected (2.29 sec)
+
+mysql> DESC Suppliers;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| S_No   | int         | NO   | PRI | NULL    |       |
+| S_Name | varchar(30) | YES  |     | NULL    |       |
+| Status | varchar(10) | YES  |     | NULL    |       |
+| City   | varchar(40) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.14 sec)
+
+mysql> CREATE TABLE Parts(
+    -> P_No INT NOT NULL PRIMARY KEY,
+    -> P_Name VARCHAR(30),
+    -> Colour VARCHAR(20),
+    -> Weight FLOAT(5,2),
+    -> City VARCHAR(40));
+Query OK, 0 rows affected, 1 warning (0.71 sec)
+
+mysql> CREATE TABLE Projects(
+    -> J_No INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    -> J_Name VARCHAR(30) UNIQUE,
+    -> City VARCHAR(40));
+Query OK, 0 rows affected (2.13 sec)
+
+mysql> DESC Suppliers;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| S_No   | int         | NO   | PRI | NULL    |       |
+| S_Name | varchar(30) | YES  |     | NULL    |       |
+| Status | varchar(10) | YES  |     | NULL    |       |
+| City   | varchar(40) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.11 sec)
+
+mysql> DESC Parts;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| P_No   | int         | NO   | PRI | NULL    |       |
+| P_Name | varchar(30) | YES  |     | NULL    |       |
+| Colour | varchar(20) | YES  |     | NULL    |       |
+| Weight | float(5,2)  | YES  |     | NULL    |       |
+| City   | varchar(40) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> DESC Projects;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| J_No   | int         | NO   | PRI | NULL    | auto_increment |
+| J_Name | varchar(30) | YES  | UNI | NULL    |                |
+| City   | varchar(40) | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE Shipment(
+    -> Quantity INT NOT NULL);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Shipment(
+Quantity INT NOT NULL)' at line 1
+mysql> CREATE TABLE Shipment(
+    -> Quantity INT NOT NULL);
+Query OK, 0 rows affected (1.16 sec)
+
+mysql> DESC Shipment;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| Quantity | int  | NO   |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+1 row in set (0.02 sec)
+
+mysql> ALTER TABLE Shipment ADD S_No INT NOT NULL;
+Query OK, 0 rows affected (0.98 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Shipment ADD P_No INT NOT NULL;
+Query OK, 0 rows affected (0.59 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Shipment ADD J_No INT NOT NULL;
+Query OK, 0 rows affected (0.41 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC Shipments;
+ERROR 1146 (42S02): Table 'supplychain.shipments' doesn't exist
+mysql> DESC Shipment;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| Quantity | int  | NO   |     | NULL    |       |
+| S_No     | int  | NO   |     | NULL    |       |
+| P_No     | int  | NO   |     | NULL    |       |
+| J_No     | int  | NO   |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+
+mysql> ALTER TABLE Shipment ADD PRIMARY KEY(S_No, P_No, J_No);
+Query OK, 0 rows affected (2.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC Shipment;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| Quantity | int  | NO   |     | NULL    |       |
+| S_No     | int  | NO   | PRI | NULL    |       |
+| P_No     | int  | NO   | PRI | NULL    |       |
+| J_No     | int  | NO   | PRI | NULL    |       |
++----------+------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> ALTER TABLE Shipment ADD FOREIGN KEY(S_No) REFERENCES Suppliers(S_No);
+Query OK, 0 rows affected (3.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC Shipment;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| Quantity | int  | NO   |     | NULL    |       |
+| S_No     | int  | NO   | PRI | NULL    |       |
+| P_No     | int  | NO   | PRI | NULL    |       |
+| J_No     | int  | NO   | PRI | NULL    |       |
++----------+------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+
+mysql> ALTER TABLE Shipment ADD FOREIGN KEY(P_No) REFERENCES Parts(P_No);
+Query OK, 0 rows affected (3.93 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Shipment ADD FOREIGN KEY(J_No) REFERENCES Projects(J_No);
+Query OK, 0 rows affected (2.60 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE Assignment(
+    -> A_No INT NOT NULL,
+    -> A_Name VARCHAR(30));
+Query OK, 0 rows affected (1.10 sec)
+
+mysql> ALTER TABLE Assignment RENAME TO Works;
+Query OK, 0 rows affected (0.62 sec)
+
+mysql> DESC Works;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| A_No   | int         | NO   |     | NULL    |       |
+| A_Name | varchar(30) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.04 sec)
+
+mysql> DESC Works;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| A_No   | int         | NO   |     | NULL    |       |
+| A_Name | varchar(30) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.08 sec)
+
+mysql> INSERT INTO Works VALUES(311, "Computer_Networks");
+Query OK, 1 row affected (0.34 sec)
+
+mysql> INSERT INTO Works VALUES(312, "Databases"), (313, "Software_Design");
+Query OK, 2 rows affected (0.10 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> DESC Works;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| A_No   | int         | NO   |     | NULL    |       |
+| A_Name | varchar(30) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.16 sec)
+
+mysql> SELECT * FROM Works;
++------+-------------------+
+| A_No | A_Name            |
++------+-------------------+
+|  311 | Computer_Networks |
+|  312 | Databases         |
+|  313 | Software_Design   |
++------+-------------------+
+3 rows in set (0.21 sec)
+
+mysql> DROP TABLE Works;
+Query OK, 0 rows affected (1.07 sec)
+
+mysql>
