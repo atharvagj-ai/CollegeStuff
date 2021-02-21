@@ -1,2 +1,2 @@
 # CollegeStuff
-All the pratical coding assignments perfromed in college 
+All the pratical coding assignments performed in college.
