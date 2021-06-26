@@ -1,0 +1,8 @@
+
+
+{
+Eid,Deptname,Ename,
+Address:{street: strretname, city:cityname, state:statename, pincode:pincode_value}, 
+phone:[home contact, mobile contact], 
+age, salary 
+}

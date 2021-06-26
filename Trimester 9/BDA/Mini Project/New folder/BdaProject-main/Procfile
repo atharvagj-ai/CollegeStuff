@@ -1,0 +1,1 @@
+web: gunicorn ecommerse_analysis.wsgi

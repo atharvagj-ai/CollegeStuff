@@ -1,0 +1,187 @@
+use Institute
+
+db.createCollection("Student")
+
+db.Student.insert({
+S_id:"S111",S_name:"James Smith",Branch:"CSE",Age:20,Panel:"E",
+Address:{Area:"Kothrud",City:"Pune",Pincode:412300},
+Subjects:[{sub_name:"DBMS",score:85},{sub_name:"TOC",score:81}],
+Area_of_Interest:["DBMS","Networking"]
+});
+
+db.Student.insertMany([
+{S_id:"S112",S_name:"Michael Smith",Branch:"CSE",Age:20,Panel:"E",
+Address:{Area:"ShivTirth",City:"Pune",Pincode:412301},
+Subjects:[{sub_name:"DBMS",score:81},{sub_name:"IS",score:83}],
+Area_of_Interest:["DBMS","AI","ML"]},
+{S_id:"S113",S_name:"Robert Smith",Branch:"ECE",Age:21,Panel:"A",
+Address:{Area:"Swargate",City:"Pune",Pincode:412303},
+Subjects:[{sub_name:"AI",score:79},{sub_name:"TOC",score:80}],
+Area_of_Interest:["DBMS","AI","ML","Networking"]},
+{S_id:"S114",S_name:"Maria Garcia",Branch:"MECH",Age:21,Panel:"A",
+Address:{Area:"Shivajinagar",City:"Pune",Pincode:412307},
+Subjects:[{sub_name:"IS",score:90},{sub_name:"AI",score:82}],
+Area_of_Interest:["DBMS","Networking"]},
+{S_id:"S115",S_name:"David Smith",Branch:"ECE",Age:20,Panel:"B",
+Address:{Area:"Kothrud",City:"Pune",Pincode:412300},
+Subjects:[{sub_name:"TOC",score:78},{sub_name:"AI",score:80}],
+Area_of_Interest:["AI","DS"]},
+{S_id:"S116",S_name:"Maria Rodriguez",Branch:"CSE",Age:21,Panel:"B",
+Address:{Area:"Sangamvadi",City:"Pune",Pincode:412311},
+Subjects:[{sub_name:"IS",score:72},{sub_name:"TOC",score:75}],
+Area_of_Interest:["Networking","DWDM","OS"]},
+{S_id:"S117",S_name:"Mary Smith",Branch:"Civil",Age:20,Panel:"C",
+Address:{Area:"Hadapsar",City:"Pune",Pincode:412312},
+Subjects:[{sub_name:"TOC",score:92},{sub_name:"IS",score:93}],
+Area_of_Interest:["DBMS","DWDM","OS"]},
+{S_id:"S118",S_name:"Maria Hernandez",Branch:"Mech",Age:21,Panel:"E",
+Address:{Area:"Swargate",City:"Pune",Pincode:412303},
+Subjects:[{sub_name:"TOC",score:93},{sub_name:"AI",score:91}],
+Area_of_Interest:["DBMS","Web Dev"]},
+{S_id:"S119",S_name:"Lilly Martinez",Branch:"ECE",Age:20,Panel:"C",
+Address:{Area:"Kothrud",City:"Pune",Pincode:412300},
+Subjects:[{sub_name:"IS",score:81},{sub_name:"AI",score:90}],
+Area_of_Interest:["AWS","Web Dev"]},
+{S_id:"S120",S_name:"James Johnson",Branch:"CSE",Age:21,Panel:"C",
+Address:{Area:"Kothrud",City:"Pune",Pincode:412300},
+Subjects:[{sub_name:"DBMS",score:83},{sub_name:"AI",score:87}],
+Area_of_Interest:["AWS","Develops"]},
+]);
+
+
+ds.Student.find()
+
+
+db.Student.find().pretty()
+
+db.Student.find({S_id:"S111"})
+db.Student.update({S_id:"S111"},{$inc:{Age:2}});
+db.Student.find({S_id:"S111"})
+
+
+db.Student.update({S_id:"S111"},{$push:{Area_of_Interest:{$each:["NLP"]}}})
+db.Student.find({S_id:"S111"}).pretty()
+
+
+db.Student.update({S_id:"S111"},{$pop:{Subjects:-1}})
+db.Student.find({S_id:"S111"}).pretty()
+
+
+db.Student.update({S_id:"S111"},{$set:{Branch:"Mech",Address:{Area:"Hadapsar",Pincode:412312}}})
+db.Student.find({S_id:"S111"}).pretty()
+
+
+db.Student.updateMany({Panel:"B"},{$set:{Panel:"A"}})
+db.Student.update({Panel:"B"},{$set:{Panel:"A"}},{multi:true})
+db.Student.find({Panel:"A"}).pretty()
+
+
+db.Student.update({S_id:"S121"},{$set:{Branch:"CSE",Panel:"A"}},{upsert:true})
+db.Student.find({S_id:"S121"}).pretty()
+
+
+db.Student.remove({Panel:"C"})
+
+db.Student.find({"Subjects.score":{$gte:85}}).pretty()
+
+db.Student.find({"Subjects.score":{$gt:90}}).pretty()
+
+db.Student.find({"Subjects.score":{$lt:80}}).pretty()
+
+db.Student.find({Age:{$gt:20}}).pretty()
+
+db.Student.find({S_name:{$regex:/^M/}}).pretty()
+
+db.Student.find({S_name:{$regex:/z$/}}).pretty()
+
+db.Student.count()
+
+db.Student.find({Area_of_Interest:{$size:4}}).pretty()
+
+db.Student.find({},{_id:0,S_name:1}).pretty()
+
+db.Student.find().sort({S_name:-1}).pretty()
+
+db.Student.find({$and:[{Age:{$gt:20}},{Panel:"A"}]}).pretty()
+
+db.Student.find({$or:[{Panel:"E"},{Panel:"A"}]}).pretty()
+
+db.Student.find().pretty().limit(2)
+
+db.Student.find({Area_of_Interest:{$all:["DBMS","ML"]}}).pretty()
+
+db.Student.createIndex({Branch:1,S_id:-1},{name:"Branch_index"})
+
+db.Student.getIndexes()
+
+
+db.Student.drop()
+
+
+------------------------------
+
+db.Student.aggregate([
+{$match:{"Address.Area":"Kothrud"}}
+])
+
+db.Student.aggregate([
+{$group:{_id:"$Branch", Count:{$sum:1}}}
+])
+
+db.Student.aggregate([
+{$match:{Panel:"A"}},
+{$group:{_id:"$Branch", Count:{$sum:1}}}
+])
+
+db.Student.aggregate([
+{$group:{_id:"$Branch", Maximum:{$max:"$Subjects.score"}}}
+])
+
+db.Student.aggregate([
+{$group:{_id:"$Branch", Minimum:{$min:"$Subjects.score"}}}
+])
+
+db.Student.aggregate([
+{$match:{Panel:"A"}},
+{$group:{_id:"$Age", Count:{$sum:1}}}
+])
+
+db.Student.aggregate([
+{$group:{_id:"$Subjects.sub_name", Count:{$sum:1}}}
+])
+
+db.Student.aggregate([
+{$group:{_id:"$Subjects.sub_name", Minimum:{$min:"$Subjects.score"}, Maximum:{$max:"$Subjects.score"}}}
+])
+
+db.Student.aggregate([
+{$project:{_id:0, S_name:1, Panel:1}}
+])
+
+db.Student.aggregate([
+{$skip:2},
+{$project:{_id:0, S_name:1, Panel:1}}
+])
+
+
+
+
+
+
+
+
+
+
+
+
+---------------Theory Assi Queries------------------
+
+db.Student.find({"Address.City":"Pune"}).pretty().limit(3).skip(1)
+
+db.Student.createIndex({"Eid":1},unique:true)
+
+
+db.Student.aggregate([
+{$group:{_id:"$Branch", Count:{$avg:"$Age"}}},
+{$match:{Count:{$gt:20}}}
+])

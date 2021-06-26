@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Mapreduce_java.jar">
+    <output-path>$PROJECT_DIR$/../Jar_file</output-path>
+    <root id="archive" name="Mapreduce_java.jar">
+      <element id="module-output" name="Mapreduce_java" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Files/hadoop-common-2.7.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Files/hadoop-mapreduce-client-core-2.7.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Files/hadoop-core-1.2.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

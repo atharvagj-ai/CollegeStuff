@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="AWS.jar">
+    <output-path>$PROJECT_DIR$/AWS.jar</output-path>
+    <root id="archive" name="Map.jar">
+      <element id="module-output" name="Map" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Files/hadoop-mapreduce-client-core-2.7.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Files/hadoop-common-2.7.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Files/hadoop-core-1.2.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

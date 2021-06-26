@@ -1,0 +1,18 @@
+[Mon May 31 11:24:36.384724 2021] [mpm_winnt:notice] [pid 1540:tid 612] AH00455: Apache/2.4.48 (Win32) OpenSSL/1.1.1k configured -- resuming normal operations
+[Mon May 31 11:24:36.386718 2021] [mpm_winnt:notice] [pid 1540:tid 612] AH00456: Server built: May 25 2021 12:46:47
+[Mon May 31 11:24:36.386718 2021] [core:notice] [pid 1540:tid 612] AH00094: Command line: 'httpd.exe -d F:/T9/BDA/D3/Apache24'
+[Mon May 31 11:24:36.392225 2021] [mpm_winnt:notice] [pid 1540:tid 612] AH00418: Parent: Created child process 16700
+Apache server interrupted...
+021] [mpm_winnt:notice] [pid 16700:tid 1372] AH00354: Child: Starting 64 worker threads.
+[Mon May 31 11:26:24.060764 2021] [mpm_winnt:notice] [pid 1540:tid 612] AH00422: Parent: Received shutdown signal -- Shutting down the server.
+[Mon May 31 11:26:26.065697 2021] [mpm_winnt:notice] [pid 16700:tid 1372] AH00364: Child: All worker threads have exited.
+[Mon May 31 11:26:26.102598 2021] [mpm_winnt:notice] [pid 1540:tid 612] AH00430: Parent: Child process 16700 exited successfully.
+[Mon May 31 11:26:52.961856 2021] [mpm_winnt:notice] [pid 12308:tid 156] AH00455: Apache/2.4.48 (Win32) OpenSSL/1.1.1k configured -- resuming normal operations
+[Mon May 31 11:26:52.963853 2021] [mpm_winnt:notice] [pid 12308:tid 156] AH00456: Server built: May 25 2021 12:46:47
+[Mon May 31 11:26:52.963853 2021] [core:notice] [pid 12308:tid 156] AH00094: Command line: 'httpd.exe -d F:/T9/BDA/D3/Apache24'
+[Mon May 31 11:26:52.968835 2021] [mpm_winnt:notice] [pid 12308:tid 156] AH00418: Parent: Created child process 14840
+Apache server shutdown initiated...
+pm_winnt:notice] [pid 14840:tid 1384] AH00354: Child: Starting 64 worker threads.
+[Mon May 31 13:06:29.380846 2021] [mpm_winnt:notice] [pid 12308:tid 156] AH00422: Parent: Received shutdown signal -- Shutting down the server.
+[Mon May 31 13:06:31.405882 2021] [mpm_winnt:notice] [pid 14840:tid 1384] AH00364: Child: All worker threads have exited.
+[Mon May 31 13:06:33.397058 2021] [mpm_winnt:notice] [pid 12308:tid 156] AH00430: Parent: Child process 14840 exited successfully.

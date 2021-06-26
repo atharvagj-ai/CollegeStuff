@@ -1,0 +1,36 @@
+db.book.find().pretty().limit(1).skip(172)
+
+db.book.find({"isbn":1933988495}).explain()
+db.book.find({"isbn":1933988495}).explain("executionStats")
+
+db.book.find({"title":"ASP.NET MVC in Action"}).explain()
+db.book.find({"title":"ASP.NET MVC in Action"}).explain("executionStats")
+
+db.book.find({"categories":"Microsoft .NET"}).explain("executionStats")
+
+
+Microsoft .NET
+db.book.getIndexes()
+
+-------------------------------------------
+        //Single Field Index
+db.book.createIndex({"isbn":1},{name:"isbn_index"})
+
+db.book.dropIndex("isbn_index")
+-------------------------------------------
+        //Compound Index & unique
+db.book.createIndex({"title":1, publisedDate:-1},{name:"title_index"})
+
+db.book.dropIndex("title_index")
+-------------------------------------------
+        //Multikey Index
+db.book.createIndex({"categories":1},{name:"categories_index"})
+
+db.book.dropIndex("categories_index")
+-------------------------------------------
+
+db.book.find({"isbn":1933988495}).hint("isbn_index").explain("executionStats")
+
+db.book.find({"title":"ASP.NET MVC in Action"}).hint("title_index").explain("executionStats")
+
+db.book.find({"categories":"Microsoft .NET"}).hint("categories_index").explain("executionStats")

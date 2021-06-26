@@ -1,0 +1,1852 @@
+Exe A Lab assi 1
+
+-----------------------------------------------------------------------
+
+Create database Institute
+> use Institute
+switched to db Institute
+
+-----------------------------------------------------------------------
+Create collection Student.
+> db.createCollection("Student")
+{ "ok" : 1 }
+
+-----------------------------------------------------------------------
+Insert 10 documents
+> db.Student.insert({
+... S_id:"S111",S_name:"James Smith",Branch:"CSE",Age:20,Panel:"E",
+... Address:{Area:"Kothrud",City:"Pune",Pincode:412300},
+... Subjects:[{sub_name:"DBMS",score:85},{sub_name:"TOC",score:81}],
+... Area_of_Interest:["DBMS","Networking"]
+... });
+WriteResult({ "nInserted" : 1 })
+>
+> db.Student.find().pretty()
+{
+        "_id" : ObjectId("60bb5715ae0512016f998c3f"),
+        "S_id" : "S111",
+        "S_name" : "James Smith",
+        "Branch" : "CSE",
+        "Age" : 20,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Kothrud",
+                "City" : "Pune",
+                "Pincode" : 412300
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "DBMS",
+                        "score" : 85
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 81
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking"
+        ]
+}
+>
+>
+>
+> db.Student.insertMany([
+... {S_id:"S112",S_name:"Michael Smith",Branch:"CSE",Age:20,Panel:"E",
+... Address:{Area:"ShivTirth",City:"Pune",Pincode:412301},
+... Subjects:[{sub_name:"DBMS",score:81},{sub_name:"IS",score:83}],
+... Area_of_Interest:["DBMS","AI","ML"]},
+... {S_id:"S113",S_name:"Robert Smith",Branch:"ECE",Age:21,Panel:"A",
+... Address:{Area:"Swargate",City:"Pune",Pincode:412303},
+... Subjects:[{sub_name:"AI",score:79},{sub_name:"TOC",score:80}],
+... Area_of_Interest:["DBMS","AI","ML","Networking"]},
+... {S_id:"S114",S_name:"Maria Garcia",Branch:"MECH",Age:21,Panel:"A",
+... Address:{Area:"Shivajinagar",City:"Pune",Pincode:412307},
+... Subjects:[{sub_name:"IS",score:90},{sub_name:"AI",score:82}],
+... Area_of_Interest:["DBMS","Networking"]},
+... {S_id:"S115",S_name:"David Smith",Branch:"ECE",Age:20,Panel:"B",
+... Address:{Area:"Kothrud",City:"Pune",Pincode:412300},
+... Subjects:[{sub_name:"TOC",score:78},{sub_name:"AI",score:80}],
+... Area_of_Interest:["AI","DS"]},
+... {S_id:"S116",S_name:"Maria Rodriguez",Branch:"CSE",Age:21,Panel:"B",
+... Address:{Area:"Sangamvadi",City:"Pune",Pincode:412311},
+... Subjects:[{sub_name:"IS",score:72},{sub_name:"TOC",score:75}],
+... Area_of_Interest:["Networking","DWDM","OS"]},
+... {S_id:"S117",S_name:"Mary Smith",Branch:"Civil",Age:20,Panel:"C",
+... Address:{Area:"Hadapsar",City:"Pune",Pincode:412312},
+... Subjects:[{sub_name:"TOC",score:92},{sub_name:"IS",score:93}],
+... Area_of_Interest:["DBMS","DWDM","OS"]},
+... {S_id:"S118",S_name:"Maria Hernandez",Branch:"Mech",Age:21,Panel:"E",
+... Address:{Area:"Swargate",City:"Pune",Pincode:412303},
+... Subjects:[{sub_name:"TOC",score:93},{sub_name:"AI",score:91}],
+... Area_of_Interest:["DBMS","Web Dev"]},
+... {S_id:"S119",S_name:"Lilly Martinez",Branch:"ECE",Age:20,Panel:"C",
+... Address:{Area:"Kothrud",City:"Pune",Pincode:412300},
+... Subjects:[{sub_name:"IS",score:81},{sub_name:"AI",score:90}],
+... Area_of_Interest:["AWS","Web Dev"]},
+... {S_id:"S120",S_name:"James Johnson",Branch:"CSE",Age:21,Panel:"C",
+... Address:{Area:"Kothrud",City:"Pune",Pincode:412300},
+... Subjects:[{sub_name:"DBMS",score:83},{sub_name:"AI",score:87}],
+... Area_of_Interest:["AWS","Develops"]},
+... ]);
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("60bb5739ae0512016f998c40"),
+                ObjectId("60bb5739ae0512016f998c41"),
+                ObjectId("60bb5739ae0512016f998c42"),
+                ObjectId("60bb5739ae0512016f998c43"),
+                ObjectId("60bb5739ae0512016f998c44"),
+                ObjectId("60bb5739ae0512016f998c45"),
+                ObjectId("60bb5739ae0512016f998c46"),
+                ObjectId("60bb5739ae0512016f998c47"),
+                ObjectId("60bb5739ae0512016f998c48")
+        ]
+}
+>
+>
+> db.Student.find().pretty()
+{
+        "_id" : ObjectId("60bb5715ae0512016f998c3f"),
+        "S_id" : "S111",
+        "S_name" : "James Smith",
+        "Branch" : "CSE",
+        "Age" : 20,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Kothrud",
+                "City" : "Pune",
+                "Pincode" : 412300
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "DBMS",
+                        "score" : 85
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 81
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c40"),
+        "S_id" : "S112",
+        "S_name" : "Michael Smith",
+        "Branch" : "CSE",
+        "Age" : 20,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "ShivTirth",
+                "City" : "Pune",
+                "Pincode" : 412301
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "DBMS",
+                        "score" : 81
+                },
+                {
+                        "sub_name" : "IS",
+                        "score" : 83
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "AI",
+                "ML"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c41"),
+        "S_id" : "S113",
+        "S_name" : "Robert Smith",
+        "Branch" : "ECE",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Swargate",
+                "City" : "Pune",
+                "Pincode" : 412303
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "AI",
+                        "score" : 79
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 80
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "AI",
+                "ML",
+                "Networking"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c42"),
+        "S_id" : "S114",
+        "S_name" : "Maria Garcia",
+        "Branch" : "MECH",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Shivajinagar",
+                "City" : "Pune",
+                "Pincode" : 412307
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "IS",
+                        "score" : 90
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 82
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c43"),
+        "S_id" : "S115",
+        "S_name" : "David Smith",
+        "Branch" : "ECE",
+        "Age" : 20,
+        "Panel" : "B",
+        "Address" : {
+                "Area" : "Kothrud",
+                "City" : "Pune",
+                "Pincode" : 412300
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 78
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 80
+                }
+        ],
+        "Area_of_Interest" : [
+                "AI",
+                "DS"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c44"),
+        "S_id" : "S116",
+        "S_name" : "Maria Rodriguez",
+        "Branch" : "CSE",
+        "Age" : 21,
+        "Panel" : "B",
+        "Address" : {
+                "Area" : "Sangamvadi",
+                "City" : "Pune",
+                "Pincode" : 412311
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "IS",
+                        "score" : 72
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 75
+                }
+        ],
+        "Area_of_Interest" : [
+                "Networking",
+                "DWDM",
+                "OS"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c45"),
+        "S_id" : "S117",
+        "S_name" : "Mary Smith",
+        "Branch" : "Civil",
+        "Age" : 20,
+        "Panel" : "C",
+        "Address" : {
+                "Area" : "Hadapsar",
+                "City" : "Pune",
+                "Pincode" : 412312
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 92
+                },
+                {
+                        "sub_name" : "IS",
+                        "score" : 93
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "DWDM",
+                "OS"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c46"),
+        "S_id" : "S118",
+        "S_name" : "Maria Hernandez",
+        "Branch" : "Mech",
+        "Age" : 21,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Swargate",
+                "City" : "Pune",
+                "Pincode" : 412303
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 93
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 91
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Web Dev"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c47"),
+        "S_id" : "S119",
+        "S_name" : "Lilly Martinez",
+        "Branch" : "ECE",
+        "Age" : 20,
+        "Panel" : "C",
+        "Address" : {
+                "Area" : "Kothrud",
+                "City" : "Pune",
+                "Pincode" : 412300
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "IS",
+                        "score" : 81
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 90
+                }
+        ],
+        "Area_of_Interest" : [
+                "AWS",
+                "Web Dev"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c48"),
+        "S_id" : "S120",
+        "S_name" : "James Johnson",
+        "Branch" : "CSE",
+        "Age" : 21,
+        "Panel" : "C",
+        "Address" : {
+                "Area" : "Kothrud",
+                "City" : "Pune",
+                "Pincode" : 412300
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "DBMS",
+                        "score" : 83
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 87
+                }
+        ],
+        "Area_of_Interest" : [
+                "AWS",
+                "Develops"
+        ]
+}
+
+-----------------------------------------------------------------------
+Increment Age by 2
+> db.Student.find({S_id:"S111"})
+{ "_id" : ObjectId("60bb5715ae0512016f998c3f"), "S_id" : "S111", "S_name" : "James Smith", "Branch" : "CSE", "Age" : 20, "Panel" : "E", "Address" : { "Area" : "Kothrud", "City" : "Pune", "Pincode" : 412300 }, "Subjects" : [ { "sub_name" : "DBMS", "score" : 85 }, { "sub_name" : "TOC", "score" : 81 } ], "Area_of_Interest" : [ "DBMS", "Networking" ] }
+> db.Student.find({S_id:"S111"}).pretty()
+{
+        "_id" : ObjectId("60bb5715ae0512016f998c3f"),
+        "S_id" : "S111",
+        "S_name" : "James Smith",
+        "Branch" : "CSE",
+        "Age" : 20,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Kothrud",
+                "City" : "Pune",
+                "Pincode" : 412300
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "DBMS",
+                        "score" : 85
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 81
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking"
+        ]
+}
+>
+> db.Student.update({S_id:"S111"},{$inc:{Age:2}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+>
+> db.Student.find({S_id:"S111"}).pretty()
+{
+        "_id" : ObjectId("60bb5715ae0512016f998c3f"),
+        "S_id" : "S111",
+        "S_name" : "James Smith",
+        "Branch" : "CSE",
+        "Age" : 22,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Kothrud",
+                "City" : "Pune",
+                "Pincode" : 412300
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "DBMS",
+                        "score" : 85
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 81
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking"
+        ]
+}
+
+
+-----------------------------------------------------------------------
+Push Area_of_Interest
+> db.Student.update({S_id:"S111"},{$push:{Area_of_Interest:{$each:["NLP"]}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+>
+> db.Student.find({S_id:"S111"}).pretty()
+{
+        "_id" : ObjectId("60bb5715ae0512016f998c3f"),
+        "S_id" : "S111",
+        "S_name" : "James Smith",
+        "Branch" : "CSE",
+        "Age" : 22,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Kothrud",
+                "City" : "Pune",
+                "Pincode" : 412300
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "DBMS",
+                        "score" : 85
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 81
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking",
+                "NLP"
+        ]
+}
+
+
+-----------------------------------------------------------------------
+pop subjects
+> db.Student.update({S_id:"S111"},{$pop:{Subjects:-1}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Student.find({S_id:"S111"}).pretty()
+{
+        "_id" : ObjectId("60bb5715ae0512016f998c3f"),
+        "S_id" : "S111",
+        "S_name" : "James Smith",
+        "Branch" : "CSE",
+        "Age" : 22,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Kothrud",
+                "City" : "Pune",
+                "Pincode" : 412300
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 81
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking",
+                "NLP"
+        ]
+}
+
+-----------------------------------------------------------------------
+Update record
+> db.Student.update({S_id:"S111"},{$set:{Branch:"Mech",Address:{Area:"Hadapsar",Pincode:412312}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+>
+> db.Student.find({S_id:"S111"}).pretty()
+{
+        "_id" : ObjectId("60bb5715ae0512016f998c3f"),
+        "S_id" : "S111",
+        "S_name" : "James Smith",
+        "Branch" : "Mech",
+        "Age" : 22,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Hadapsar",
+                "Pincode" : 412312
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 81
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking",
+                "NLP"
+        ]
+}
+
+
+-----------------------------------------------------------------------
+
+Update Panel B to Panel A
+> db.Student.update({Panel:"B"},{$set:{Panel:"A"}},{multi:true})
+WriteResult({ "nMatched" : 2, "nUpserted" : 0, "nModified" : 2 })
+>
+> db.Student.find({Panel:"A"}).pretty()
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c41"),
+        "S_id" : "S113",
+        "S_name" : "Robert Smith",
+        "Branch" : "ECE",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Swargate",
+                "City" : "Pune",
+                "Pincode" : 412303
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "AI",
+                        "score" : 79
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 80
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "AI",
+                "ML",
+                "Networking"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c42"),
+        "S_id" : "S114",
+        "S_name" : "Maria Garcia",
+        "Branch" : "MECH",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Shivajinagar",
+                "City" : "Pune",
+                "Pincode" : 412307
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "IS",
+                        "score" : 90
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 82
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c43"),
+        "S_id" : "S115",
+        "S_name" : "David Smith",
+        "Branch" : "ECE",
+        "Age" : 20,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Kothrud",
+                "City" : "Pune",
+                "Pincode" : 412300
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 78
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 80
+                }
+        ],
+        "Area_of_Interest" : [
+                "AI",
+                "DS"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c44"),
+        "S_id" : "S116",
+        "S_name" : "Maria Rodriguez",
+        "Branch" : "CSE",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Sangamvadi",
+                "City" : "Pune",
+                "Pincode" : 412311
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "IS",
+                        "score" : 72
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 75
+                }
+        ],
+        "Area_of_Interest" : [
+                "Networking",
+                "DWDM",
+                "OS"
+        ]
+}
+
+
+-----------------------------------------------------------------------
+
+Update with upsert 
+
+> db.Student.update({S_id:"S121"},{$set:{Branch:"CSE",Panel:"A"}},{upsert:true})
+WriteResult({
+        "nMatched" : 0,
+        "nUpserted" : 1,
+        "nModified" : 0,
+        "_id" : ObjectId("60bb5830f5322caf711ed8b1")
+})
+>
+> db.Student.find({S_id:"S121"}).pretty()
+{
+        "_id" : ObjectId("60bb5830f5322caf711ed8b1"),
+        "S_id" : "S121",
+        "Branch" : "CSE",
+        "Panel" : "A"
+}
+>
+> db.Student.remove({Panel:"C"})
+WriteResult({ "nRemoved" : 3 })
+>
+> db.Student.find({"Subjects.score":{$gte:85}})
+{ "_id" : ObjectId("60bb5739ae0512016f998c42"), "S_id" : "S114", "S_name" : "Maria Garcia", "Branch" : "MECH", "Age" : 21, "Panel" : "A", "Address" : { "Area" : "Shivajinagar", "City" : "Pune", "Pincode" : 412307 }, "Subjects" : [ { "sub_name" : "IS", "score" : 90 }, { "sub_name" : "AI", "score" : 82 } ], "Area_of_Interest" : [ "DBMS", "Networking" ] }
+{ "_id" : ObjectId("60bb5739ae0512016f998c46"), "S_id" : "S118", "S_name" : "Maria Hernandez", "Branch" : "Mech", "Age" : 21, "Panel" : "E", "Address" : { "Area" : "Swargate", "City" : "Pune", "Pincode" : 412303 }, "Subjects" : [ { "sub_name" : "TOC", "score" : 93 }, { "sub_name" : "AI", "score" : 91 } ], "Area_of_Interest" : [ "DBMS", "Web Dev" ] }
+> db.Student.find({"Subjects.score":{$gte:85}}).pretty()
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c42"),
+        "S_id" : "S114",
+        "S_name" : "Maria Garcia",
+        "Branch" : "MECH",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Shivajinagar",
+                "City" : "Pune",
+                "Pincode" : 412307
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "IS",
+                        "score" : 90
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 82
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c46"),
+        "S_id" : "S118",
+        "S_name" : "Maria Hernandez",
+        "Branch" : "Mech",
+        "Age" : 21,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Swargate",
+                "City" : "Pune",
+                "Pincode" : 412303
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 93
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 91
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Web Dev"
+        ]
+}
+
+
+-----------------------------------------------------------------------
+Use $gt, $gte, $lt
+
+> db.Student.find({"Subjects.score":{$gt:90}}).pretty()
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c46"),
+        "S_id" : "S118",
+        "S_name" : "Maria Hernandez",
+        "Branch" : "Mech",
+        "Age" : 21,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Swargate",
+                "City" : "Pune",
+                "Pincode" : 412303
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 93
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 91
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Web Dev"
+        ]
+}
+>
+>
+> db.Student.find({"Subjects.score":{$lt:80}}).pretty()
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c41"),
+        "S_id" : "S113",
+        "S_name" : "Robert Smith",
+        "Branch" : "ECE",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Swargate",
+                "City" : "Pune",
+                "Pincode" : 412303
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "AI",
+                        "score" : 79
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 80
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "AI",
+                "ML",
+                "Networking"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c43"),
+        "S_id" : "S115",
+        "S_name" : "David Smith",
+        "Branch" : "ECE",
+        "Age" : 20,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Kothrud",
+                "City" : "Pune",
+                "Pincode" : 412300
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 78
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 80
+                }
+        ],
+        "Area_of_Interest" : [
+                "AI",
+                "DS"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c44"),
+        "S_id" : "S116",
+        "S_name" : "Maria Rodriguez",
+        "Branch" : "CSE",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Sangamvadi",
+                "City" : "Pune",
+                "Pincode" : 412311
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "IS",
+                        "score" : 72
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 75
+                }
+        ],
+        "Area_of_Interest" : [
+                "Networking",
+                "DWDM",
+                "OS"
+        ]
+}
+>
+>
+>
+> db.Student.find({Age:{$gt:20}}).pretty()
+{
+        "_id" : ObjectId("60bb5715ae0512016f998c3f"),
+        "S_id" : "S111",
+        "S_name" : "James Smith",
+        "Branch" : "Mech",
+        "Age" : 22,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Hadapsar",
+                "Pincode" : 412312
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 81
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking",
+                "NLP"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c41"),
+        "S_id" : "S113",
+        "S_name" : "Robert Smith",
+        "Branch" : "ECE",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Swargate",
+                "City" : "Pune",
+                "Pincode" : 412303
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "AI",
+                        "score" : 79
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 80
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "AI",
+                "ML",
+                "Networking"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c42"),
+        "S_id" : "S114",
+        "S_name" : "Maria Garcia",
+        "Branch" : "MECH",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Shivajinagar",
+                "City" : "Pune",
+                "Pincode" : 412307
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "IS",
+                        "score" : 90
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 82
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c44"),
+        "S_id" : "S116",
+        "S_name" : "Maria Rodriguez",
+        "Branch" : "CSE",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Sangamvadi",
+                "City" : "Pune",
+                "Pincode" : 412311
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "IS",
+                        "score" : 72
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 75
+                }
+        ],
+        "Area_of_Interest" : [
+                "Networking",
+                "DWDM",
+                "OS"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c46"),
+        "S_id" : "S118",
+        "S_name" : "Maria Hernandez",
+        "Branch" : "Mech",
+        "Age" : 21,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Swargate",
+                "City" : "Pune",
+                "Pincode" : 412303
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 93
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 91
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Web Dev"
+        ]
+}
+
+
+-----------------------------------------------------------------------
+
+Record starting with M
+> db.Student.find({S_name:{$regex:/^M/}}).pretty()
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c40"),
+        "S_id" : "S112",
+        "S_name" : "Michael Smith",
+        "Branch" : "CSE",
+        "Age" : 20,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "ShivTirth",
+                "City" : "Pune",
+                "Pincode" : 412301
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "DBMS",
+                        "score" : 81
+                },
+                {
+                        "sub_name" : "IS",
+                        "score" : 83
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "AI",
+                "ML"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c42"),
+        "S_id" : "S114",
+        "S_name" : "Maria Garcia",
+        "Branch" : "MECH",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Shivajinagar",
+                "City" : "Pune",
+                "Pincode" : 412307
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "IS",
+                        "score" : 90
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 82
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c44"),
+        "S_id" : "S116",
+        "S_name" : "Maria Rodriguez",
+        "Branch" : "CSE",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Sangamvadi",
+                "City" : "Pune",
+                "Pincode" : 412311
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "IS",
+                        "score" : 72
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 75
+                }
+        ],
+        "Area_of_Interest" : [
+                "Networking",
+                "DWDM",
+                "OS"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c46"),
+        "S_id" : "S118",
+        "S_name" : "Maria Hernandez",
+        "Branch" : "Mech",
+        "Age" : 21,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Swargate",
+                "City" : "Pune",
+                "Pincode" : 412303
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 93
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 91
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Web Dev"
+        ]
+}
+>
+>
+> db.Student.find({S_name:{$regex:/z$/}}).pretty()
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c44"),
+        "S_id" : "S116",
+        "S_name" : "Maria Rodriguez",
+        "Branch" : "CSE",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Sangamvadi",
+                "City" : "Pune",
+                "Pincode" : 412311
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "IS",
+                        "score" : 72
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 75
+                }
+        ],
+        "Area_of_Interest" : [
+                "Networking",
+                "DWDM",
+                "OS"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c46"),
+        "S_id" : "S118",
+        "S_name" : "Maria Hernandez",
+        "Branch" : "Mech",
+        "Age" : 21,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Swargate",
+                "City" : "Pune",
+                "Pincode" : 412303
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 93
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 91
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Web Dev"
+        ]
+}
+
+
+-----------------------------------------------------------------------
+Total number od Doc
+> db.Student.count()
+8
+
+
+-----------------------------------------------------------------------
+Doc with Area_of_Interest having four value
+> db.Student.find({Area_of_Interest:{$size:4}}).pretty()
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c41"),
+        "S_id" : "S113",
+        "S_name" : "Robert Smith",
+        "Branch" : "ECE",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Swargate",
+                "City" : "Pune",
+                "Pincode" : 412303
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "AI",
+                        "score" : 79
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 80
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "AI",
+                "ML",
+                "Networking"
+        ]
+}
+
+
+-----------------------------------------------------------------------
+Display only name
+> db.Student.find({},{_id:0,S_name:1}).pretty()
+{ "S_name" : "James Smith" }
+{ "S_name" : "Michael Smith" }
+{ "S_name" : "Robert Smith" }
+{ "S_name" : "Maria Garcia" }
+{ "S_name" : "David Smith" }
+{ "S_name" : "Maria Rodriguez" }
+{ "S_name" : "Maria Hernandez" }
+{ }
+
+
+-----------------------------------------------------------------------
+Sorting Doc in descending
+> db.Student.find().sort({S_name:-1}).pretty()
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c41"),
+        "S_id" : "S113",
+        "S_name" : "Robert Smith",
+        "Branch" : "ECE",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Swargate",
+                "City" : "Pune",
+                "Pincode" : 412303
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "AI",
+                        "score" : 79
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 80
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "AI",
+                "ML",
+                "Networking"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c40"),
+        "S_id" : "S112",
+        "S_name" : "Michael Smith",
+        "Branch" : "CSE",
+        "Age" : 20,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "ShivTirth",
+                "City" : "Pune",
+                "Pincode" : 412301
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "DBMS",
+                        "score" : 81
+                },
+                {
+                        "sub_name" : "IS",
+                        "score" : 83
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "AI",
+                "ML"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c44"),
+        "S_id" : "S116",
+        "S_name" : "Maria Rodriguez",
+        "Branch" : "CSE",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Sangamvadi",
+                "City" : "Pune",
+                "Pincode" : 412311
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "IS",
+                        "score" : 72
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 75
+                }
+        ],
+        "Area_of_Interest" : [
+                "Networking",
+                "DWDM",
+                "OS"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c46"),
+        "S_id" : "S118",
+        "S_name" : "Maria Hernandez",
+        "Branch" : "Mech",
+        "Age" : 21,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Swargate",
+                "City" : "Pune",
+                "Pincode" : 412303
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 93
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 91
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Web Dev"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c42"),
+        "S_id" : "S114",
+        "S_name" : "Maria Garcia",
+        "Branch" : "MECH",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Shivajinagar",
+                "City" : "Pune",
+                "Pincode" : 412307
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "IS",
+                        "score" : 90
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 82
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5715ae0512016f998c3f"),
+        "S_id" : "S111",
+        "S_name" : "James Smith",
+        "Branch" : "Mech",
+        "Age" : 22,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Hadapsar",
+                "Pincode" : 412312
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 81
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking",
+                "NLP"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c43"),
+        "S_id" : "S115",
+        "S_name" : "David Smith",
+        "Branch" : "ECE",
+        "Age" : 20,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Kothrud",
+                "City" : "Pune",
+                "Pincode" : 412300
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 78
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 80
+                }
+        ],
+        "Area_of_Interest" : [
+                "AI",
+                "DS"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5830f5322caf711ed8b1"),
+        "S_id" : "S121",
+        "Branch" : "CSE",
+        "Panel" : "A"
+}
+
+
+-----------------------------------------------------------------------
+Query using and operation
+> db.Student.find({$and:[{Age:{$gt:20}},{Panel:"A"}]}).pretty()
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c41"),
+        "S_id" : "S113",
+        "S_name" : "Robert Smith",
+        "Branch" : "ECE",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Swargate",
+                "City" : "Pune",
+                "Pincode" : 412303
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "AI",
+                        "score" : 79
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 80
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "AI",
+                "ML",
+                "Networking"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c42"),
+        "S_id" : "S114",
+        "S_name" : "Maria Garcia",
+        "Branch" : "MECH",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Shivajinagar",
+                "City" : "Pune",
+                "Pincode" : 412307
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "IS",
+                        "score" : 90
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 82
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c44"),
+        "S_id" : "S116",
+        "S_name" : "Maria Rodriguez",
+        "Branch" : "CSE",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Sangamvadi",
+                "City" : "Pune",
+                "Pincode" : 412311
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "IS",
+                        "score" : 72
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 75
+                }
+        ],
+        "Area_of_Interest" : [
+                "Networking",
+                "DWDM",
+                "OS"
+        ]
+}
+
+
+-----------------------------------------------------------------------
+
+Query using or operation
+> db.Student.find({$or:[{Panel:"E"},{Panel:"A"}]}).pretty()
+{
+        "_id" : ObjectId("60bb5715ae0512016f998c3f"),
+        "S_id" : "S111",
+        "S_name" : "James Smith",
+        "Branch" : "Mech",
+        "Age" : 22,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Hadapsar",
+                "Pincode" : 412312
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 81
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking",
+                "NLP"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c40"),
+        "S_id" : "S112",
+        "S_name" : "Michael Smith",
+        "Branch" : "CSE",
+        "Age" : 20,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "ShivTirth",
+                "City" : "Pune",
+                "Pincode" : 412301
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "DBMS",
+                        "score" : 81
+                },
+                {
+                        "sub_name" : "IS",
+                        "score" : 83
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "AI",
+                "ML"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c41"),
+        "S_id" : "S113",
+        "S_name" : "Robert Smith",
+        "Branch" : "ECE",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Swargate",
+                "City" : "Pune",
+                "Pincode" : 412303
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "AI",
+                        "score" : 79
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 80
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "AI",
+                "ML",
+                "Networking"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c42"),
+        "S_id" : "S114",
+        "S_name" : "Maria Garcia",
+        "Branch" : "MECH",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Shivajinagar",
+                "City" : "Pune",
+                "Pincode" : 412307
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "IS",
+                        "score" : 90
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 82
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c43"),
+        "S_id" : "S115",
+        "S_name" : "David Smith",
+        "Branch" : "ECE",
+        "Age" : 20,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Kothrud",
+                "City" : "Pune",
+                "Pincode" : 412300
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 78
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 80
+                }
+        ],
+        "Area_of_Interest" : [
+                "AI",
+                "DS"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c44"),
+        "S_id" : "S116",
+        "S_name" : "Maria Rodriguez",
+        "Branch" : "CSE",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Sangamvadi",
+                "City" : "Pune",
+                "Pincode" : 412311
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "IS",
+                        "score" : 72
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 75
+                }
+        ],
+        "Area_of_Interest" : [
+                "Networking",
+                "DWDM",
+                "OS"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c46"),
+        "S_id" : "S118",
+        "S_name" : "Maria Hernandez",
+        "Branch" : "Mech",
+        "Age" : 21,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Swargate",
+                "City" : "Pune",
+                "Pincode" : 412303
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 93
+                },
+                {
+                        "sub_name" : "AI",
+                        "score" : 91
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Web Dev"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5830f5322caf711ed8b1"),
+        "S_id" : "S121",
+        "Branch" : "CSE",
+        "Panel" : "A"
+}
+
+
+-----------------------------------------------------------------------
+Display only two documents
+> db.Student.find().pretty().limit(2)
+{
+        "_id" : ObjectId("60bb5715ae0512016f998c3f"),
+        "S_id" : "S111",
+        "S_name" : "James Smith",
+        "Branch" : "Mech",
+        "Age" : 22,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "Hadapsar",
+                "Pincode" : 412312
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "TOC",
+                        "score" : 81
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "Networking",
+                "NLP"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c40"),
+        "S_id" : "S112",
+        "S_name" : "Michael Smith",
+        "Branch" : "CSE",
+        "Age" : 20,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "ShivTirth",
+                "City" : "Pune",
+                "Pincode" : 412301
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "DBMS",
+                        "score" : 81
+                },
+                {
+                        "sub_name" : "IS",
+                        "score" : 83
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "AI",
+                "ML"
+        ]
+}
+
+
+-----------------------------------------------------------------------
+Query using all operation
+> db.Student.find({Area_of_Interest:{$all:["DBMS","ML"]}}).pretty()
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c40"),
+        "S_id" : "S112",
+        "S_name" : "Michael Smith",
+        "Branch" : "CSE",
+        "Age" : 20,
+        "Panel" : "E",
+        "Address" : {
+                "Area" : "ShivTirth",
+                "City" : "Pune",
+                "Pincode" : 412301
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "DBMS",
+                        "score" : 81
+                },
+                {
+                        "sub_name" : "IS",
+                        "score" : 83
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "AI",
+                "ML"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5739ae0512016f998c41"),
+        "S_id" : "S113",
+        "S_name" : "Robert Smith",
+        "Branch" : "ECE",
+        "Age" : 21,
+        "Panel" : "A",
+        "Address" : {
+                "Area" : "Swargate",
+                "City" : "Pune",
+                "Pincode" : 412303
+        },
+        "Subjects" : [
+                {
+                        "sub_name" : "AI",
+                        "score" : 79
+                },
+                {
+                        "sub_name" : "TOC",
+                        "score" : 80
+                }
+        ],
+        "Area_of_Interest" : [
+                "DBMS",
+                "AI",
+                "ML",
+                "Networking"
+        ]
+}
+>
+
+
+
+-----------------------------------------------------------------------
+
+Drop Document
+> db.Customer.drop()
+true
+

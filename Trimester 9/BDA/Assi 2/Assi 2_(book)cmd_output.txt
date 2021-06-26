@@ -1,0 +1,893 @@
+
+Indexes
+
+***************************************************************
+
+C:\Users\kalar>mongoimport --db=company --collection=book --file=F:\T9\BDA\books.json
+2021-04-26T00:05:23.163+0530    connected to: mongodb://localhost/
+2021-04-26T00:05:23.298+0530    431 document(s) imported successfully. 0 document(s) failed to import.
+
+******************************************************************
+
+> use company
+switched to db company
+> show collections
+book
+employee
+>
+> db.book.find().pretty().limit(2)
+{
+        "_id" : 3,
+        "title" : "Specification by Example",
+        "isbn" : "1617290084",
+        "pageCount" : 0,
+        "publishedDate" : ISODate("2011-06-03T07:00:00Z"),
+        "thumbnailUrl" : "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/adzic.jpg",
+        "status" : "PUBLISH",
+        "authors" : [
+                "Gojko Adzic"
+        ],
+        "categories" : [
+                "Software Engineering"
+        ]
+}
+{
+        "_id" : 8,
+        "title" : "Flex on Java",
+        "isbn" : "1933988797",
+        "pageCount" : 265,
+        "publishedDate" : ISODate("2010-10-15T07:00:00Z"),
+        "thumbnailUrl" : "https://s3.amazonaws.com/AKIAJC5RLADLUMVRPFDQ.book-thumb-images/allmon.jpg",
+        "shortDescription" : "   A beautifully written book that is a must have for every Java Developer.       Ashish Kulkarni, Technical Director, E-Business Software Solutions Ltd.",
+        "longDescription" : "In the demo, a hip designer, a sharply-dressed marketer, and a smiling, relaxed developer sip lattes and calmly discuss how Flex is going to make customers happy and shorten the workday   all while boosting the bottom line. The software systems they're using have been carefully selected and built from the ground up to work together seamlessly. There are no legacy systems, data, or competing business concerns to manage.    Cut to reality.    You're a Java developer. The marketing guy tells you that \"corporate\" wants a Flex-based site and you have to deliver it on top of what you already have. Your budget  Don't even ask. \"Make it look like the Discovery channel or something.\"    Flex on Java assumes you live in the real world   not the demo. This unique book shows you how to refactor an existing web application using the server-side you already know. You'll learn to use Flex 3 in concert with Spring, EJB 3, POJOs, JMS, and other standard technologies. Wherever possible, the examples use free or open source software.    The authors start with a typical Java web app and show you how to add a rich Flex interface. You also learn how to integrate Flex into your server-side Java via the BlazeDS framework, Adobe's open-source remoting and web messaging technology for Flex.    The book shows you how to deploy to not only the web but also to the desktop using the Adobe Integrated Runtime (AIR). You will learn how to integrate Flex into your existing applications in order to build a next generation application that will delight users.    Flex on Java is approachable for anyone beginning Java and Flex development.    ",
+        "status" : "PUBLISH",
+        "authors" : [
+                "Bernerd Allmon",
+                "Jeremy Anderson"
+        ],
+        "categories" : [
+                "Internet"
+        ]
+}
+> db.book.count()
+431
+>
+
+> db.book.getIndexes()
+[ { "v" : 2, "key" : { "_id" : 1 }, "name" : "_id_" } ]
+>
+
+******************************************************************
+
+> db.book.find({"isbn":1933988495}).explain()
+{
+        "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "company.book",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "isbn" : {
+                                "$eq" : 1933988495
+                        }
+                },
+                "queryHash" : "6966B058",
+                "planCacheKey" : "6966B058",
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "isbn" : {
+                                        "$eq" : 1933988495
+                                }
+                        },
+                        "direction" : "forward"
+                },
+                "rejectedPlans" : [ ]
+        },
+        "command" : {
+                "find" : "book",
+                "filter" : {
+                        "isbn" : 1933988495
+                },
+                "$db" : "company"
+        },
+        "serverInfo" : {
+                "host" : "DESKTOP-43A64G1",
+                "port" : 27017,
+                "version" : "4.9.0-rc0",
+                "gitVersion" : "64540ae7bb8b4298c780ecc154f866ddbc8d676c"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1
+}
+>
+
+> db.book.find({"isbn":1933988495}).explain("executionStats")
+{
+        "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "company.book",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "isbn" : {
+                                "$eq" : 1933988495
+                        }
+                },
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "isbn" : {
+                                        "$eq" : 1933988495
+                                }
+                        },
+                        "direction" : "forward"
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 0,
+                "executionTimeMillis" : 0,
+                "totalKeysExamined" : 0,
+                "totalDocsExamined" : 431,
+                "executionStages" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "isbn" : {
+                                        "$eq" : 1933988495
+                                }
+                        },
+                        "nReturned" : 0,
+                        "executionTimeMillisEstimate" : 0,
+                        "works" : 433,
+                        "advanced" : 0,
+                        "needTime" : 432,
+                        "needYield" : 0,
+                        "saveState" : 0,
+                        "restoreState" : 0,
+                        "isEOF" : 1,
+                        "direction" : "forward",
+                        "docsExamined" : 431
+                }
+        },
+        "command" : {
+                "find" : "book",
+                "filter" : {
+                        "isbn" : 1933988495
+                },
+                "$db" : "company"
+        },
+        "serverInfo" : {
+                "host" : "DESKTOP-43A64G1",
+                "port" : 27017,
+                "version" : "4.9.0-rc0",
+                "gitVersion" : "64540ae7bb8b4298c780ecc154f866ddbc8d676c"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1
+}
+>
+
+******************************************************************
+
+> db.book.find({"isbn":1933988495}).explain("executionStats")
+{
+        "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "company.book",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "isbn" : {
+                                "$eq" : 1933988495
+                        }
+                },
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "isbn" : {
+                                        "$eq" : 1933988495
+                                }
+                        },
+                        "direction" : "forward"
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 0,
+                "executionTimeMillis" : 0,
+                "totalKeysExamined" : 0,
+                "totalDocsExamined" : 431,
+                "executionStages" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "isbn" : {
+                                        "$eq" : 1933988495
+                                }
+                        },
+                        "nReturned" : 0,
+                        "executionTimeMillisEstimate" : 0,
+                        "works" : 433,
+                        "advanced" : 0,
+                        "needTime" : 432,
+                        "needYield" : 0,
+                        "saveState" : 0,
+                        "restoreState" : 0,
+                        "isEOF" : 1,
+                        "direction" : "forward",
+                        "docsExamined" : 431
+                }
+        },
+        "command" : {
+                "find" : "book",
+                "filter" : {
+                        "isbn" : 1933988495
+                },
+                "$db" : "company"
+        },
+        "serverInfo" : {
+                "host" : "DESKTOP-43A64G1",
+                "port" : 27017,
+                "version" : "4.9.0-rc0",
+                "gitVersion" : "64540ae7bb8b4298c780ecc154f866ddbc8d676c"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1
+}
+>
+>
+
+******************************************************************
+
+> db.book.find({"title":"ASP.NET MVC in Action"}).explain("executionStats")
+{
+        "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "company.book",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "title" : {
+                                "$eq" : "ASP.NET MVC in Action"
+                        }
+                },
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "title" : {
+                                        "$eq" : "ASP.NET MVC in Action"
+                                }
+                        },
+                        "direction" : "forward"
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 1,
+                "executionTimeMillis" : 0,
+                "totalKeysExamined" : 0,
+                "totalDocsExamined" : 431,
+                "executionStages" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "title" : {
+                                        "$eq" : "ASP.NET MVC in Action"
+                                }
+                        },
+                        "nReturned" : 1,
+                        "executionTimeMillisEstimate" : 0,
+                        "works" : 433,
+                        "advanced" : 1,
+                        "needTime" : 431,
+                        "needYield" : 0,
+                        "saveState" : 0,
+                        "restoreState" : 0,
+                        "isEOF" : 1,
+                        "direction" : "forward",
+                        "docsExamined" : 431
+                }
+        },
+        "command" : {
+                "find" : "book",
+                "filter" : {
+                        "title" : "ASP.NET MVC in Action"
+                },
+                "$db" : "company"
+        },
+        "serverInfo" : {
+                "host" : "DESKTOP-43A64G1",
+                "port" : 27017,
+                "version" : "4.9.0-rc0",
+                "gitVersion" : "64540ae7bb8b4298c780ecc154f866ddbc8d676c"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1
+}
+>
+
+******************************************************************
+> db.book.find({"categories":"Microsoft .NET"}).explain("executionStats")
+{
+        "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "company.book",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "categories" : {
+                                "$eq" : "Microsoft .NET"
+                        }
+                },
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "categories" : {
+                                        "$eq" : "Microsoft .NET"
+                                }
+                        },
+                        "direction" : "forward"
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 34,
+                "executionTimeMillis" : 1,
+                "totalKeysExamined" : 0,
+                "totalDocsExamined" : 431,
+                "executionStages" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "categories" : {
+                                        "$eq" : "Microsoft .NET"
+                                }
+                        },
+                        "nReturned" : 34,
+                        "executionTimeMillisEstimate" : 0,
+                        "works" : 433,
+                        "advanced" : 34,
+                        "needTime" : 398,
+                        "needYield" : 0,
+                        "saveState" : 0,
+                        "restoreState" : 0,
+                        "isEOF" : 1,
+                        "direction" : "forward",
+                        "docsExamined" : 431
+                }
+        },
+        "command" : {
+                "find" : "book",
+                "filter" : {
+                        "categories" : "Microsoft .NET"
+                },
+                "$db" : "company"
+        },
+        "serverInfo" : {
+                "host" : "DESKTOP-43A64G1",
+                "port" : 27017,
+                "version" : "4.9.0-rc0",
+                "gitVersion" : "64540ae7bb8b4298c780ecc154f866ddbc8d676c"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1
+}
+>
+
+******************************************************************
+******************************************************************
+Single Field Index
+
+> db.book.createIndex({"isbn":1},{name:"isbn_index"})
+{
+        "numIndexesBefore" : 1,
+        "numIndexesAfter" : 2,
+        "createdCollectionAutomatically" : false,
+        "ok" : 1
+}
+
+
+Compound Field Index
+
+> db.book.createIndex({"title":1, publisedDate:-1},{name:"title_index"})
+{
+        "numIndexesBefore" : 2,
+        "numIndexesAfter" : 3,
+        "createdCollectionAutomatically" : false,
+        "ok" : 1
+}
+
+
+Multikey Index
+
+> db.book.createIndex({"categories":1},{name:"categories_index"})
+{
+        "numIndexesBefore" : 3,
+        "numIndexesAfter" : 4,
+        "createdCollectionAutomatically" : false,
+        "ok" : 1
+}
+>
+>
+
+******************************************************************
+******************************************************************
+
+> db.book.getIndexes()
+[
+        {
+                "v" : 2,
+                "key" : {
+                        "_id" : 1
+                },
+                "name" : "_id_"
+        },
+        {
+                "v" : 2,
+                "key" : {
+                        "isbn" : 1
+                },
+                "name" : "isbn_index"
+        },
+        {
+                "v" : 2,
+                "key" : {
+                        "title" : 1,
+                        "publisedDate" : -1
+                },
+                "name" : "title_index"
+        },
+        {
+                "v" : 2,
+                "key" : {
+                        "categories" : 1
+                },
+                "name" : "categories_index"
+        }
+]
+>
+
+******************************************************************
+
+> db.book.find({"isbn":1933988495}).hint("isbn_index").explain("executionStats")
+{
+        "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "company.book",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "isbn" : {
+                                "$eq" : 1933988495
+                        }
+                },
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "FETCH",
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "keyPattern" : {
+                                        "isbn" : 1
+                                },
+                                "indexName" : "isbn_index",
+                                "isMultiKey" : false,
+                                "multiKeyPaths" : {
+                                        "isbn" : [ ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "isbn" : [
+                                                "[1933988495.0, 1933988495.0]"
+                                        ]
+                                }
+                        }
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 0,
+                "executionTimeMillis" : 33,
+                "totalKeysExamined" : 0,
+                "totalDocsExamined" : 0,
+                "executionStages" : {
+                        "stage" : "FETCH",
+                        "nReturned" : 0,
+                        "executionTimeMillisEstimate" : 34,
+                        "works" : 1,
+                        "advanced" : 0,
+                        "needTime" : 0,
+                        "needYield" : 0,
+                        "saveState" : 0,
+                        "restoreState" : 0,
+                        "isEOF" : 1,
+                        "docsExamined" : 0,
+                        "alreadyHasObj" : 0,
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "nReturned" : 0,
+                                "executionTimeMillisEstimate" : 34,
+                                "works" : 1,
+                                "advanced" : 0,
+                                "needTime" : 0,
+                                "needYield" : 0,
+                                "saveState" : 0,
+                                "restoreState" : 0,
+                                "isEOF" : 1,
+                                "keyPattern" : {
+                                        "isbn" : 1
+                                },
+                                "indexName" : "isbn_index",
+                                "isMultiKey" : false,
+                                "multiKeyPaths" : {
+                                        "isbn" : [ ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "isbn" : [
+                                                "[1933988495.0, 1933988495.0]"
+                                        ]
+                                },
+                                "keysExamined" : 0,
+                                "seeks" : 1,
+                                "dupsTested" : 0,
+                                "dupsDropped" : 0
+                        }
+                }
+        },
+        "command" : {
+                "find" : "book",
+                "filter" : {
+                        "isbn" : 1933988495
+                },
+                "hint" : "isbn_index",
+                "$db" : "company"
+        },
+        "serverInfo" : {
+                "host" : "DESKTOP-43A64G1",
+                "port" : 27017,
+                "version" : "4.9.0-rc0",
+                "gitVersion" : "64540ae7bb8b4298c780ecc154f866ddbc8d676c"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1
+}
+>
+
+******************************************************************
+
+> db.book.find({"title":"ASP.NET MVC in Action"}).hint("title_index").explain("executionStats")
+{
+        "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "company.book",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "title" : {
+                                "$eq" : "ASP.NET MVC in Action"
+                        }
+                },
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "FETCH",
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "keyPattern" : {
+                                        "title" : 1,
+                                        "publisedDate" : -1
+                                },
+                                "indexName" : "title_index",
+                                "isMultiKey" : false,
+                                "multiKeyPaths" : {
+                                        "title" : [ ],
+                                        "publisedDate" : [ ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "title" : [
+                                                "[\"ASP.NET MVC in Action\", \"ASP.NET MVC in Action\"]"
+                                        ],
+                                        "publisedDate" : [
+                                                "[MaxKey, MinKey]"
+                                        ]
+                                }
+                        }
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 1,
+                "executionTimeMillis" : 14,
+                "totalKeysExamined" : 1,
+                "totalDocsExamined" : 1,
+                "executionStages" : {
+                        "stage" : "FETCH",
+                        "nReturned" : 1,
+                        "executionTimeMillisEstimate" : 10,
+                        "works" : 2,
+                        "advanced" : 1,
+                        "needTime" : 0,
+                        "needYield" : 0,
+                        "saveState" : 0,
+                        "restoreState" : 0,
+                        "isEOF" : 1,
+                        "docsExamined" : 1,
+                        "alreadyHasObj" : 0,
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "nReturned" : 1,
+                                "executionTimeMillisEstimate" : 10,
+                                "works" : 2,
+                                "advanced" : 1,
+                                "needTime" : 0,
+                                "needYield" : 0,
+                                "saveState" : 0,
+                                "restoreState" : 0,
+                                "isEOF" : 1,
+                                "keyPattern" : {
+                                        "title" : 1,
+                                        "publisedDate" : -1
+                                },
+                                "indexName" : "title_index",
+                                "isMultiKey" : false,
+                                "multiKeyPaths" : {
+                                        "title" : [ ],
+                                        "publisedDate" : [ ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "title" : [
+                                                "[\"ASP.NET MVC in Action\", \"ASP.NET MVC in Action\"]"
+                                        ],
+                                        "publisedDate" : [
+                                                "[MaxKey, MinKey]"
+                                        ]
+                                },
+                                "keysExamined" : 1,
+                                "seeks" : 1,
+                                "dupsTested" : 0,
+                                "dupsDropped" : 0
+                        }
+                }
+        },
+        "command" : {
+                "find" : "book",
+                "filter" : {
+                        "title" : "ASP.NET MVC in Action"
+                },
+                "hint" : "title_index",
+                "$db" : "company"
+        },
+        "serverInfo" : {
+                "host" : "DESKTOP-43A64G1",
+                "port" : 27017,
+                "version" : "4.9.0-rc0",
+                "gitVersion" : "64540ae7bb8b4298c780ecc154f866ddbc8d676c"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1
+}
+>
+
+******************************************************************
+> db.book.find({"categories":"Microsoft .NET"}).hint("categories_index").explain("executionStats")
+{
+        "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "company.book",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "categories" : {
+                                "$eq" : "Microsoft .NET"
+                        }
+                },
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "FETCH",
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "keyPattern" : {
+                                        "categories" : 1
+                                },
+                                "indexName" : "categories_index",
+                                "isMultiKey" : true,
+                                "multiKeyPaths" : {
+                                        "categories" : [
+                                                "categories"
+                                        ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "categories" : [
+                                                "[\"Microsoft .NET\", \"Microsoft .NET\"]"
+                                        ]
+                                }
+                        }
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 34,
+                "executionTimeMillis" : 16,
+                "totalKeysExamined" : 34,
+                "totalDocsExamined" : 34,
+                "executionStages" : {
+                        "stage" : "FETCH",
+                        "nReturned" : 34,
+                        "executionTimeMillisEstimate" : 11,
+                        "works" : 35,
+                        "advanced" : 34,
+                        "needTime" : 0,
+                        "needYield" : 0,
+                        "saveState" : 1,
+                        "restoreState" : 1,
+                        "isEOF" : 1,
+                        "docsExamined" : 34,
+                        "alreadyHasObj" : 0,
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "nReturned" : 34,
+                                "executionTimeMillisEstimate" : 11,
+                                "works" : 35,
+                                "advanced" : 34,
+                                "needTime" : 0,
+                                "needYield" : 0,
+                                "saveState" : 1,
+                                "restoreState" : 1,
+                                "isEOF" : 1,
+                                "keyPattern" : {
+                                        "categories" : 1
+                                },
+                                "indexName" : "categories_index",
+                                "isMultiKey" : true,
+                                "multiKeyPaths" : {
+                                        "categories" : [
+                                                "categories"
+                                        ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "categories" : [
+                                                "[\"Microsoft .NET\", \"Microsoft .NET\"]"
+                                        ]
+                                },
+                                "keysExamined" : 34,
+                                "seeks" : 1,
+                                "dupsTested" : 34,
+                                "dupsDropped" : 0
+                        }
+                }
+        },
+        "command" : {
+                "find" : "book",
+                "filter" : {
+                        "categories" : "Microsoft .NET"
+                },
+                "hint" : "categories_index",
+                "$db" : "company"
+        },
+        "serverInfo" : {
+                "host" : "DESKTOP-43A64G1",
+                "port" : 27017,
+                "version" : "4.9.0-rc0",
+                "gitVersion" : "64540ae7bb8b4298c780ecc154f866ddbc8d676c"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1
+}
+>

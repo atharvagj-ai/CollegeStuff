@@ -1,0 +1,237 @@
+use company
+
+db.createCollection("employee")
+
+db.employee.insert({
+firstName:"James",lastName:"Smith",age:20,
+Address:{streetAddress:"777 Brockton Avenue",city:"Abington",state:"MA",postalCode:2351},
+phoneNumber:[{type:"home",number:4661632082},{type:"fax",number:2899829351}],
+emailAddress:["jamesS@gamil.com","SJames@gmail.com"]
+});
+
+
+db.employee.insertMany([
+{firstName:"Michael",lastName:"Smith",age:21,
+Address:{streetAddress:"279 Troy Road",city:"East Greenbush",state:"NY",postalCode:12061},
+phoneNumber:[{type:"home",number:9808191199},{type:"fax",number:7797374941}],
+emailAddress:["MichS@gamil.com","SMich@gmail.com"]},
+{firstName:"Robert",lastName:"Smith",age:22,
+Address:{streetAddress:"1400 Farmington Ave",city:"Bristol",state:"CT",postalCode:6010},
+phoneNumber:[{type:"home",number:1761266808},{type:"fax",number:9841911399}],
+emailAddress:["Robert@gamil.com","SRob@gmail.com"]},
+{firstName:"Maria",lastName:"Garcia",age:22,
+Address:{streetAddress:"515 Sawmill Road",city:"West Haven",state:"CT",postalCode:6516},
+phoneNumber:[{type:"home",number:8215484894},{type:"fax",number:6754261777}],
+emailAddress:["MariaG@gamil.com","GMaria@gmail.com"]},
+{firstName:"David",lastName:"Smith",age:21,
+Address:{streetAddress:"30 Memorial Drive",city:"Avon",state:"MA",postalCode:2322},
+phoneNumber:[{type:"home",number:1508518145},{type:"fax",number:6778131732}],
+emailAddress:["David@gamil.com","SDavid@gmail.com"]},
+{firstName:"Maria",lastName:"Rodriguez",age:20,
+Address:{streetAddress:"100 Thruway Plaza",city:"Cheektowaga",state:"NY",postalCode:14225},
+phoneNumber:[{type:"home",number:2870577148},{type:"fax",number:1700918899}],
+emailAddress:["MariaR@gamil.com","RMaria@gmail.com"]},
+{firstName:"Mary",lastName:"Smith",age:22,
+Address:{streetAddress:"180 River Rd",city:"Lisbon",state:"CT",postalCode:6351},
+phoneNumber:[{type:"home",number:9806068527},{type:"fax",number:3219935317}],
+emailAddress:["Mary@gamil.com","SMary@gmail.com"]},
+{firstName:"Maria",lastName:"Hernandez",age:21,
+Address:{streetAddress:"540 West Bypass",city:"Andalusia",state:"AL",postalCode:36420},
+phoneNumber:[{type:"home",number:7655200366},{type:"fax",number:0481572451}],
+emailAddress:["MariaH@gamil.com","HMaria@gmail.com"]},
+{firstName:"Lilly",lastName:"Martinez",age:22,
+Address:{streetAddress:"591 Memorial Dr",city:"Chicopee",state:"MA",postalCode:1020},
+phoneNumber:[{type:"home",number:1723748378},{type:"fax",number:3294228998 }],
+emailAddress:["Lilly@gamil.com","MLilly@gmail.com"]},
+{firstName:"James",lastName:"Johnson",age:20,
+Address:{streetAddress:"30 Catskill",city:"Catskill",state:"NY",postalCode:12414},
+phoneNumber:[{type:"home",number:8602583403},{type:"fax",number:2270838423}],
+emailAddress:["JJames@gamil.com","JohnJames@gmail.com"]},
+{firstName:"Kamilah",lastName:"Earhart",age:32,
+Address:{streetAddress:"297 Grant Avenue",city:"Auburn",state:"NY",postalCode:13021},
+phoneNumber:[{type:"home",number:7360386487},{type:"fax",number:8330942524}],
+emailAddress:["Kamilah@gamil.com","EKamlish@gmail.com","KamilahEar@gmail,com"]},
+{firstName:"Alise",lastName:"Pickrell",age:29,
+Address:{streetAddress:"4133 Veterans Memorial",city:"Batavia",state:"NY",postalCode:14020},
+phoneNumber:[{type:"home",number:8564397599},{type:"fax",number:5426189495},{type:"Mobile",number:3314579129}],
+emailAddress:["AliseP@gamil.com","PAlise@gmail.com"]},
+{firstName:"Leticia",lastName:"Wrobel",age:33,
+Address:{streetAddress:"337 Russell St",city:"Hadley",state:"MA",postalCode:1035},
+phoneNumber:[{type:"home",number:1659846658},{type:"fax",number:3502899930},{type:"Mobile",number:8437087134}],
+emailAddress:["Leticia@gamil.com","WLeticia@gmail.com","WrobelL@gmail,com"]},
+{firstName:"Caridad",lastName:"Kendall",age:34,
+Address:{streetAddress:"6265 Brockport",city:"Brockport",state:"NY",postalCode:14420},
+phoneNumber:[{type:"home",number:8602583403},{type:"fax",number:4326828684}],
+emailAddress:["Caridad@gamil.com","CaridadK@gmail.com"]},
+{firstName:"Michele",lastName:"Gault",age:36,
+Address:{streetAddress:"5399 W Genesse St",city:"Camillus",state:"NY",postalCode:13031},
+phoneNumber:[{type:"home",number:6125582162},{type:"fax",number:0935992552},{type:"Mobile",number:0395710776}],
+emailAddress:["MichaelG@gamil.com","GMichele@gmail.com","GaultM@gmail,com"]},
+{firstName:"Azalee",lastName:"Racey",age:31,
+Address:{streetAddress:"3191 County rd 10",city:"Canandaigua",state:"NY",postalCode:14424},
+phoneNumber:[{type:"home",number:8268801323},{type:"fax",number:9568588641},{type:"Mobile",number:7806366159}],
+emailAddress:["AzaleeR@gamil.com","RAzalee@gmail.com"]},
+{firstName:"Kathlyn",lastName:"Hackenberg",age:31,
+Address:{streetAddress:"20 Soojian Dr",city:"Leicester",state:"MA",postalCode:1524},
+phoneNumber:[{type:"home",number:4131667434},{type:"fax",number:4051166104}],
+emailAddress:["Kathlyn@gamil.com","HKathlyn@gmail.com"]},
+{firstName:"Edie",lastName:"Burstein",age:38,
+Address:{streetAddress:"30 Catskill",city:"Catskill",state:"NY",postalCode:12414},
+phoneNumber:[{type:"home",number:2601886547},{type:"fax",number:2999933858}],
+emailAddress:["Edie@gamil.com","BEdie@gmail.com","BursteinE@gmail,com"]},
+{firstName:"Will",lastName:"Strout",age:36,
+Address:{streetAddress:"11 Jungle Road",city:"Leominster",state:"MA",postalCode:1453},
+phoneNumber:[{type:"home",number:0976463661},{type:"fax",number:8685337904},{type:"Mobile",number:9809039510}],
+emailAddress:["Will@gamil.com","SWill@gmail.com"]},
+{firstName:"Cesar",lastName:"Bannon",age:34,
+Address:{streetAddress:"161 Centereach Mall",city:"Centereach",state:"NY",postalCode:11720},
+phoneNumber:[{type:"home",number:8803053048},{type:"fax",number:8337163141},{type:"Mobile",number:9735653616}],
+emailAddress:["Cesar@gamil.com","BCesar@gmail.com"]},
+{firstName:"Hanna",lastName:"Voliva",age:30,
+Address:{streetAddress:"780 Lynnway",city:"Lynn",state:"MA",postalCode:1905},
+phoneNumber:[{type:"home",number:4041954879},{type:"fax",number:2490539545}],
+emailAddress:["Hanna@gamil.com","VHanna@gmail.com","VolivaHanna@gmail,com"]},
+{firstName:"Yuonne",lastName:"Gingerich",age:22,
+Address:{streetAddress:"3018 East Ave",city:"Central Square",state:"NY",postalCode:13036},
+phoneNumber:[{type:"home",number:2990731778},{type:"fax",number:4631531140},{type:"Mobile",number:8829936546}],
+emailAddress:["Yuonne@gamil.com","GYuonne@gmail.com"]},
+{firstName:"Jackie",lastName:"Wolfenbarger",age:22,
+Address:{streetAddress:"100 Thruway Plaza",city:"Cheektowaga",state:"NY",postalCode:14225},
+phoneNumber:[{type:"home",number:6822716568},{type:"fax",number:7965807774}],
+emailAddress:["Jackie@gamil.com","WJackie@gmail.com"]},
+]);
+
+
+
+---------------------------------------------
+
+    //Display state vise total employee​
+db.employee.aggregate([
+{$group:{_id:"$Address.state", Count:{$sum:1}}}
+])
+
+---------------------------------------------
+    //Display  count of employees of ‘NY’ state
+db.employee.aggregate([
+{$match:{"Address.state":"NY"}},
+{$group:{_id:"$Address.state", Count:{$sum:1}}}
+])
+
+---------------------------------------------
+    //Display all the states where more than 10 employees are working​
+    //not working
+db.employee.aggregate([
+{$group:{_id:"$Address.state", Count:{$sum:{$gt:10}}}},
+])
+
+db.employee.aggregate([
+{$group:{_id:"$Address.state", Count:{$sum:1}}},
+{$match:{Count:{$gt:10}}}
+])
+
+---------------------------------------------
+    //Display count of employees having age less than 30​
+    //not working
+db.employee.aggregate([
+{$match:{age:{$lt:30}}},
+])
+
+db.employee.aggregate([
+{$match:{age:{$lt:30}}},
+{$group:{_id: null, Count:{$sum:1}}},
+])
+
+---------------------------------------------
+    //Display name of employees having more than two phone nos.​
+db.employee.aggregate([
+{$group:{_id:"phoneNumber", Count:{$sum:1}}},
+{$match:{Count:{$gt:2}}},
+{$project:{_id:0, firstName:1, lastName:1}}
+])
+
+
+db.employee.aggregate([
+{$project:{_id:0, firstName:1, lastName:1, Count:{"$size":"$phoneNumber"}}},
+{$match:{Count:{$gt:2}}}
+])
+
+
+---------------------------------------------
+    //How many employees have provided home phone no​
+
+db.employee.aggregate([
+{$match:{"phoneNumber.type":"home"}},
+{$group:{_id:null,Count:{$sum:1}}}
+])
+
+---------------------------------------------
+    //Display employee vise count of email addresses.​
+
+db.employee.aggregate([
+{$project:{_id:0, firstName:1, lastName:1, Count:{"$size":"$emailAddress"}}}
+])
+
+
+
+---------------------------------------------
+db.employee.find({"Address.postalCode":1524}).explain("executionStats")
+
+db.employee.find({"Address.postalCode":1524}).explain()
+
+db.employee.find({"firstName":"Kathlyn"}).explain("executionStats")
+
+db.employee.find({"emailAddress":"WLeticia@gmail.com"}).explain("executionStats")
+
+
+---------------------------------------------
+        //Single Field Index
+db.employee.createIndex({"Address.postalCode":1},{name:"postalCode_index"})
+
+db.employee.find({"Address.postalCode":1524}).hint("postalCode_index").explain("executionStats")
+
+db.employee.getIndexes()
+
+db.employee.dropIndex("postalCode_index")
+---------------------------------------------
+
+        //Compound Index
+db.employee.createIndex({firstName:1, age:-1},{name:"firstname_index"})
+
+db.employee.find({"firstName":"Kathlyn"}).hint("firstname_index").explain("executionStats")
+
+db.employee.find({"firstName":"Kathlyn"}).explain("executionStats")
+
+db.employee.dropIndex("firstname_index")
+
+---------------------------------------------
+
+        //Multikey Index
+
+db.employee.createIndex({emailAddress:1},{name:"email_index"})
+
+db.employee.find({"emailAddress":"WLeticia@gmail.com"}).hint("email_index").explain("executionStats")
+
+db.employee.dropIndex("email_index")
+
+
+---------------------------------------------
+
+db.employee.createIndex({firstName:1, lastName:-1},{unique:true},{name:"name_index"})
+
+---------------------------------------------
+
+
+
+
+
+
+db.employee.createIndex({"Address.postalCode":1},{name:"postalCode_index"})
+
+
+
+
+db.employee.createIndex({firstName:1, age:-1},{name:"firstname_index"})
+
+
+
+db.employee.createIndex({emailAddress:1},{name:"email_index"})

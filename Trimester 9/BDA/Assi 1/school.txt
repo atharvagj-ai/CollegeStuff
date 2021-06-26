@@ -1,0 +1,80 @@
+use School
+
+db.createCollection("stud")
+
+db.stud.insertMany([
+{"Rollno":1,"name":"Navin","subject":"DMSA","marks":78},
+{"Rollno":2,"name":"anusha","subject":"OSD","marks":75},
+{"Rollno":3,"name":"ravi","subject":"TOC","marks":69},
+{"Rollno":4,"name":"veena","subject":"TOC","marks":70},
+{"Rollno":5,"name": "Pravini","subject":"OSD","marks":80},
+{"Rollno":6,"name": "Reena","subject": "DMSA","marks":50},
+{"Rollno":7,"name": "Geeta","subject":"CN","marks":90},
+{"Rollno":8,"name":"Akash","subject":"CN","marks":85},
+{"Rollno":10,"name": "Netal","subject":"IS","marks":50},
+{"Rollno":11,"name":"Geetansh","subject": "FCN","marks":90},
+{"Rollno":12,"name": "Akansha","subject": "AI","marks":85},
+{"Rollno":13,"name": "james","subject": "DBMS","marks":75},
+]);
+
+db.stud.insertMany([
+{"Rollno":14,"name":"Mike","subject":"TOC","marks":88},
+{"Rollno":15,"name":"Rahul","subject":"FCN","marks":80},
+{"Rollno":16,"name":"Rohan","subject":"AI","marks":83},
+{"Rollno":17,"name":"Raj","subject":"TOC","marks":92},
+{"Rollno":18,"name":"Jimmy","subject":"ODD","marks":84},
+{"Rollno":19,"name":"John","subject":"TOC","marks":88},
+]);
+
+
+
+db.stud.aggregate([
+{$group:{_id:"$subject"}}
+])
+
+db.stud.aggregate([
+{$group:{_id:"$subject",Count:{$sum:1}}}
+])
+
+db.stud.aggregate([
+{$limit:1},
+{$group:{_id:"$subject",Count:{$sum:1}}}
+])
+
+
+db.stud.aggregate([
+{$group:{_id:"$subject",Minimum:{$min:"$marks"}}}
+])
+
+
+db.stud.aggregate([
+{$group:{_id:"$subject",Maximum:{$max:"$marks"}}}
+])
+
+
+db.stud.aggregate([
+{$match:{subject:"OSD"}},
+{$group:{_id:"$subject", lastmark:{$last:"$marks"}}}
+])
+
+db.stud.aggregate([
+{$group:{_id:"$subject",Total:{$avg:"$marks"}}}
+])
+
+
+db.stud.aggregate([
+{$match:{subject:"OSD"}},
+{$group:{_id:"$subject", lastmark:{$last:"$marks"}}}
+])
+
+
+
+
+
+
+
+
+
+
+
+mongoimport --db=company --collection=book --file=F:\T9\BDA\books.json

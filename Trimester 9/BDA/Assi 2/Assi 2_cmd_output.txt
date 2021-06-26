@@ -1,0 +1,950 @@
+PE29 Vasu Kalariya
+***************************************************************
+
+Aggregation Operation
+
+***************************************************************
+
+Create database Company.
+> use company
+switched to db company
+>
+> show collections
+employee
+>
+> db.employee.find().pretty().limit(1)
+{
+        "_id" : ObjectId("607bd69e051525164347d06d"),
+        "firstName" : "James",
+        "lastName" : "Smith",
+        "age" : 20,
+        "Address" : {
+                "streetAddress" : "777 Brockton Avenue",
+                "city" : "Abington",
+                "state" : "MA",
+                "postalCode" : 2351
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 4661632082
+                },
+                {
+                        "type" : "fax",
+                        "number" : 2899829351
+                }
+        ],
+        "emailAddress" : [
+                "jamesS@gamil.com",
+                "SJames@gmail.com"
+        ]
+}
+>
+>
+> db.employee.count()
+23
+>
+
+******************************************************************
+-------Display state vise total employee​-----------
+
+> db.employee.aggregate([
+... {$group:{_id:"$Address.state", Count:{$sum:1}}}
+... ])
+{ "_id" : "AL", "Count" : 1 }
+{ "_id" : "MA", "Count" : 7 }
+{ "_id" : "CT", "Count" : 3 }
+{ "_id" : "NY", "Count" : 12 }
+>
+
+******************************************************************
+-------Display  count of employees of ‘NY’ state​-----------
+
+> db.employee.aggregate([
+... {$match:{"Address.state":"NY"}},
+... {$group:{_id:"$Address.state", Count:{$sum:1}}}
+... ])
+{ "_id" : "NY", "Count" : 12 }
+
+
+******************************************************************
+-------Display all the states where more than 10 employees are working​​-----------
+
+> db.employee.aggregate([
+... {$group:{_id:"$Address.state", Count:{$sum:{$gt:10}}}},
+... ])
+uncaught exception: Error: command failed: {
+        "ok" : 0,
+        "errmsg" : "Expression $gt takes exactly 2 arguments. 1 were passed in.",
+        "code" : 16020,
+        "codeName" : "Location16020"
+} with original command request: {
+        "aggregate" : "employee",
+        "pipeline" : [
+                {
+                        "$group" : {
+                                "_id" : "$Address.state",
+                                "Count" : {
+                                        "$sum" : {
+                                                "$gt" : 10
+                                        }
+                                }
+                        }
+                }
+        ],
+        "cursor" : {
+
+        },
+        "lsid" : {
+                "id" : UUID("6f1850ea-f8f0-4cc3-acf7-10a6e7fdf357")
+        }
+} on connection: connection to 127.0.0.1:27017 : aggregate failed :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+doassert@src/mongo/shell/assert.js:18:14
+_assertCommandWorked@src/mongo/shell/assert.js:719:17
+assert.commandWorked@src/mongo/shell/assert.js:811:16
+DB.prototype._runAggregate@src/mongo/shell/db.js:268:5
+DBCollection.prototype.aggregate@src/mongo/shell/collection.js:1056:12
+@(shell):1:1
+>
+> db.employee.aggregate([
+... {$group:{_id:"$Address.state", Count:{$sum:1}}},
+... {$match:{Count:{$gt:10}}}
+... ])
+{ "_id" : "NY", "Count" : 12 }
+>
+
+
+******************************************************************
+-------Display count of employees having age less than 30​​-----------
+
+> db.employee.aggregate([
+... {$match:{age:{$lt:30}}},
+... {$group:{_id: null, Count:{$sum:1}}},
+... ])
+{ "_id" : null, "Count" : 13 }
+>
+
+******************************************************************
+-------Display name of employees having more than two phone nos.​​-----------
+
+> db.employee.aggregate([
+... {$group:{_id:"phoneNumber", Count:{$sum:1}}},
+... {$match:{Count:{$gt:2}}},
+... {$project:{_id:0, firstName:1, lastName:1}}
+... ])
+{  }
+>
+> db.employee.aggregate([
+... {$project:{_id:0, firstName:1, lastName:1, Count:{"$size":"$phoneNumber"}}},
+... {$match:{Count:{$gt:2}}}
+... ])
+{ "firstName" : "Alise", "lastName" : "Pickrell", "Count" : 3 }
+{ "firstName" : "Leticia", "lastName" : "Wrobel", "Count" : 3 }
+{ "firstName" : "Michele", "lastName" : "Gault", "Count" : 3 }
+{ "firstName" : "Azalee", "lastName" : "Racey", "Count" : 3 }
+{ "firstName" : "Will", "lastName" : "Strout", "Count" : 3 }
+{ "firstName" : "Cesar", "lastName" : "Bannon", "Count" : 3 }
+{ "firstName" : "Yuonne", "lastName" : "Gingerich", "Count" : 3 }
+>
+
+
+******************************************************************
+-------How many employees have provided home phone no​​-----------
+
+> db.employee.aggregate([
+... {$match:{"phoneNumber.type":"home"}},
+... {$group:{_id:null,Count:{$sum:1}}}
+... ])
+{ "_id" : null, "Count" : 23 }
+>
+
+
+******************************************************************
+-------Display employee vise count of email addresses.​-----------
+
+> db.employee.aggregate([
+... {$project:{_id:0, firstName:1, lastName:1, Count:{"$size":"$emailAddress"}}}
+... ])
+{ "firstName" : "James", "lastName" : "Smith", "Count" : 2 }
+{ "firstName" : "Michael", "lastName" : "Smith", "Count" : 2 }
+{ "firstName" : "Robert", "lastName" : "Smith", "Count" : 2 }
+{ "firstName" : "Maria", "lastName" : "Garcia", "Count" : 2 }
+{ "firstName" : "David", "lastName" : "Smith", "Count" : 2 }
+{ "firstName" : "Maria", "lastName" : "Rodriguez", "Count" : 2 }
+{ "firstName" : "Mary", "lastName" : "Smith", "Count" : 2 }
+{ "firstName" : "Maria", "lastName" : "Hernandez", "Count" : 2 }
+{ "firstName" : "Lilly", "lastName" : "Martinez", "Count" : 2 }
+{ "firstName" : "James", "lastName" : "Johnson", "Count" : 2 }
+{ "firstName" : "Kamilah", "lastName" : "Earhart", "Count" : 3 }
+{ "firstName" : "Alise", "lastName" : "Pickrell", "Count" : 2 }
+{ "firstName" : "Leticia", "lastName" : "Wrobel", "Count" : 3 }
+{ "firstName" : "Caridad", "lastName" : "Kendall", "Count" : 2 }
+{ "firstName" : "Michele", "lastName" : "Gault", "Count" : 3 }
+{ "firstName" : "Azalee", "lastName" : "Racey", "Count" : 2 }
+{ "firstName" : "Kathlyn", "lastName" : "Hackenberg", "Count" : 2 }
+{ "firstName" : "Edie", "lastName" : "Burstein", "Count" : 3 }
+{ "firstName" : "Will", "lastName" : "Strout", "Count" : 2 }
+{ "firstName" : "Cesar", "lastName" : "Bannon", "Count" : 2 }
+Type "it" for more
+> it
+{ "firstName" : "Hanna", "lastName" : "Voliva", "Count" : 3 }
+{ "firstName" : "Yuonne", "lastName" : "Gingerich", "Count" : 2 }
+{ "firstName" : "Jackie", "lastName" : "Wolfenbarger", "Count" : 2 }
+>
+
+******************************************************************
+> db.employee.find({"Address.postalCode":1524}).explain()
+{
+        "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "company.employee",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "Address.postalCode" : {
+                                "$eq" : 1524
+                        }
+                },
+                "queryHash" : "E28F6A5F",
+                "planCacheKey" : "E28F6A5F",
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "Address.postalCode" : {
+                                        "$eq" : 1524
+                                }
+                        },
+                        "direction" : "forward"
+                },
+                "rejectedPlans" : [ ]
+        },
+        "command" : {
+                "find" : "employee",
+                "filter" : {
+                        "Address.postalCode" : 1524
+                },
+                "$db" : "company"
+        },
+        "serverInfo" : {
+                "host" : "DESKTOP-43A64G1",
+                "port" : 27017,
+                "version" : "4.9.0-rc0",
+                "gitVersion" : "64540ae7bb8b4298c780ecc154f866ddbc8d676c"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1
+}
+>
+
+> db.employee.find({"Address.postalCode":1524}).explain("executionStats")
+{
+        "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "company.employee",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "Address.postalCode" : {
+                                "$eq" : 1524
+                        }
+                },
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "Address.postalCode" : {
+                                        "$eq" : 1524
+                                }
+                        },
+                        "direction" : "forward"
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 1,
+                "executionTimeMillis" : 0,
+                "totalKeysExamined" : 0,
+                "totalDocsExamined" : 23,
+                "executionStages" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "Address.postalCode" : {
+                                        "$eq" : 1524
+                                }
+                        },
+                        "nReturned" : 1,
+                        "executionTimeMillisEstimate" : 0,
+                        "works" : 25,
+                        "advanced" : 1,
+                        "needTime" : 23,
+                        "needYield" : 0,
+                        "saveState" : 0,
+                        "restoreState" : 0,
+                        "isEOF" : 1,
+                        "direction" : "forward",
+                        "docsExamined" : 23
+                }
+        },
+        "command" : {
+                "find" : "employee",
+                "filter" : {
+                        "Address.postalCode" : 1524
+                },
+                "$db" : "company"
+        },
+        "serverInfo" : {
+                "host" : "DESKTOP-43A64G1",
+                "port" : 27017,
+                "version" : "4.9.0-rc0",
+                "gitVersion" : "64540ae7bb8b4298c780ecc154f866ddbc8d676c"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1
+}
+>
+
+
+
+
+
+
+******************************************************************
+
+> db.employee.find({"firstName":"Kathlyn"}).explain("executionStats")
+{
+        "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "company.employee",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "firstName" : {
+                                "$eq" : "Kathlyn"
+                        }
+                },
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "firstName" : {
+                                        "$eq" : "Kathlyn"
+                                }
+                        },
+                        "direction" : "forward"
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 1,
+                "executionTimeMillis" : 0,
+                "totalKeysExamined" : 0,
+                "totalDocsExamined" : 23,
+                "executionStages" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "firstName" : {
+                                        "$eq" : "Kathlyn"
+                                }
+                        },
+                        "nReturned" : 1,
+                        "executionTimeMillisEstimate" : 0,
+                        "works" : 25,
+                        "advanced" : 1,
+                        "needTime" : 23,
+                        "needYield" : 0,
+                        "saveState" : 0,
+                        "restoreState" : 0,
+                        "isEOF" : 1,
+                        "direction" : "forward",
+                        "docsExamined" : 23
+                }
+        },
+        "command" : {
+                "find" : "employee",
+                "filter" : {
+                        "firstName" : "Kathlyn"
+                },
+                "$db" : "company"
+        },
+        "serverInfo" : {
+                "host" : "DESKTOP-43A64G1",
+                "port" : 27017,
+                "version" : "4.9.0-rc0",
+                "gitVersion" : "64540ae7bb8b4298c780ecc154f866ddbc8d676c"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1
+}
+>
+
+
+
+
+******************************************************************
+
+> db.employee.find({"emailAddress":"WLeticia@gmail.com"}).explain("executionStats")
+{
+        "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "company.employee",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "emailAddress" : {
+                                "$eq" : "WLeticia@gmail.com"
+                        }
+                },
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "emailAddress" : {
+                                        "$eq" : "WLeticia@gmail.com"
+                                }
+                        },
+                        "direction" : "forward"
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 1,
+                "executionTimeMillis" : 0,
+                "totalKeysExamined" : 0,
+                "totalDocsExamined" : 23,
+                "executionStages" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "emailAddress" : {
+                                        "$eq" : "WLeticia@gmail.com"
+                                }
+                        },
+                        "nReturned" : 1,
+                        "executionTimeMillisEstimate" : 0,
+                        "works" : 25,
+                        "advanced" : 1,
+                        "needTime" : 23,
+                        "needYield" : 0,
+                        "saveState" : 0,
+                        "restoreState" : 0,
+                        "isEOF" : 1,
+                        "direction" : "forward",
+                        "docsExamined" : 23
+                }
+        },
+        "command" : {
+                "find" : "employee",
+                "filter" : {
+                        "emailAddress" : "WLeticia@gmail.com"
+                },
+                "$db" : "company"
+        },
+        "serverInfo" : {
+                "host" : "DESKTOP-43A64G1",
+                "port" : 27017,
+                "version" : "4.9.0-rc0",
+                "gitVersion" : "64540ae7bb8b4298c780ecc154f866ddbc8d676c"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1
+}
+>
+
+******************************************************************
+
+> db.employee.createIndex({"Address.postalCode":1},{name:"postalCode_index"})
+{
+        "numIndexesBefore" : 1,
+        "numIndexesAfter" : 2,
+        "createdCollectionAutomatically" : false,
+        "ok" : 1
+}
+>
+
+
+> db.employee.createIndex({firstName:1, age:-1},{name:"firstname_index"})
+{
+        "numIndexesBefore" : 2,
+        "numIndexesAfter" : 3,
+        "createdCollectionAutomatically" : false,
+        "ok" : 1
+}
+>
+
+> db.employee.createIndex({emailAddress:1},{name:"email_index"})
+{
+        "numIndexesBefore" : 3,
+        "numIndexesAfter" : 4,
+        "createdCollectionAutomatically" : false,
+        "ok" : 1
+}
+>
+
+> db.employee.getIndexes()
+[
+        {
+                "v" : 2,
+                "key" : {
+                        "_id" : 1
+                },
+                "name" : "_id_"
+        },
+        {
+                "v" : 2,
+                "key" : {
+                        "Address.postalCode" : 1
+                },
+                "name" : "postalCode_index"
+        },
+        {
+                "v" : 2,
+                "key" : {
+                        "firstName" : 1,
+                        "age" : -1
+                },
+                "name" : "firstname_index"
+        },
+        {
+                "v" : 2,
+                "key" : {
+                        "emailAddress" : 1
+                },
+                "name" : "email_index"
+        }
+]
+>
+
+******************************************************************
+
+> db.employee.find({"Address.postalCode":1524}).hint("postalCode_index").explain("executionStats")
+{
+        "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "company.employee",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "Address.postalCode" : {
+                                "$eq" : 1524
+                        }
+                },
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "FETCH",
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "keyPattern" : {
+                                        "Address.postalCode" : 1
+                                },
+                                "indexName" : "postalCode_index",
+                                "isMultiKey" : false,
+                                "multiKeyPaths" : {
+                                        "Address.postalCode" : [ ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "Address.postalCode" : [
+                                                "[1524.0, 1524.0]"
+                                        ]
+                                }
+                        }
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 1,
+                "executionTimeMillis" : 40,
+                "totalKeysExamined" : 1,
+                "totalDocsExamined" : 1,
+                "executionStages" : {
+                        "stage" : "FETCH",
+                        "nReturned" : 1,
+                        "executionTimeMillisEstimate" : 30,
+                        "works" : 2,
+                        "advanced" : 1,
+                        "needTime" : 0,
+                        "needYield" : 0,
+                        "saveState" : 1,
+                        "restoreState" : 1,
+                        "isEOF" : 1,
+                        "docsExamined" : 1,
+                        "alreadyHasObj" : 0,
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "nReturned" : 1,
+                                "executionTimeMillisEstimate" : 30,
+                                "works" : 2,
+                                "advanced" : 1,
+                                "needTime" : 0,
+                                "needYield" : 0,
+                                "saveState" : 1,
+                                "restoreState" : 1,
+                                "isEOF" : 1,
+                                "keyPattern" : {
+                                        "Address.postalCode" : 1
+                                },
+                                "indexName" : "postalCode_index",
+                                "isMultiKey" : false,
+                                "multiKeyPaths" : {
+                                        "Address.postalCode" : [ ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "Address.postalCode" : [
+                                                "[1524.0, 1524.0]"
+                                        ]
+                                },
+                                "keysExamined" : 1,
+                                "seeks" : 1,
+                                "dupsTested" : 0,
+                                "dupsDropped" : 0
+                        }
+                }
+        },
+        "command" : {
+                "find" : "employee",
+                "filter" : {
+                        "Address.postalCode" : 1524
+                },
+                "hint" : "postalCode_index",
+                "$db" : "company"
+        },
+        "serverInfo" : {
+                "host" : "DESKTOP-43A64G1",
+                "port" : 27017,
+                "version" : "4.9.0-rc0",
+                "gitVersion" : "64540ae7bb8b4298c780ecc154f866ddbc8d676c"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1
+}
+>
+
+******************************************************************
+
+> db.employee.find({"firstName":"Kathlyn"}).hint("firstname_index").explain("executionStats")
+{
+        "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "company.employee",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "firstName" : {
+                                "$eq" : "Kathlyn"
+                        }
+                },
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "FETCH",
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "keyPattern" : {
+                                        "firstName" : 1,
+                                        "age" : -1
+                                },
+                                "indexName" : "firstname_index",
+                                "isMultiKey" : false,
+                                "multiKeyPaths" : {
+                                        "firstName" : [ ],
+                                        "age" : [ ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "firstName" : [
+                                                "[\"Kathlyn\", \"Kathlyn\"]"
+                                        ],
+                                        "age" : [
+                                                "[MaxKey, MinKey]"
+                                        ]
+                                }
+                        }
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 1,
+                "executionTimeMillis" : 31,
+                "totalKeysExamined" : 1,
+                "totalDocsExamined" : 1,
+                "executionStages" : {
+                        "stage" : "FETCH",
+                        "nReturned" : 1,
+                        "executionTimeMillisEstimate" : 32,
+                        "works" : 2,
+                        "advanced" : 1,
+                        "needTime" : 0,
+                        "needYield" : 0,
+                        "saveState" : 1,
+                        "restoreState" : 1,
+                        "isEOF" : 1,
+                        "docsExamined" : 1,
+                        "alreadyHasObj" : 0,
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "nReturned" : 1,
+                                "executionTimeMillisEstimate" : 32,
+                                "works" : 2,
+                                "advanced" : 1,
+                                "needTime" : 0,
+                                "needYield" : 0,
+                                "saveState" : 1,
+                                "restoreState" : 1,
+                                "isEOF" : 1,
+                                "keyPattern" : {
+                                        "firstName" : 1,
+                                        "age" : -1
+                                },
+                                "indexName" : "firstname_index",
+                                "isMultiKey" : false,
+                                "multiKeyPaths" : {
+                                        "firstName" : [ ],
+                                        "age" : [ ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "firstName" : [
+                                                "[\"Kathlyn\", \"Kathlyn\"]"
+                                        ],
+                                        "age" : [
+                                                "[MaxKey, MinKey]"
+                                        ]
+                                },
+                                "keysExamined" : 1,
+                                "seeks" : 1,
+                                "dupsTested" : 0,
+                                "dupsDropped" : 0
+                        }
+                }
+        },
+        "command" : {
+                "find" : "employee",
+                "filter" : {
+                        "firstName" : "Kathlyn"
+                },
+                "hint" : "firstname_index",
+                "$db" : "company"
+        },
+        "serverInfo" : {
+                "host" : "DESKTOP-43A64G1",
+                "port" : 27017,
+                "version" : "4.9.0-rc0",
+                "gitVersion" : "64540ae7bb8b4298c780ecc154f866ddbc8d676c"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1
+}
+>
+
+******************************************************************
+
+> db.employee.find({"emailAddress":"WLeticia@gmail.com"}).hint("email_index").explain("executionStats")
+{
+        "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "company.employee",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "emailAddress" : {
+                                "$eq" : "WLeticia@gmail.com"
+                        }
+                },
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "FETCH",
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "keyPattern" : {
+                                        "emailAddress" : 1
+                                },
+                                "indexName" : "email_index",
+                                "isMultiKey" : true,
+                                "multiKeyPaths" : {
+                                        "emailAddress" : [
+                                                "emailAddress"
+                                        ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "emailAddress" : [
+                                                "[\"WLeticia@gmail.com\", \"WLeticia@gmail.com\"]"
+                                        ]
+                                }
+                        }
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 1,
+                "executionTimeMillis" : 16,
+                "totalKeysExamined" : 1,
+                "totalDocsExamined" : 1,
+                "executionStages" : {
+                        "stage" : "FETCH",
+                        "nReturned" : 1,
+                        "executionTimeMillisEstimate" : 11,
+                        "works" : 2,
+                        "advanced" : 1,
+                        "needTime" : 0,
+                        "needYield" : 0,
+                        "saveState" : 1,
+                        "restoreState" : 1,
+                        "isEOF" : 1,
+                        "docsExamined" : 1,
+                        "alreadyHasObj" : 0,
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "nReturned" : 1,
+                                "executionTimeMillisEstimate" : 11,
+                                "works" : 2,
+                                "advanced" : 1,
+                                "needTime" : 0,
+                                "needYield" : 0,
+                                "saveState" : 1,
+                                "restoreState" : 1,
+                                "isEOF" : 1,
+                                "keyPattern" : {
+                                        "emailAddress" : 1
+                                },
+                                "indexName" : "email_index",
+                                "isMultiKey" : true,
+                                "multiKeyPaths" : {
+                                        "emailAddress" : [
+                                                "emailAddress"
+                                        ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "emailAddress" : [
+                                                "[\"WLeticia@gmail.com\", \"WLeticia@gmail.com\"]"
+                                        ]
+                                },
+                                "keysExamined" : 1,
+                                "seeks" : 1,
+                                "dupsTested" : 1,
+                                "dupsDropped" : 0
+                        }
+                }
+        },
+        "command" : {
+                "find" : "employee",
+                "filter" : {
+                        "emailAddress" : "WLeticia@gmail.com"
+                },
+                "hint" : "email_index",
+                "$db" : "company"
+        },
+        "serverInfo" : {
+                "host" : "DESKTOP-43A64G1",
+                "port" : 27017,
+                "version" : "4.9.0-rc0",
+                "gitVersion" : "64540ae7bb8b4298c780ecc154f866ddbc8d676c"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1
+}
+>
+
+

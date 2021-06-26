@@ -1,0 +1,5 @@
+hdfs dfs –copyFromLocal F:\T9\BDA\Mapreduce\input.txt /Vasundhara
+
+hadoop jar F:\T9\BDA\Mapreduce\Jar_file\Mapreduce_java.jar word_Driver /Vasundhara/input.txt MR_Out
+
+hadoop jar F:\T9\BDA\Mapreduce\Jar_file\Mapreduce_java.jar word_Driver F:/T9/BDA/Mapreduce/input.txt MR_Out

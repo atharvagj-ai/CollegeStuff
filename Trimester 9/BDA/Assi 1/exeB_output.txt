@@ -1,0 +1,3198 @@
+Exe B Lab assi 1
+
+-----------------------------------------------------------------------
+
+Create database Company
+> use Company
+switched to db Company
+
+-----------------------------------------------------------------------
+Create collection Customer.
+> db.createCollection("Customer")
+{ "ok" : 1 }
+
+-----------------------------------------------------------------------
+Insert 10 documents
+> db.Customer.insert({
+... firstName:"James",lastName:"Smith",age:20,
+... Address:{streetAddress:"777 Brockton Avenue",city:"Abington",state:"MA",postalCode:2351},
+... phoneNumber:[{type:"home",number:4661632082},{type:"fax",number:2899829351}],
+... emailAddress:["jamesS@gamil.com","SJames@gmail.com"]
+... });
+WriteResult({ "nInserted" : 1 })
+>
+>
+> db.Customer.find().pretty()
+{
+        "_id" : ObjectId("60bb5b6bd5ec118047011dd3"),
+        "firstName" : "James",
+        "lastName" : "Smith",
+        "age" : 20,
+        "Address" : {
+                "streetAddress" : "777 Brockton Avenue",
+                "city" : "Abington",
+                "state" : "MA",
+                "postalCode" : 2351
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 4661632082
+                },
+                {
+                        "type" : "fax",
+                        "number" : 2899829351
+                }
+        ],
+        "emailAddress" : [
+                "jamesS@gamil.com",
+                "SJames@gmail.com"
+        ]
+}
+>
+>
+>
+> db.Customer.insertMany([
+... {firstName:"Michael",lastName:"Smith",age:21,
+... Address:{streetAddress:"279 Troy Road",city:"East Greenbush",state:"NY",postalCode:12061},
+... phoneNumber:[{type:"home",number:9808191199},{type:"fax",number:7797374941}],
+... emailAddress:["MichS@gamil.com","SMich@gmail.com"]},
+... {firstName:"Robert",lastName:"Smith",age:22,
+... Address:{streetAddress:"1400 Farmington Ave",city:"Bristol",state:"CT",postalCode:6010},
+... phoneNumber:[{type:"home",number:1761266808},{type:"fax",number:9841911399}],
+... emailAddress:["Robert@gamil.com","SRob@gmail.com"]},
+... {firstName:"Maria",lastName:"Garcia",age:22,
+... Address:{streetAddress:"515 Sawmill Road",city:"West Haven",state:"CT",postalCode:6516},
+... phoneNumber:[{type:"home",number:8215484894},{type:"fax",number:6754261777}],
+... emailAddress:["MariaG@gamil.com","GMaria@gmail.com"]},
+... {firstName:"David",lastName:"Smith",age:21,
+... Address:{streetAddress:"30 Memorial Drive",city:"Avon",state:"MA",postalCode:2322},
+... phoneNumber:[{type:"home",number:1508518145},{type:"fax",number:6778131732}],
+... emailAddress:["David@gamil.com","SDavid@gmail.com"]},
+... {firstName:"Maria",lastName:"Rodriguez",age:20,
+... Address:{streetAddress:"100 Thruway Plaza",city:"Cheektowaga",state:"NY",postalCode:14225},
+... phoneNumber:[{type:"home",number:2870577148},{type:"fax",number:1700918899}],
+... emailAddress:["MariaR@gamil.com","RMaria@gmail.com"]},
+... {firstName:"Mary",lastName:"Smith",age:22,
+... Address:{streetAddress:"180 River Rd",city:"Lisbon",state:"CT",postalCode:6351},
+... phoneNumber:[{type:"home",number:9806068527},{type:"fax",number:3219935317}],
+... emailAddress:["Mary@gamil.com","SMary@gmail.com"]},
+... {firstName:"Maria",lastName:"Hernandez",age:21,
+... Address:{streetAddress:"540 West Bypass",city:"Andalusia",state:"AL",postalCode:36420},
+... phoneNumber:[{type:"home",number:7655200366},{type:"fax",number:0481572451}],
+... emailAddress:["MariaH@gamil.com","HMaria@gmail.com"]},
+... {firstName:"Lilly",lastName:"Martinez",age:22,
+... Address:{streetAddress:"591 Memorial Dr",city:"Chicopee",state:"MA",postalCode:1020},
+... phoneNumber:[{type:"home",number:1723748378},{type:"fax",number:3294228998 }],
+... emailAddress:["Lilly@gamil.com","MLilly@gmail.com"]},
+... {firstName:"James",lastName:"Johnson",age:20,
+... Address:{streetAddress:"30 Catskill",city:"Catskill",state:"NY",postalCode:12414},
+... phoneNumber:[{type:"home",number:8602583403},{type:"fax",number:2270838423}],
+... emailAddress:["JJames@gamil.com","JohnJames@gmail.com"]},
+... {firstName:"Kamilah",lastName:"Earhart",age:32,
+... Address:{streetAddress:"297 Grant Avenue",city:"Auburn",state:"NY",postalCode:13021},
+... phoneNumber:[{type:"home",number:7360386487},{type:"fax",number:8330942524}],
+... emailAddress:["Kamilah@gamil.com","EKamlish@gmail.com","KamilahEar@gmail,com"]},
+... {firstName:"Alise",lastName:"Pickrell",age:29,
+... Address:{streetAddress:"4133 Veterans Memorial",city:"Batavia",state:"NY",postalCode:14020},
+... phoneNumber:[{type:"home",number:8564397599},{type:"fax",number:5426189495},{type:"Mobile",number:3314579129}],
+... emailAddress:["AliseP@gamil.com","PAlise@gmail.com"]},
+... {firstName:"Leticia",lastName:"Wrobel",age:33,
+... Address:{streetAddress:"337 Russell St",city:"Hadley",state:"MA",postalCode:1035},
+... phoneNumber:[{type:"home",number:1659846658},{type:"fax",number:3502899930},{type:"Mobile",number:8437087134}],
+... emailAddress:["Leticia@gamil.com","WLeticia@gmail.com","WrobelL@gmail,com"]},
+... {firstName:"Caridad",lastName:"Kendall",age:34,
+... Address:{streetAddress:"6265 Brockport",city:"Brockport",state:"NY",postalCode:14420},
+... phoneNumber:[{type:"home",number:8602583403},{type:"fax",number:4326828684}],
+... emailAddress:["Caridad@gamil.com","CaridadK@gmail.com"]},
+... {firstName:"Michele",lastName:"Gault",age:36,
+... Address:{streetAddress:"5399 W Genesse St",city:"Camillus",state:"NY",postalCode:13031},
+... phoneNumber:[{type:"home",number:6125582162},{type:"fax",number:0935992552},{type:"Mobile",number:0395710776}],
+... emailAddress:["MichaelG@gamil.com","GMichele@gmail.com","GaultM@gmail,com"]},
+... {firstName:"Azalee",lastName:"Racey",age:31,
+... Address:{streetAddress:"3191 County rd 10",city:"Canandaigua",state:"NY",postalCode:14424},
+... phoneNumber:[{type:"home",number:8268801323},{type:"fax",number:9568588641},{type:"Mobile",number:7806366159}],
+... emailAddress:["AzaleeR@gamil.com","RAzalee@gmail.com"]},
+... {firstName:"Kathlyn",lastName:"Hackenberg",age:31,
+... Address:{streetAddress:"20 Soojian Dr",city:"Leicester",state:"MA",postalCode:1524},
+... phoneNumber:[{type:"home",number:4131667434},{type:"fax",number:4051166104}],
+... emailAddress:["Kathlyn@gamil.com","HKathlyn@gmail.com"]},
+... {firstName:"Edie",lastName:"Burstein",age:38,
+... Address:{streetAddress:"30 Catskill",city:"Catskill",state:"NY",postalCode:12414},
+... phoneNumber:[{type:"home",number:2601886547},{type:"fax",number:2999933858}],
+... emailAddress:["Edie@gamil.com","BEdie@gmail.com","BursteinE@gmail,com"]},
+... {firstName:"Will",lastName:"Strout",age:36,
+... Address:{streetAddress:"11 Jungle Road",city:"Leominster",state:"MA",postalCode:1453},
+... phoneNumber:[{type:"home",number:0976463661},{type:"fax",number:8685337904},{type:"Mobile",number:9809039510}],
+... emailAddress:["Will@gamil.com","SWill@gmail.com"]},
+... {firstName:"Cesar",lastName:"Bannon",age:34,
+... Address:{streetAddress:"161 Centereach Mall",city:"Centereach",state:"NY",postalCode:11720},
+... phoneNumber:[{type:"home",number:8803053048},{type:"fax",number:8337163141},{type:"Mobile",number:9735653616}],
+... emailAddress:["Cesar@gamil.com","BCesar@gmail.com"]},
+... {firstName:"Hanna",lastName:"Voliva",age:30,
+... Address:{streetAddress:"780 Lynnway",city:"Lynn",state:"MA",postalCode:1905},
+... phoneNumber:[{type:"home",number:4041954879},{type:"fax",number:2490539545}],
+... emailAddress:["Hanna@gamil.com","VHanna@gmail.com","VolivaHanna@gmail,com"]},
+... {firstName:"Yuonne",lastName:"Gingerich",age:22,
+... Address:{streetAddress:"3018 East Ave",city:"Central Square",state:"NY",postalCode:13036},
+... phoneNumber:[{type:"home",number:2990731778},{type:"fax",number:4631531140},{type:"Mobile",number:8829936546}],
+... emailAddress:["Yuonne@gamil.com","GYuonne@gmail.com"]},
+... {firstName:"Jackie",lastName:"Wolfenbarger",age:22,
+... Address:{streetAddress:"100 Thruway Plaza",city:"Cheektowaga",state:"NY",postalCode:14225},
+... phoneNumber:[{type:"home",number:6822716568},{type:"fax",number:7965807774}],
+... emailAddress:["Jackie@gamil.com","WJackie@gmail.com"]},
+... ]);
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("60bb5b87d5ec118047011dd4"),
+                ObjectId("60bb5b87d5ec118047011dd5"),
+                ObjectId("60bb5b87d5ec118047011dd6"),
+                ObjectId("60bb5b87d5ec118047011dd7"),
+                ObjectId("60bb5b87d5ec118047011dd8"),
+                ObjectId("60bb5b87d5ec118047011dd9"),
+                ObjectId("60bb5b87d5ec118047011dda"),
+                ObjectId("60bb5b87d5ec118047011ddb"),
+                ObjectId("60bb5b87d5ec118047011ddc"),
+                ObjectId("60bb5b87d5ec118047011ddd"),
+                ObjectId("60bb5b87d5ec118047011dde"),
+                ObjectId("60bb5b87d5ec118047011ddf"),
+                ObjectId("60bb5b87d5ec118047011de0"),
+                ObjectId("60bb5b87d5ec118047011de1"),
+                ObjectId("60bb5b87d5ec118047011de2"),
+                ObjectId("60bb5b87d5ec118047011de3"),
+                ObjectId("60bb5b87d5ec118047011de4"),
+                ObjectId("60bb5b87d5ec118047011de5"),
+                ObjectId("60bb5b87d5ec118047011de6"),
+                ObjectId("60bb5b87d5ec118047011de7"),
+                ObjectId("60bb5b87d5ec118047011de8"),
+                ObjectId("60bb5b87d5ec118047011de9")
+        ]
+}
+>
+>
+>
+> db.Customer.find({lastName:"Smith"}).pretty().limit(1)
+{
+        "_id" : ObjectId("60bb5b6bd5ec118047011dd3"),
+        "firstName" : "James",
+        "lastName" : "Smith",
+        "age" : 20,
+        "Address" : {
+                "streetAddress" : "777 Brockton Avenue",
+                "city" : "Abington",
+                "state" : "MA",
+                "postalCode" : 2351
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 4661632082
+                },
+                {
+                        "type" : "fax",
+                        "number" : 2899829351
+                }
+        ],
+        "emailAddress" : [
+                "jamesS@gamil.com",
+                "SJames@gmail.com"
+        ]
+}
+
+-----------------------------------------------------------------------
+Increment Age by 2
+> db.Customer.update({lastName:"Smith"},{$inc:{age:2}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+>
+> db.Customer.find({lastName:"Smith"}).pretty().limit(1)
+{
+        "_id" : ObjectId("60bb5b6bd5ec118047011dd3"),
+        "firstName" : "James",
+        "lastName" : "Smith",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "777 Brockton Avenue",
+                "city" : "Abington",
+                "state" : "MA",
+                "postalCode" : 2351
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 4661632082
+                },
+                {
+                        "type" : "fax",
+                        "number" : 2899829351
+                }
+        ],
+        "emailAddress" : [
+                "jamesS@gamil.com",
+                "SJames@gmail.com"
+        ]
+}
+
+
+-----------------------------------------------------------------------
+Push emailAddress
+> db.Customer.find({firstName:"Lilly"}).pretty().limit(1)
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011ddb"),
+        "firstName" : "Lilly",
+        "lastName" : "Martinez",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "591 Memorial Dr",
+                "city" : "Chicopee",
+                "state" : "MA",
+                "postalCode" : 1020
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 1723748378
+                },
+                {
+                        "type" : "fax",
+                        "number" : 3294228998
+                }
+        ],
+        "emailAddress" : [
+                "Lilly@gamil.com",
+                "MLilly@gmail.com"
+        ]
+}
+> db.Customer.update({firstName:"Lilly"},{$push:{emailAddress:{$each:["LillyM@gmail.com"]}
+...
+... ^C
+
+> db.Customer.update({firstName:"Lilly"},{$push:{emailAddress:{$each:["LillyM@gmail.com"]}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+>
+> db.Customer.find({firstName:"Lilly"}).pretty().limit(1)
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011ddb"),
+        "firstName" : "Lilly",
+        "lastName" : "Martinez",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "591 Memorial Dr",
+                "city" : "Chicopee",
+                "state" : "MA",
+                "postalCode" : 1020
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 1723748378
+                },
+                {
+                        "type" : "fax",
+                        "number" : 3294228998
+                }
+        ],
+        "emailAddress" : [
+                "Lilly@gamil.com",
+                "MLilly@gmail.com",
+                "LillyM@gmail.com"
+        ]
+}
+
+
+-----------------------------------------------------------------------
+pop emailAddress
+> db.Customer.find({firstName:"James"}).pretty().limit(1)
+{
+        "_id" : ObjectId("60bb5b6bd5ec118047011dd3"),
+        "firstName" : "James",
+        "lastName" : "Smith",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "777 Brockton Avenue",
+                "city" : "Abington",
+                "state" : "MA",
+                "postalCode" : 2351
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 4661632082
+                },
+                {
+                        "type" : "fax",
+                        "number" : 2899829351
+                }
+        ],
+        "emailAddress" : [
+                "jamesS@gamil.com",
+                "SJames@gmail.com"
+        ]
+}
+> db.Customer.update({firstName:"James"},{$pop:{emailAddress:-1}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Customer.find({firstName:"James"}).pretty().limit(1)
+{
+        "_id" : ObjectId("60bb5b6bd5ec118047011dd3"),
+        "firstName" : "James",
+        "lastName" : "Smith",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "777 Brockton Avenue",
+                "city" : "Abington",
+                "state" : "MA",
+                "postalCode" : 2351
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 4661632082
+                },
+                {
+                        "type" : "fax",
+                        "number" : 2899829351
+                }
+        ],
+        "emailAddress" : [
+                "SJames@gmail.com"
+        ]
+}
+
+
+-----------------------------------------------------------------------
+Update record
+> db.Customer.find({lastName:"Hernandez"}).pretty().limit(1)
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dda"),
+        "firstName" : "Maria",
+        "lastName" : "Hernandez",
+        "age" : 21,
+        "Address" : {
+                "streetAddress" : "540 West Bypass",
+                "city" : "Andalusia",
+                "state" : "AL",
+                "postalCode" : 36420
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 7655200366
+                },
+                {
+                        "type" : "fax",
+                        "number" : 481572451
+                }
+        ],
+        "emailAddress" : [
+                "MariaH@gamil.com",
+                "HMaria@gmail.com"
+        ]
+}
+> db.Customer.update({lastName:"Hernandez"},{$set:{Address:{state:"CT",Pincode:4123}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Customer.find({lastName:"Hernandez"}).pretty().limit(1)
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dda"),
+        "firstName" : "Maria",
+        "lastName" : "Hernandez",
+        "age" : 21,
+        "Address" : {
+                "state" : "CT",
+                "Pincode" : 4123
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 7655200366
+                },
+                {
+                        "type" : "fax",
+                        "number" : 481572451
+                }
+        ],
+        "emailAddress" : [
+                "MariaH@gamil.com",
+                "HMaria@gmail.com"
+        ]
+}
+>
+>
+>
+>
+>
+> db.Customer.find({lastName:"Smith"}).pretty().limit(1)
+{
+        "_id" : ObjectId("60bb5b6bd5ec118047011dd3"),
+        "firstName" : "James",
+        "lastName" : "Smith",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "777 Brockton Avenue",
+                "city" : "Abington",
+                "state" : "MA",
+                "postalCode" : 2351
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 4661632082
+                },
+                {
+                        "type" : "fax",
+                        "number" : 2899829351
+                }
+        ],
+        "emailAddress" : [
+                "SJames@gmail.com"
+        ]
+}
+> db.Customer.update({lastName:"Smith"},{$set:{age:23}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Customer.find({lastName:"Smith"}).pretty().limit(1)
+{
+        "_id" : ObjectId("60bb5b6bd5ec118047011dd3"),
+        "firstName" : "James",
+        "lastName" : "Smith",
+        "age" : 23,
+        "Address" : {
+                "streetAddress" : "777 Brockton Avenue",
+                "city" : "Abington",
+                "state" : "MA",
+                "postalCode" : 2351
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 4661632082
+                },
+                {
+                        "type" : "fax",
+                        "number" : 2899829351
+                }
+        ],
+        "emailAddress" : [
+                "SJames@gmail.com"
+        ]
+}
+
+
+-----------------------------------------------------------------------
+
+Update with upsert 
+
+> db.Customer.find({firstName:"Vasu"}).pretty().limit(1)
+>
+> db.Customer.update({firstName:"Vasu"},{$set:{lastName:"Kalariya"}},{upsert:true})
+WriteResult({
+        "nMatched" : 0,
+        "nUpserted" : 1,
+        "nModified" : 0,
+        "_id" : ObjectId("60bb5d9af5322caf711ed97f")
+})
+>
+> db.Customer.find({firstName:"Vasu"}).pretty().limit(1)
+{
+        "_id" : ObjectId("60bb5d9af5322caf711ed97f"),
+        "firstName" : "Vasu",
+        "lastName" : "Kalariya"
+}
+>
+>
+>
+>
+>
+> db.Customer.remove({firstName:"James"})
+WriteResult({ "nRemoved" : 2 })
+>
+> db.Customer.find({firstName:"James"}).pretty()
+>
+>
+> db.Customer.find({"age":{$gte:22}})
+{ "_id" : ObjectId("60bb5b87d5ec118047011dd5"), "firstName" : "Robert", "lastName" : "Smith", "age" : 22, "Address" : { "streetAddress" : "1400 Farmington Ave", "city" : "Bristol", "state" : "CT", "postalCode" : 6010 }, "phoneNumber" : [ { "type" : "home", "number" : 1761266808 }, { "type" : "fax", "number" : 9841911399 } ], "emailAddress" : [ "Robert@gamil.com", "SRob@gmail.com" ] }
+{ "_id" : ObjectId("60bb5b87d5ec118047011dd6"), "firstName" : "Maria", "lastName" : "Garcia", "age" : 22, "Address" : { "streetAddress" : "515 Sawmill Road", "city" : "West Haven", "state" : "CT", "postalCode" : 6516 }, "phoneNumber" : [ { "type" : "home", "number" : 8215484894 }, { "type" : "fax", "number" : 6754261777 } ], "emailAddress" : [ "MariaG@gamil.com", "GMaria@gmail.com" ] }
+{ "_id" : ObjectId("60bb5b87d5ec118047011dd9"), "firstName" : "Mary", "lastName" : "Smith", "age" : 22, "Address" : { "streetAddress" : "180 River Rd", "city" : "Lisbon", "state" : "CT", "postalCode" : 6351 }, "phoneNumber" : [ { "type" : "home", "number" : 9806068527 }, { "type" : "fax", "number" : 3219935317 } ], "emailAddress" : [ "Mary@gamil.com", "SMary@gmail.com" ] }
+{ "_id" : ObjectId("60bb5b87d5ec118047011ddb"), "firstName" : "Lilly", "lastName" : "Martinez", "age" : 22, "Address" : { "streetAddress" : "591 Memorial Dr", "city" : "Chicopee", "state" : "MA", "postalCode" : 1020 }, "phoneNumber" : [ { "type" : "home", "number" : 1723748378 }, { "type" : "fax", "number" : 3294228998 } ], "emailAddress" : [ "Lilly@gamil.com", "MLilly@gmail.com", "LillyM@gmail.com" ] }
+{ "_id" : ObjectId("60bb5b87d5ec118047011ddd"), "firstName" : "Kamilah", "lastName" : "Earhart", "age" : 32, "Address" : { "streetAddress" : "297 Grant Avenue", "city" : "Auburn", "state" : "NY", "postalCode" : 13021 }, "phoneNumber" : [ { "type" : "home", "number" : 7360386487 }, { "type" : "fax", "number" : 8330942524 } ], "emailAddress" : [ "Kamilah@gamil.com", "EKamlish@gmail.com", "KamilahEar@gmail,com" ] }
+{ "_id" : ObjectId("60bb5b87d5ec118047011dde"), "firstName" : "Alise", "lastName" : "Pickrell", "age" : 29, "Address" : { "streetAddress" : "4133 Veterans Memorial", "city" : "Batavia", "state" : "NY", "postalCode" : 14020 }, "phoneNumber" : [ { "type" : "home", "number" : 8564397599 }, { "type" : "fax", "number" : 5426189495 }, { "type" : "Mobile", "number" : 3314579129 } ], "emailAddress" : [ "AliseP@gamil.com", "PAlise@gmail.com" ] }
+{ "_id" : ObjectId("60bb5b87d5ec118047011ddf"), "firstName" : "Leticia", "lastName" : "Wrobel", "age" : 33, "Address" : { "streetAddress" : "337 Russell St", "city" : "Hadley", "state" : "MA", "postalCode" : 1035 }, "phoneNumber" : [ { "type" : "home", "number" : 1659846658 }, { "type" : "fax", "number" : 3502899930 }, { "type" : "Mobile", "number" : 8437087134 } ], "emailAddress" : [ "Leticia@gamil.com", "WLeticia@gmail.com", "WrobelL@gmail,com" ] }
+{ "_id" : ObjectId("60bb5b87d5ec118047011de0"), "firstName" : "Caridad", "lastName" : "Kendall", "age" : 34, "Address" : { "streetAddress" : "6265 Brockport", "city" : "Brockport", "state" : "NY", "postalCode" : 14420 }, "phoneNumber" : [ { "type" : "home", "number" : 8602583403 }, { "type" : "fax", "number" : 4326828684 } ], "emailAddress" : [ "Caridad@gamil.com", "CaridadK@gmail.com" ] }
+{ "_id" : ObjectId("60bb5b87d5ec118047011de1"), "firstName" : "Michele", "lastName" : "Gault", "age" : 36, "Address" : { "streetAddress" : "5399 W Genesse St", "city" : "Camillus", "state" : "NY", "postalCode" : 13031 }, "phoneNumber" : [ { "type" : "home", "number" : 6125582162 }, { "type" : "fax", "number" : 935992552 }, { "type" : "Mobile", "number" : 395710776 } ], "emailAddress" : [ "MichaelG@gamil.com", "GMichele@gmail.com", "GaultM@gmail,com" ] }
+{ "_id" : ObjectId("60bb5b87d5ec118047011de2"), "firstName" : "Azalee", "lastName" : "Racey", "age" : 31, "Address" : { "streetAddress" : "3191 County rd 10", "city" : "Canandaigua", "state" : "NY", "postalCode" : 14424 }, "phoneNumber" : [ { "type" : "home", "number" : 8268801323 }, { "type" : "fax", "number" : 9568588641 }, { "type" : "Mobile", "number" : 7806366159 } ], "emailAddress" : [ "AzaleeR@gamil.com", "RAzalee@gmail.com" ] }
+{ "_id" : ObjectId("60bb5b87d5ec118047011de3"), "firstName" : "Kathlyn", "lastName" : "Hackenberg", "age" : 31, "Address" : { "streetAddress" : "20 Soojian Dr", "city" : "Leicester", "state" : "MA", "postalCode" : 1524 }, "phoneNumber" : [ { "type" : "home", "number" : 4131667434 }, { "type" : "fax", "number" : 4051166104 } ], "emailAddress" : [ "Kathlyn@gamil.com", "HKathlyn@gmail.com" ] }
+{ "_id" : ObjectId("60bb5b87d5ec118047011de4"), "firstName" : "Edie", "lastName" : "Burstein", "age" : 38, "Address" : { "streetAddress" : "30 Catskill", "city" : "Catskill", "state" : "NY", "postalCode" : 12414 }, "phoneNumber" : [ { "type" : "home", "number" : 2601886547 }, { "type" : "fax", "number" : 2999933858 } ], "emailAddress" : [ "Edie@gamil.com", "BEdie@gmail.com", "BursteinE@gmail,com" ] }
+{ "_id" : ObjectId("60bb5b87d5ec118047011de5"), "firstName" : "Will", "lastName" : "Strout", "age" : 36, "Address" : { "streetAddress" : "11 Jungle Road", "city" : "Leominster", "state" : "MA", "postalCode" : 1453 }, "phoneNumber" : [ { "type" : "home", "number" : 976463661 }, { "type" : "fax", "number" : 8685337904 }, { "type" : "Mobile", "number" : 9809039510 } ], "emailAddress" : [ "Will@gamil.com", "SWill@gmail.com" ] }
+{ "_id" : ObjectId("60bb5b87d5ec118047011de6"), "firstName" : "Cesar", "lastName" : "Bannon", "age" : 34, "Address" : { "streetAddress" : "161 Centereach Mall", "city" : "Centereach", "state" : "NY", "postalCode" : 11720 }, "phoneNumber" : [ { "type" : "home", "number" : 8803053048 }, { "type" : "fax", "number" : 8337163141 }, { "type" : "Mobile", "number" : 9735653616 } ], "emailAddress" : [ "Cesar@gamil.com", "BCesar@gmail.com" ] }
+{ "_id" : ObjectId("60bb5b87d5ec118047011de7"), "firstName" : "Hanna", "lastName" : "Voliva", "age" : 30, "Address" : { "streetAddress" : "780 Lynnway", "city" : "Lynn", "state" : "MA", "postalCode" : 1905 }, "phoneNumber" : [ { "type" : "home", "number" : 4041954879 }, { "type" : "fax", "number" : 2490539545 } ], "emailAddress" : [ "Hanna@gamil.com", "VHanna@gmail.com", "VolivaHanna@gmail,com" ] }
+{ "_id" : ObjectId("60bb5b87d5ec118047011de8"), "firstName" : "Yuonne", "lastName" : "Gingerich", "age" : 22, "Address" : { "streetAddress" : "3018 East Ave", "city" : "Central Square", "state" : "NY", "postalCode" : 13036 }, "phoneNumber" : [ { "type" : "home", "number" : 2990731778 }, { "type" : "fax", "number" : 4631531140 }, { "type" : "Mobile", "number" : 8829936546 } ], "emailAddress" : [ "Yuonne@gamil.com", "GYuonne@gmail.com" ] }
+{ "_id" : ObjectId("60bb5b87d5ec118047011de9"), "firstName" : "Jackie", "lastName" : "Wolfenbarger", "age" : 22, "Address" : { "streetAddress" : "100 Thruway Plaza", "city" : "Cheektowaga", "state" : "NY", "postalCode" : 14225 }, "phoneNumber" : [ { "type" : "home", "number" : 6822716568 }, { "type" : "fax", "number" : 7965807774 } ], "emailAddress" : [ "Jackie@gamil.com", "WJackie@gmail.com" ] }
+
+
+
+-----------------------------------------------------------------------
+Use $gt, $gte, $lt
+> db.Customer.find({"age":{$gt:22}}).pretty()
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011ddd"),
+        "firstName" : "Kamilah",
+        "lastName" : "Earhart",
+        "age" : 32,
+        "Address" : {
+                "streetAddress" : "297 Grant Avenue",
+                "city" : "Auburn",
+                "state" : "NY",
+                "postalCode" : 13021
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 7360386487
+                },
+                {
+                        "type" : "fax",
+                        "number" : 8330942524
+                }
+        ],
+        "emailAddress" : [
+                "Kamilah@gamil.com",
+                "EKamlish@gmail.com",
+                "KamilahEar@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dde"),
+        "firstName" : "Alise",
+        "lastName" : "Pickrell",
+        "age" : 29,
+        "Address" : {
+                "streetAddress" : "4133 Veterans Memorial",
+                "city" : "Batavia",
+                "state" : "NY",
+                "postalCode" : 14020
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8564397599
+                },
+                {
+                        "type" : "fax",
+                        "number" : 5426189495
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 3314579129
+                }
+        ],
+        "emailAddress" : [
+                "AliseP@gamil.com",
+                "PAlise@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011ddf"),
+        "firstName" : "Leticia",
+        "lastName" : "Wrobel",
+        "age" : 33,
+        "Address" : {
+                "streetAddress" : "337 Russell St",
+                "city" : "Hadley",
+                "state" : "MA",
+                "postalCode" : 1035
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 1659846658
+                },
+                {
+                        "type" : "fax",
+                        "number" : 3502899930
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 8437087134
+                }
+        ],
+        "emailAddress" : [
+                "Leticia@gamil.com",
+                "WLeticia@gmail.com",
+                "WrobelL@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de0"),
+        "firstName" : "Caridad",
+        "lastName" : "Kendall",
+        "age" : 34,
+        "Address" : {
+                "streetAddress" : "6265 Brockport",
+                "city" : "Brockport",
+                "state" : "NY",
+                "postalCode" : 14420
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8602583403
+                },
+                {
+                        "type" : "fax",
+                        "number" : 4326828684
+                }
+        ],
+        "emailAddress" : [
+                "Caridad@gamil.com",
+                "CaridadK@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de1"),
+        "firstName" : "Michele",
+        "lastName" : "Gault",
+        "age" : 36,
+        "Address" : {
+                "streetAddress" : "5399 W Genesse St",
+                "city" : "Camillus",
+                "state" : "NY",
+                "postalCode" : 13031
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 6125582162
+                },
+                {
+                        "type" : "fax",
+                        "number" : 935992552
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 395710776
+                }
+        ],
+        "emailAddress" : [
+                "MichaelG@gamil.com",
+                "GMichele@gmail.com",
+                "GaultM@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de2"),
+        "firstName" : "Azalee",
+        "lastName" : "Racey",
+        "age" : 31,
+        "Address" : {
+                "streetAddress" : "3191 County rd 10",
+                "city" : "Canandaigua",
+                "state" : "NY",
+                "postalCode" : 14424
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8268801323
+                },
+                {
+                        "type" : "fax",
+                        "number" : 9568588641
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 7806366159
+                }
+        ],
+        "emailAddress" : [
+                "AzaleeR@gamil.com",
+                "RAzalee@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de3"),
+        "firstName" : "Kathlyn",
+        "lastName" : "Hackenberg",
+        "age" : 31,
+        "Address" : {
+                "streetAddress" : "20 Soojian Dr",
+                "city" : "Leicester",
+                "state" : "MA",
+                "postalCode" : 1524
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 4131667434
+                },
+                {
+                        "type" : "fax",
+                        "number" : 4051166104
+                }
+        ],
+        "emailAddress" : [
+                "Kathlyn@gamil.com",
+                "HKathlyn@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de4"),
+        "firstName" : "Edie",
+        "lastName" : "Burstein",
+        "age" : 38,
+        "Address" : {
+                "streetAddress" : "30 Catskill",
+                "city" : "Catskill",
+                "state" : "NY",
+                "postalCode" : 12414
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 2601886547
+                },
+                {
+                        "type" : "fax",
+                        "number" : 2999933858
+                }
+        ],
+        "emailAddress" : [
+                "Edie@gamil.com",
+                "BEdie@gmail.com",
+                "BursteinE@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de5"),
+        "firstName" : "Will",
+        "lastName" : "Strout",
+        "age" : 36,
+        "Address" : {
+                "streetAddress" : "11 Jungle Road",
+                "city" : "Leominster",
+                "state" : "MA",
+                "postalCode" : 1453
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 976463661
+                },
+                {
+                        "type" : "fax",
+                        "number" : 8685337904
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 9809039510
+                }
+        ],
+        "emailAddress" : [
+                "Will@gamil.com",
+                "SWill@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de6"),
+        "firstName" : "Cesar",
+        "lastName" : "Bannon",
+        "age" : 34,
+        "Address" : {
+                "streetAddress" : "161 Centereach Mall",
+                "city" : "Centereach",
+                "state" : "NY",
+                "postalCode" : 11720
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8803053048
+                },
+                {
+                        "type" : "fax",
+                        "number" : 8337163141
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 9735653616
+                }
+        ],
+        "emailAddress" : [
+                "Cesar@gamil.com",
+                "BCesar@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de7"),
+        "firstName" : "Hanna",
+        "lastName" : "Voliva",
+        "age" : 30,
+        "Address" : {
+                "streetAddress" : "780 Lynnway",
+                "city" : "Lynn",
+                "state" : "MA",
+                "postalCode" : 1905
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 4041954879
+                },
+                {
+                        "type" : "fax",
+                        "number" : 2490539545
+                }
+        ],
+        "emailAddress" : [
+                "Hanna@gamil.com",
+                "VHanna@gmail.com",
+                "VolivaHanna@gmail,com"
+        ]
+}
+>
+>
+>
+>
+>
+>
+> db.Customer.find({"age":{$lt:22}}).pretty()
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd4"),
+        "firstName" : "Michael",
+        "lastName" : "Smith",
+        "age" : 21,
+        "Address" : {
+                "streetAddress" : "279 Troy Road",
+                "city" : "East Greenbush",
+                "state" : "NY",
+                "postalCode" : 12061
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 9808191199
+                },
+                {
+                        "type" : "fax",
+                        "number" : 7797374941
+                }
+        ],
+        "emailAddress" : [
+                "MichS@gamil.com",
+                "SMich@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd7"),
+        "firstName" : "David",
+        "lastName" : "Smith",
+        "age" : 21,
+        "Address" : {
+                "streetAddress" : "30 Memorial Drive",
+                "city" : "Avon",
+                "state" : "MA",
+                "postalCode" : 2322
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 1508518145
+                },
+                {
+                        "type" : "fax",
+                        "number" : 6778131732
+                }
+        ],
+        "emailAddress" : [
+                "David@gamil.com",
+                "SDavid@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd8"),
+        "firstName" : "Maria",
+        "lastName" : "Rodriguez",
+        "age" : 20,
+        "Address" : {
+                "streetAddress" : "100 Thruway Plaza",
+                "city" : "Cheektowaga",
+                "state" : "NY",
+                "postalCode" : 14225
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 2870577148
+                },
+                {
+                        "type" : "fax",
+                        "number" : 1700918899
+                }
+        ],
+        "emailAddress" : [
+                "MariaR@gamil.com",
+                "RMaria@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dda"),
+        "firstName" : "Maria",
+        "lastName" : "Hernandez",
+        "age" : 21,
+        "Address" : {
+                "state" : "CT",
+                "Pincode" : 4123
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 7655200366
+                },
+                {
+                        "type" : "fax",
+                        "number" : 481572451
+                }
+        ],
+        "emailAddress" : [
+                "MariaH@gamil.com",
+                "HMaria@gmail.com"
+        ]
+}
+
+
+-----------------------------------------------------------------------
+
+Record starting with N
+> db.Customer.find({"Address.state":{$regex:/^N/}}).pretty()
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd4"),
+        "firstName" : "Michael",
+        "lastName" : "Smith",
+        "age" : 21,
+        "Address" : {
+                "streetAddress" : "279 Troy Road",
+                "city" : "East Greenbush",
+                "state" : "NY",
+                "postalCode" : 12061
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 9808191199
+                },
+                {
+                        "type" : "fax",
+                        "number" : 7797374941
+                }
+        ],
+        "emailAddress" : [
+                "MichS@gamil.com",
+                "SMich@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd8"),
+        "firstName" : "Maria",
+        "lastName" : "Rodriguez",
+        "age" : 20,
+        "Address" : {
+                "streetAddress" : "100 Thruway Plaza",
+                "city" : "Cheektowaga",
+                "state" : "NY",
+                "postalCode" : 14225
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 2870577148
+                },
+                {
+                        "type" : "fax",
+                        "number" : 1700918899
+                }
+        ],
+        "emailAddress" : [
+                "MariaR@gamil.com",
+                "RMaria@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011ddd"),
+        "firstName" : "Kamilah",
+        "lastName" : "Earhart",
+        "age" : 32,
+        "Address" : {
+                "streetAddress" : "297 Grant Avenue",
+                "city" : "Auburn",
+                "state" : "NY",
+                "postalCode" : 13021
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 7360386487
+                },
+                {
+                        "type" : "fax",
+                        "number" : 8330942524
+                }
+        ],
+        "emailAddress" : [
+                "Kamilah@gamil.com",
+                "EKamlish@gmail.com",
+                "KamilahEar@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dde"),
+        "firstName" : "Alise",
+        "lastName" : "Pickrell",
+        "age" : 29,
+        "Address" : {
+                "streetAddress" : "4133 Veterans Memorial",
+                "city" : "Batavia",
+                "state" : "NY",
+                "postalCode" : 14020
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8564397599
+                },
+                {
+                        "type" : "fax",
+                        "number" : 5426189495
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 3314579129
+                }
+        ],
+        "emailAddress" : [
+                "AliseP@gamil.com",
+                "PAlise@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de0"),
+        "firstName" : "Caridad",
+        "lastName" : "Kendall",
+        "age" : 34,
+        "Address" : {
+                "streetAddress" : "6265 Brockport",
+                "city" : "Brockport",
+                "state" : "NY",
+                "postalCode" : 14420
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8602583403
+                },
+                {
+                        "type" : "fax",
+                        "number" : 4326828684
+                }
+        ],
+        "emailAddress" : [
+                "Caridad@gamil.com",
+                "CaridadK@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de1"),
+        "firstName" : "Michele",
+        "lastName" : "Gault",
+        "age" : 36,
+        "Address" : {
+                "streetAddress" : "5399 W Genesse St",
+                "city" : "Camillus",
+                "state" : "NY",
+                "postalCode" : 13031
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 6125582162
+                },
+                {
+                        "type" : "fax",
+                        "number" : 935992552
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 395710776
+                }
+        ],
+        "emailAddress" : [
+                "MichaelG@gamil.com",
+                "GMichele@gmail.com",
+                "GaultM@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de2"),
+        "firstName" : "Azalee",
+        "lastName" : "Racey",
+        "age" : 31,
+        "Address" : {
+                "streetAddress" : "3191 County rd 10",
+                "city" : "Canandaigua",
+                "state" : "NY",
+                "postalCode" : 14424
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8268801323
+                },
+                {
+                        "type" : "fax",
+                        "number" : 9568588641
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 7806366159
+                }
+        ],
+        "emailAddress" : [
+                "AzaleeR@gamil.com",
+                "RAzalee@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de4"),
+        "firstName" : "Edie",
+        "lastName" : "Burstein",
+        "age" : 38,
+        "Address" : {
+                "streetAddress" : "30 Catskill",
+                "city" : "Catskill",
+                "state" : "NY",
+                "postalCode" : 12414
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 2601886547
+                },
+                {
+                        "type" : "fax",
+                        "number" : 2999933858
+                }
+        ],
+        "emailAddress" : [
+                "Edie@gamil.com",
+                "BEdie@gmail.com",
+                "BursteinE@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de6"),
+        "firstName" : "Cesar",
+        "lastName" : "Bannon",
+        "age" : 34,
+        "Address" : {
+                "streetAddress" : "161 Centereach Mall",
+                "city" : "Centereach",
+                "state" : "NY",
+                "postalCode" : 11720
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8803053048
+                },
+                {
+                        "type" : "fax",
+                        "number" : 8337163141
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 9735653616
+                }
+        ],
+        "emailAddress" : [
+                "Cesar@gamil.com",
+                "BCesar@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de8"),
+        "firstName" : "Yuonne",
+        "lastName" : "Gingerich",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "3018 East Ave",
+                "city" : "Central Square",
+                "state" : "NY",
+                "postalCode" : 13036
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 2990731778
+                },
+                {
+                        "type" : "fax",
+                        "number" : 4631531140
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 8829936546
+                }
+        ],
+        "emailAddress" : [
+                "Yuonne@gamil.com",
+                "GYuonne@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de9"),
+        "firstName" : "Jackie",
+        "lastName" : "Wolfenbarger",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "100 Thruway Plaza",
+                "city" : "Cheektowaga",
+                "state" : "NY",
+                "postalCode" : 14225
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 6822716568
+                },
+                {
+                        "type" : "fax",
+                        "number" : 7965807774
+                }
+        ],
+        "emailAddress" : [
+                "Jackie@gamil.com",
+                "WJackie@gmail.com"
+        ]
+}
+>
+>
+>
+>
+>
+> db.Customer.find({age:{$gt:21}}).pretty()
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd5"),
+        "firstName" : "Robert",
+        "lastName" : "Smith",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "1400 Farmington Ave",
+                "city" : "Bristol",
+                "state" : "CT",
+                "postalCode" : 6010
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 1761266808
+                },
+                {
+                        "type" : "fax",
+                        "number" : 9841911399
+                }
+        ],
+        "emailAddress" : [
+                "Robert@gamil.com",
+                "SRob@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd6"),
+        "firstName" : "Maria",
+        "lastName" : "Garcia",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "515 Sawmill Road",
+                "city" : "West Haven",
+                "state" : "CT",
+                "postalCode" : 6516
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8215484894
+                },
+                {
+                        "type" : "fax",
+                        "number" : 6754261777
+                }
+        ],
+        "emailAddress" : [
+                "MariaG@gamil.com",
+                "GMaria@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd9"),
+        "firstName" : "Mary",
+        "lastName" : "Smith",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "180 River Rd",
+                "city" : "Lisbon",
+                "state" : "CT",
+                "postalCode" : 6351
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 9806068527
+                },
+                {
+                        "type" : "fax",
+                        "number" : 3219935317
+                }
+        ],
+        "emailAddress" : [
+                "Mary@gamil.com",
+                "SMary@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011ddb"),
+        "firstName" : "Lilly",
+        "lastName" : "Martinez",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "591 Memorial Dr",
+                "city" : "Chicopee",
+                "state" : "MA",
+                "postalCode" : 1020
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 1723748378
+                },
+                {
+                        "type" : "fax",
+                        "number" : 3294228998
+                }
+        ],
+        "emailAddress" : [
+                "Lilly@gamil.com",
+                "MLilly@gmail.com",
+                "LillyM@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011ddd"),
+        "firstName" : "Kamilah",
+        "lastName" : "Earhart",
+        "age" : 32,
+        "Address" : {
+                "streetAddress" : "297 Grant Avenue",
+                "city" : "Auburn",
+                "state" : "NY",
+                "postalCode" : 13021
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 7360386487
+                },
+                {
+                        "type" : "fax",
+                        "number" : 8330942524
+                }
+        ],
+        "emailAddress" : [
+                "Kamilah@gamil.com",
+                "EKamlish@gmail.com",
+                "KamilahEar@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dde"),
+        "firstName" : "Alise",
+        "lastName" : "Pickrell",
+        "age" : 29,
+        "Address" : {
+                "streetAddress" : "4133 Veterans Memorial",
+                "city" : "Batavia",
+                "state" : "NY",
+                "postalCode" : 14020
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8564397599
+                },
+                {
+                        "type" : "fax",
+                        "number" : 5426189495
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 3314579129
+                }
+        ],
+        "emailAddress" : [
+                "AliseP@gamil.com",
+                "PAlise@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011ddf"),
+        "firstName" : "Leticia",
+        "lastName" : "Wrobel",
+        "age" : 33,
+        "Address" : {
+                "streetAddress" : "337 Russell St",
+                "city" : "Hadley",
+                "state" : "MA",
+                "postalCode" : 1035
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 1659846658
+                },
+                {
+                        "type" : "fax",
+                        "number" : 3502899930
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 8437087134
+                }
+        ],
+        "emailAddress" : [
+                "Leticia@gamil.com",
+                "WLeticia@gmail.com",
+                "WrobelL@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de0"),
+        "firstName" : "Caridad",
+        "lastName" : "Kendall",
+        "age" : 34,
+        "Address" : {
+                "streetAddress" : "6265 Brockport",
+                "city" : "Brockport",
+                "state" : "NY",
+                "postalCode" : 14420
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8602583403
+                },
+                {
+                        "type" : "fax",
+                        "number" : 4326828684
+                }
+        ],
+        "emailAddress" : [
+                "Caridad@gamil.com",
+                "CaridadK@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de1"),
+        "firstName" : "Michele",
+        "lastName" : "Gault",
+        "age" : 36,
+        "Address" : {
+                "streetAddress" : "5399 W Genesse St",
+                "city" : "Camillus",
+                "state" : "NY",
+                "postalCode" : 13031
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 6125582162
+                },
+                {
+                        "type" : "fax",
+                        "number" : 935992552
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 395710776
+                }
+        ],
+        "emailAddress" : [
+                "MichaelG@gamil.com",
+                "GMichele@gmail.com",
+                "GaultM@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de2"),
+        "firstName" : "Azalee",
+        "lastName" : "Racey",
+        "age" : 31,
+        "Address" : {
+                "streetAddress" : "3191 County rd 10",
+                "city" : "Canandaigua",
+                "state" : "NY",
+                "postalCode" : 14424
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8268801323
+                },
+                {
+                        "type" : "fax",
+                        "number" : 9568588641
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 7806366159
+                }
+        ],
+        "emailAddress" : [
+                "AzaleeR@gamil.com",
+                "RAzalee@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de3"),
+        "firstName" : "Kathlyn",
+        "lastName" : "Hackenberg",
+        "age" : 31,
+        "Address" : {
+                "streetAddress" : "20 Soojian Dr",
+                "city" : "Leicester",
+                "state" : "MA",
+                "postalCode" : 1524
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 4131667434
+                },
+                {
+                        "type" : "fax",
+                        "number" : 4051166104
+                }
+        ],
+        "emailAddress" : [
+                "Kathlyn@gamil.com",
+                "HKathlyn@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de4"),
+        "firstName" : "Edie",
+        "lastName" : "Burstein",
+        "age" : 38,
+        "Address" : {
+                "streetAddress" : "30 Catskill",
+                "city" : "Catskill",
+                "state" : "NY",
+                "postalCode" : 12414
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 2601886547
+                },
+                {
+                        "type" : "fax",
+                        "number" : 2999933858
+                }
+        ],
+        "emailAddress" : [
+                "Edie@gamil.com",
+                "BEdie@gmail.com",
+                "BursteinE@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de5"),
+        "firstName" : "Will",
+        "lastName" : "Strout",
+        "age" : 36,
+        "Address" : {
+                "streetAddress" : "11 Jungle Road",
+                "city" : "Leominster",
+                "state" : "MA",
+                "postalCode" : 1453
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 976463661
+                },
+                {
+                        "type" : "fax",
+                        "number" : 8685337904
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 9809039510
+                }
+        ],
+        "emailAddress" : [
+                "Will@gamil.com",
+                "SWill@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de6"),
+        "firstName" : "Cesar",
+        "lastName" : "Bannon",
+        "age" : 34,
+        "Address" : {
+                "streetAddress" : "161 Centereach Mall",
+                "city" : "Centereach",
+                "state" : "NY",
+                "postalCode" : 11720
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8803053048
+                },
+                {
+                        "type" : "fax",
+                        "number" : 8337163141
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 9735653616
+                }
+        ],
+        "emailAddress" : [
+                "Cesar@gamil.com",
+                "BCesar@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de7"),
+        "firstName" : "Hanna",
+        "lastName" : "Voliva",
+        "age" : 30,
+        "Address" : {
+                "streetAddress" : "780 Lynnway",
+                "city" : "Lynn",
+                "state" : "MA",
+                "postalCode" : 1905
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 4041954879
+                },
+                {
+                        "type" : "fax",
+                        "number" : 2490539545
+                }
+        ],
+        "emailAddress" : [
+                "Hanna@gamil.com",
+                "VHanna@gmail.com",
+                "VolivaHanna@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de8"),
+        "firstName" : "Yuonne",
+        "lastName" : "Gingerich",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "3018 East Ave",
+                "city" : "Central Square",
+                "state" : "NY",
+                "postalCode" : 13036
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 2990731778
+                },
+                {
+                        "type" : "fax",
+                        "number" : 4631531140
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 8829936546
+                }
+        ],
+        "emailAddress" : [
+                "Yuonne@gamil.com",
+                "GYuonne@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de9"),
+        "firstName" : "Jackie",
+        "lastName" : "Wolfenbarger",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "100 Thruway Plaza",
+                "city" : "Cheektowaga",
+                "state" : "NY",
+                "postalCode" : 14225
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 6822716568
+                },
+                {
+                        "type" : "fax",
+                        "number" : 7965807774
+                }
+        ],
+        "emailAddress" : [
+                "Jackie@gamil.com",
+                "WJackie@gmail.com"
+        ]
+}
+>
+>
+>
+>
+>
+>
+> db.Customer.find({"firstName":{$regex:/^M/}}).pretty()
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd4"),
+        "firstName" : "Michael",
+        "lastName" : "Smith",
+        "age" : 21,
+        "Address" : {
+                "streetAddress" : "279 Troy Road",
+                "city" : "East Greenbush",
+                "state" : "NY",
+                "postalCode" : 12061
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 9808191199
+                },
+                {
+                        "type" : "fax",
+                        "number" : 7797374941
+                }
+        ],
+        "emailAddress" : [
+                "MichS@gamil.com",
+                "SMich@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd6"),
+        "firstName" : "Maria",
+        "lastName" : "Garcia",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "515 Sawmill Road",
+                "city" : "West Haven",
+                "state" : "CT",
+                "postalCode" : 6516
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8215484894
+                },
+                {
+                        "type" : "fax",
+                        "number" : 6754261777
+                }
+        ],
+        "emailAddress" : [
+                "MariaG@gamil.com",
+                "GMaria@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd8"),
+        "firstName" : "Maria",
+        "lastName" : "Rodriguez",
+        "age" : 20,
+        "Address" : {
+                "streetAddress" : "100 Thruway Plaza",
+                "city" : "Cheektowaga",
+                "state" : "NY",
+                "postalCode" : 14225
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 2870577148
+                },
+                {
+                        "type" : "fax",
+                        "number" : 1700918899
+                }
+        ],
+        "emailAddress" : [
+                "MariaR@gamil.com",
+                "RMaria@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd9"),
+        "firstName" : "Mary",
+        "lastName" : "Smith",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "180 River Rd",
+                "city" : "Lisbon",
+                "state" : "CT",
+                "postalCode" : 6351
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 9806068527
+                },
+                {
+                        "type" : "fax",
+                        "number" : 3219935317
+                }
+        ],
+        "emailAddress" : [
+                "Mary@gamil.com",
+                "SMary@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dda"),
+        "firstName" : "Maria",
+        "lastName" : "Hernandez",
+        "age" : 21,
+        "Address" : {
+                "state" : "CT",
+                "Pincode" : 4123
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 7655200366
+                },
+                {
+                        "type" : "fax",
+                        "number" : 481572451
+                }
+        ],
+        "emailAddress" : [
+                "MariaH@gamil.com",
+                "HMaria@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de1"),
+        "firstName" : "Michele",
+        "lastName" : "Gault",
+        "age" : 36,
+        "Address" : {
+                "streetAddress" : "5399 W Genesse St",
+                "city" : "Camillus",
+                "state" : "NY",
+                "postalCode" : 13031
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 6125582162
+                },
+                {
+                        "type" : "fax",
+                        "number" : 935992552
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 395710776
+                }
+        ],
+        "emailAddress" : [
+                "MichaelG@gamil.com",
+                "GMichele@gmail.com",
+                "GaultM@gmail,com"
+        ]
+}
+>
+
+
+
+-----------------------------------------------------------------------
+Total number od Doc
+> db.Customer.count()
+22
+
+
+-----------------------------------------------------------------------
+Display only name
+> db.Customer.find({},{_id:0,firstName:1,lastName:1}).pretty()
+{ "firstName" : "Michael", "lastName" : "Smith" }
+{ "firstName" : "Robert", "lastName" : "Smith" }
+{ "firstName" : "Maria", "lastName" : "Garcia" }
+{ "firstName" : "David", "lastName" : "Smith" }
+{ "firstName" : "Maria", "lastName" : "Rodriguez" }
+{ "firstName" : "Mary", "lastName" : "Smith" }
+{ "firstName" : "Maria", "lastName" : "Hernandez" }
+{ "firstName" : "Lilly", "lastName" : "Martinez" }
+{ "firstName" : "Kamilah", "lastName" : "Earhart" }
+{ "firstName" : "Alise", "lastName" : "Pickrell" }
+{ "firstName" : "Leticia", "lastName" : "Wrobel" }
+{ "firstName" : "Caridad", "lastName" : "Kendall" }
+{ "firstName" : "Michele", "lastName" : "Gault" }
+{ "firstName" : "Azalee", "lastName" : "Racey" }
+{ "firstName" : "Kathlyn", "lastName" : "Hackenberg" }
+{ "firstName" : "Edie", "lastName" : "Burstein" }
+{ "firstName" : "Will", "lastName" : "Strout" }
+{ "firstName" : "Cesar", "lastName" : "Bannon" }
+{ "firstName" : "Hanna", "lastName" : "Voliva" }
+{ "firstName" : "Yuonne", "lastName" : "Gingerich" }
+Type "it" for more
+
+
+
+-----------------------------------------------------------------------
+Sorting Doc in descending
+> db.Customer.find().sort({firstName:-1}).pretty()
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de8"),
+        "firstName" : "Yuonne",
+        "lastName" : "Gingerich",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "3018 East Ave",
+                "city" : "Central Square",
+                "state" : "NY",
+                "postalCode" : 13036
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 2990731778
+                },
+                {
+                        "type" : "fax",
+                        "number" : 4631531140
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 8829936546
+                }
+        ],
+        "emailAddress" : [
+                "Yuonne@gamil.com",
+                "GYuonne@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de5"),
+        "firstName" : "Will",
+        "lastName" : "Strout",
+        "age" : 36,
+        "Address" : {
+                "streetAddress" : "11 Jungle Road",
+                "city" : "Leominster",
+                "state" : "MA",
+                "postalCode" : 1453
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 976463661
+                },
+                {
+                        "type" : "fax",
+                        "number" : 8685337904
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 9809039510
+                }
+        ],
+        "emailAddress" : [
+                "Will@gamil.com",
+                "SWill@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5d9af5322caf711ed97f"),
+        "firstName" : "Vasu",
+        "lastName" : "Kalariya"
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd5"),
+        "firstName" : "Robert",
+        "lastName" : "Smith",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "1400 Farmington Ave",
+                "city" : "Bristol",
+                "state" : "CT",
+                "postalCode" : 6010
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 1761266808
+                },
+                {
+                        "type" : "fax",
+                        "number" : 9841911399
+                }
+        ],
+        "emailAddress" : [
+                "Robert@gamil.com",
+                "SRob@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de1"),
+        "firstName" : "Michele",
+        "lastName" : "Gault",
+        "age" : 36,
+        "Address" : {
+                "streetAddress" : "5399 W Genesse St",
+                "city" : "Camillus",
+                "state" : "NY",
+                "postalCode" : 13031
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 6125582162
+                },
+                {
+                        "type" : "fax",
+                        "number" : 935992552
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 395710776
+                }
+        ],
+        "emailAddress" : [
+                "MichaelG@gamil.com",
+                "GMichele@gmail.com",
+                "GaultM@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd4"),
+        "firstName" : "Michael",
+        "lastName" : "Smith",
+        "age" : 21,
+        "Address" : {
+                "streetAddress" : "279 Troy Road",
+                "city" : "East Greenbush",
+                "state" : "NY",
+                "postalCode" : 12061
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 9808191199
+                },
+                {
+                        "type" : "fax",
+                        "number" : 7797374941
+                }
+        ],
+        "emailAddress" : [
+                "MichS@gamil.com",
+                "SMich@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd9"),
+        "firstName" : "Mary",
+        "lastName" : "Smith",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "180 River Rd",
+                "city" : "Lisbon",
+                "state" : "CT",
+                "postalCode" : 6351
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 9806068527
+                },
+                {
+                        "type" : "fax",
+                        "number" : 3219935317
+                }
+        ],
+        "emailAddress" : [
+                "Mary@gamil.com",
+                "SMary@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd6"),
+        "firstName" : "Maria",
+        "lastName" : "Garcia",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "515 Sawmill Road",
+                "city" : "West Haven",
+                "state" : "CT",
+                "postalCode" : 6516
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8215484894
+                },
+                {
+                        "type" : "fax",
+                        "number" : 6754261777
+                }
+        ],
+        "emailAddress" : [
+                "MariaG@gamil.com",
+                "GMaria@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd8"),
+        "firstName" : "Maria",
+        "lastName" : "Rodriguez",
+        "age" : 20,
+        "Address" : {
+                "streetAddress" : "100 Thruway Plaza",
+                "city" : "Cheektowaga",
+                "state" : "NY",
+                "postalCode" : 14225
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 2870577148
+                },
+                {
+                        "type" : "fax",
+                        "number" : 1700918899
+                }
+        ],
+        "emailAddress" : [
+                "MariaR@gamil.com",
+                "RMaria@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dda"),
+        "firstName" : "Maria",
+        "lastName" : "Hernandez",
+        "age" : 21,
+        "Address" : {
+                "state" : "CT",
+                "Pincode" : 4123
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 7655200366
+                },
+                {
+                        "type" : "fax",
+                        "number" : 481572451
+                }
+        ],
+        "emailAddress" : [
+                "MariaH@gamil.com",
+                "HMaria@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011ddb"),
+        "firstName" : "Lilly",
+        "lastName" : "Martinez",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "591 Memorial Dr",
+                "city" : "Chicopee",
+                "state" : "MA",
+                "postalCode" : 1020
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 1723748378
+                },
+                {
+                        "type" : "fax",
+                        "number" : 3294228998
+                }
+        ],
+        "emailAddress" : [
+                "Lilly@gamil.com",
+                "MLilly@gmail.com",
+                "LillyM@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011ddf"),
+        "firstName" : "Leticia",
+        "lastName" : "Wrobel",
+        "age" : 33,
+        "Address" : {
+                "streetAddress" : "337 Russell St",
+                "city" : "Hadley",
+                "state" : "MA",
+                "postalCode" : 1035
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 1659846658
+                },
+                {
+                        "type" : "fax",
+                        "number" : 3502899930
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 8437087134
+                }
+        ],
+        "emailAddress" : [
+                "Leticia@gamil.com",
+                "WLeticia@gmail.com",
+                "WrobelL@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de3"),
+        "firstName" : "Kathlyn",
+        "lastName" : "Hackenberg",
+        "age" : 31,
+        "Address" : {
+                "streetAddress" : "20 Soojian Dr",
+                "city" : "Leicester",
+                "state" : "MA",
+                "postalCode" : 1524
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 4131667434
+                },
+                {
+                        "type" : "fax",
+                        "number" : 4051166104
+                }
+        ],
+        "emailAddress" : [
+                "Kathlyn@gamil.com",
+                "HKathlyn@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011ddd"),
+        "firstName" : "Kamilah",
+        "lastName" : "Earhart",
+        "age" : 32,
+        "Address" : {
+                "streetAddress" : "297 Grant Avenue",
+                "city" : "Auburn",
+                "state" : "NY",
+                "postalCode" : 13021
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 7360386487
+                },
+                {
+                        "type" : "fax",
+                        "number" : 8330942524
+                }
+        ],
+        "emailAddress" : [
+                "Kamilah@gamil.com",
+                "EKamlish@gmail.com",
+                "KamilahEar@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de9"),
+        "firstName" : "Jackie",
+        "lastName" : "Wolfenbarger",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "100 Thruway Plaza",
+                "city" : "Cheektowaga",
+                "state" : "NY",
+                "postalCode" : 14225
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 6822716568
+                },
+                {
+                        "type" : "fax",
+                        "number" : 7965807774
+                }
+        ],
+        "emailAddress" : [
+                "Jackie@gamil.com",
+                "WJackie@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de7"),
+        "firstName" : "Hanna",
+        "lastName" : "Voliva",
+        "age" : 30,
+        "Address" : {
+                "streetAddress" : "780 Lynnway",
+                "city" : "Lynn",
+                "state" : "MA",
+                "postalCode" : 1905
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 4041954879
+                },
+                {
+                        "type" : "fax",
+                        "number" : 2490539545
+                }
+        ],
+        "emailAddress" : [
+                "Hanna@gamil.com",
+                "VHanna@gmail.com",
+                "VolivaHanna@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de4"),
+        "firstName" : "Edie",
+        "lastName" : "Burstein",
+        "age" : 38,
+        "Address" : {
+                "streetAddress" : "30 Catskill",
+                "city" : "Catskill",
+                "state" : "NY",
+                "postalCode" : 12414
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 2601886547
+                },
+                {
+                        "type" : "fax",
+                        "number" : 2999933858
+                }
+        ],
+        "emailAddress" : [
+                "Edie@gamil.com",
+                "BEdie@gmail.com",
+                "BursteinE@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd7"),
+        "firstName" : "David",
+        "lastName" : "Smith",
+        "age" : 21,
+        "Address" : {
+                "streetAddress" : "30 Memorial Drive",
+                "city" : "Avon",
+                "state" : "MA",
+                "postalCode" : 2322
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 1508518145
+                },
+                {
+                        "type" : "fax",
+                        "number" : 6778131732
+                }
+        ],
+        "emailAddress" : [
+                "David@gamil.com",
+                "SDavid@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de6"),
+        "firstName" : "Cesar",
+        "lastName" : "Bannon",
+        "age" : 34,
+        "Address" : {
+                "streetAddress" : "161 Centereach Mall",
+                "city" : "Centereach",
+                "state" : "NY",
+                "postalCode" : 11720
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8803053048
+                },
+                {
+                        "type" : "fax",
+                        "number" : 8337163141
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 9735653616
+                }
+        ],
+        "emailAddress" : [
+                "Cesar@gamil.com",
+                "BCesar@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de0"),
+        "firstName" : "Caridad",
+        "lastName" : "Kendall",
+        "age" : 34,
+        "Address" : {
+                "streetAddress" : "6265 Brockport",
+                "city" : "Brockport",
+                "state" : "NY",
+                "postalCode" : 14420
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8602583403
+                },
+                {
+                        "type" : "fax",
+                        "number" : 4326828684
+                }
+        ],
+        "emailAddress" : [
+                "Caridad@gamil.com",
+                "CaridadK@gmail.com"
+        ]
+}
+Type "it" for more
+>
+>
+>
+>
+> db.Customer.find({$and:[{age:{$gt:20}},{lastName:"Smith"}]}).pretty()
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd4"),
+        "firstName" : "Michael",
+        "lastName" : "Smith",
+        "age" : 21,
+        "Address" : {
+                "streetAddress" : "279 Troy Road",
+                "city" : "East Greenbush",
+                "state" : "NY",
+                "postalCode" : 12061
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 9808191199
+                },
+                {
+                        "type" : "fax",
+                        "number" : 7797374941
+                }
+        ],
+        "emailAddress" : [
+                "MichS@gamil.com",
+                "SMich@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd5"),
+        "firstName" : "Robert",
+        "lastName" : "Smith",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "1400 Farmington Ave",
+                "city" : "Bristol",
+                "state" : "CT",
+                "postalCode" : 6010
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 1761266808
+                },
+                {
+                        "type" : "fax",
+                        "number" : 9841911399
+                }
+        ],
+        "emailAddress" : [
+                "Robert@gamil.com",
+                "SRob@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd7"),
+        "firstName" : "David",
+        "lastName" : "Smith",
+        "age" : 21,
+        "Address" : {
+                "streetAddress" : "30 Memorial Drive",
+                "city" : "Avon",
+                "state" : "MA",
+                "postalCode" : 2322
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 1508518145
+                },
+                {
+                        "type" : "fax",
+                        "number" : 6778131732
+                }
+        ],
+        "emailAddress" : [
+                "David@gamil.com",
+                "SDavid@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd9"),
+        "firstName" : "Mary",
+        "lastName" : "Smith",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "180 River Rd",
+                "city" : "Lisbon",
+                "state" : "CT",
+                "postalCode" : 6351
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 9806068527
+                },
+                {
+                        "type" : "fax",
+                        "number" : 3219935317
+                }
+        ],
+        "emailAddress" : [
+                "Mary@gamil.com",
+                "SMary@gmail.com"
+        ]
+}
+
+
+
+-----------------------------------------------------------------------
+
+Query using or operation
+> db.Customer.find({$or:[{age:{$gt:21}},{lastName:"Smith"}]}).pretty()
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd4"),
+        "firstName" : "Michael",
+        "lastName" : "Smith",
+        "age" : 21,
+        "Address" : {
+                "streetAddress" : "279 Troy Road",
+                "city" : "East Greenbush",
+                "state" : "NY",
+                "postalCode" : 12061
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 9808191199
+                },
+                {
+                        "type" : "fax",
+                        "number" : 7797374941
+                }
+        ],
+        "emailAddress" : [
+                "MichS@gamil.com",
+                "SMich@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd5"),
+        "firstName" : "Robert",
+        "lastName" : "Smith",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "1400 Farmington Ave",
+                "city" : "Bristol",
+                "state" : "CT",
+                "postalCode" : 6010
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 1761266808
+                },
+                {
+                        "type" : "fax",
+                        "number" : 9841911399
+                }
+        ],
+        "emailAddress" : [
+                "Robert@gamil.com",
+                "SRob@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd6"),
+        "firstName" : "Maria",
+        "lastName" : "Garcia",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "515 Sawmill Road",
+                "city" : "West Haven",
+                "state" : "CT",
+                "postalCode" : 6516
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8215484894
+                },
+                {
+                        "type" : "fax",
+                        "number" : 6754261777
+                }
+        ],
+        "emailAddress" : [
+                "MariaG@gamil.com",
+                "GMaria@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd7"),
+        "firstName" : "David",
+        "lastName" : "Smith",
+        "age" : 21,
+        "Address" : {
+                "streetAddress" : "30 Memorial Drive",
+                "city" : "Avon",
+                "state" : "MA",
+                "postalCode" : 2322
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 1508518145
+                },
+                {
+                        "type" : "fax",
+                        "number" : 6778131732
+                }
+        ],
+        "emailAddress" : [
+                "David@gamil.com",
+                "SDavid@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd9"),
+        "firstName" : "Mary",
+        "lastName" : "Smith",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "180 River Rd",
+                "city" : "Lisbon",
+                "state" : "CT",
+                "postalCode" : 6351
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 9806068527
+                },
+                {
+                        "type" : "fax",
+                        "number" : 3219935317
+                }
+        ],
+        "emailAddress" : [
+                "Mary@gamil.com",
+                "SMary@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011ddb"),
+        "firstName" : "Lilly",
+        "lastName" : "Martinez",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "591 Memorial Dr",
+                "city" : "Chicopee",
+                "state" : "MA",
+                "postalCode" : 1020
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 1723748378
+                },
+                {
+                        "type" : "fax",
+                        "number" : 3294228998
+                }
+        ],
+        "emailAddress" : [
+                "Lilly@gamil.com",
+                "MLilly@gmail.com",
+                "LillyM@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011ddd"),
+        "firstName" : "Kamilah",
+        "lastName" : "Earhart",
+        "age" : 32,
+        "Address" : {
+                "streetAddress" : "297 Grant Avenue",
+                "city" : "Auburn",
+                "state" : "NY",
+                "postalCode" : 13021
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 7360386487
+                },
+                {
+                        "type" : "fax",
+                        "number" : 8330942524
+                }
+        ],
+        "emailAddress" : [
+                "Kamilah@gamil.com",
+                "EKamlish@gmail.com",
+                "KamilahEar@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dde"),
+        "firstName" : "Alise",
+        "lastName" : "Pickrell",
+        "age" : 29,
+        "Address" : {
+                "streetAddress" : "4133 Veterans Memorial",
+                "city" : "Batavia",
+                "state" : "NY",
+                "postalCode" : 14020
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8564397599
+                },
+                {
+                        "type" : "fax",
+                        "number" : 5426189495
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 3314579129
+                }
+        ],
+        "emailAddress" : [
+                "AliseP@gamil.com",
+                "PAlise@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011ddf"),
+        "firstName" : "Leticia",
+        "lastName" : "Wrobel",
+        "age" : 33,
+        "Address" : {
+                "streetAddress" : "337 Russell St",
+                "city" : "Hadley",
+                "state" : "MA",
+                "postalCode" : 1035
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 1659846658
+                },
+                {
+                        "type" : "fax",
+                        "number" : 3502899930
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 8437087134
+                }
+        ],
+        "emailAddress" : [
+                "Leticia@gamil.com",
+                "WLeticia@gmail.com",
+                "WrobelL@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de0"),
+        "firstName" : "Caridad",
+        "lastName" : "Kendall",
+        "age" : 34,
+        "Address" : {
+                "streetAddress" : "6265 Brockport",
+                "city" : "Brockport",
+                "state" : "NY",
+                "postalCode" : 14420
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8602583403
+                },
+                {
+                        "type" : "fax",
+                        "number" : 4326828684
+                }
+        ],
+        "emailAddress" : [
+                "Caridad@gamil.com",
+                "CaridadK@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de1"),
+        "firstName" : "Michele",
+        "lastName" : "Gault",
+        "age" : 36,
+        "Address" : {
+                "streetAddress" : "5399 W Genesse St",
+                "city" : "Camillus",
+                "state" : "NY",
+                "postalCode" : 13031
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 6125582162
+                },
+                {
+                        "type" : "fax",
+                        "number" : 935992552
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 395710776
+                }
+        ],
+        "emailAddress" : [
+                "MichaelG@gamil.com",
+                "GMichele@gmail.com",
+                "GaultM@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de2"),
+        "firstName" : "Azalee",
+        "lastName" : "Racey",
+        "age" : 31,
+        "Address" : {
+                "streetAddress" : "3191 County rd 10",
+                "city" : "Canandaigua",
+                "state" : "NY",
+                "postalCode" : 14424
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8268801323
+                },
+                {
+                        "type" : "fax",
+                        "number" : 9568588641
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 7806366159
+                }
+        ],
+        "emailAddress" : [
+                "AzaleeR@gamil.com",
+                "RAzalee@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de3"),
+        "firstName" : "Kathlyn",
+        "lastName" : "Hackenberg",
+        "age" : 31,
+        "Address" : {
+                "streetAddress" : "20 Soojian Dr",
+                "city" : "Leicester",
+                "state" : "MA",
+                "postalCode" : 1524
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 4131667434
+                },
+                {
+                        "type" : "fax",
+                        "number" : 4051166104
+                }
+        ],
+        "emailAddress" : [
+                "Kathlyn@gamil.com",
+                "HKathlyn@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de4"),
+        "firstName" : "Edie",
+        "lastName" : "Burstein",
+        "age" : 38,
+        "Address" : {
+                "streetAddress" : "30 Catskill",
+                "city" : "Catskill",
+                "state" : "NY",
+                "postalCode" : 12414
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 2601886547
+                },
+                {
+                        "type" : "fax",
+                        "number" : 2999933858
+                }
+        ],
+        "emailAddress" : [
+                "Edie@gamil.com",
+                "BEdie@gmail.com",
+                "BursteinE@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de5"),
+        "firstName" : "Will",
+        "lastName" : "Strout",
+        "age" : 36,
+        "Address" : {
+                "streetAddress" : "11 Jungle Road",
+                "city" : "Leominster",
+                "state" : "MA",
+                "postalCode" : 1453
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 976463661
+                },
+                {
+                        "type" : "fax",
+                        "number" : 8685337904
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 9809039510
+                }
+        ],
+        "emailAddress" : [
+                "Will@gamil.com",
+                "SWill@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de6"),
+        "firstName" : "Cesar",
+        "lastName" : "Bannon",
+        "age" : 34,
+        "Address" : {
+                "streetAddress" : "161 Centereach Mall",
+                "city" : "Centereach",
+                "state" : "NY",
+                "postalCode" : 11720
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 8803053048
+                },
+                {
+                        "type" : "fax",
+                        "number" : 8337163141
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 9735653616
+                }
+        ],
+        "emailAddress" : [
+                "Cesar@gamil.com",
+                "BCesar@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de7"),
+        "firstName" : "Hanna",
+        "lastName" : "Voliva",
+        "age" : 30,
+        "Address" : {
+                "streetAddress" : "780 Lynnway",
+                "city" : "Lynn",
+                "state" : "MA",
+                "postalCode" : 1905
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 4041954879
+                },
+                {
+                        "type" : "fax",
+                        "number" : 2490539545
+                }
+        ],
+        "emailAddress" : [
+                "Hanna@gamil.com",
+                "VHanna@gmail.com",
+                "VolivaHanna@gmail,com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de8"),
+        "firstName" : "Yuonne",
+        "lastName" : "Gingerich",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "3018 East Ave",
+                "city" : "Central Square",
+                "state" : "NY",
+                "postalCode" : 13036
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 2990731778
+                },
+                {
+                        "type" : "fax",
+                        "number" : 4631531140
+                },
+                {
+                        "type" : "Mobile",
+                        "number" : 8829936546
+                }
+        ],
+        "emailAddress" : [
+                "Yuonne@gamil.com",
+                "GYuonne@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011de9"),
+        "firstName" : "Jackie",
+        "lastName" : "Wolfenbarger",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "100 Thruway Plaza",
+                "city" : "Cheektowaga",
+                "state" : "NY",
+                "postalCode" : 14225
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 6822716568
+                },
+                {
+                        "type" : "fax",
+                        "number" : 7965807774
+                }
+        ],
+        "emailAddress" : [
+                "Jackie@gamil.com",
+                "WJackie@gmail.com"
+        ]
+}
+
+
+
+-----------------------------------------------------------------------
+
+Display only two Documents
+> db.Customer.find().pretty().limit(2)
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd4"),
+        "firstName" : "Michael",
+        "lastName" : "Smith",
+        "age" : 21,
+        "Address" : {
+                "streetAddress" : "279 Troy Road",
+                "city" : "East Greenbush",
+                "state" : "NY",
+                "postalCode" : 12061
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 9808191199
+                },
+                {
+                        "type" : "fax",
+                        "number" : 7797374941
+                }
+        ],
+        "emailAddress" : [
+                "MichS@gamil.com",
+                "SMich@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("60bb5b87d5ec118047011dd5"),
+        "firstName" : "Robert",
+        "lastName" : "Smith",
+        "age" : 22,
+        "Address" : {
+                "streetAddress" : "1400 Farmington Ave",
+                "city" : "Bristol",
+                "state" : "CT",
+                "postalCode" : 6010
+        },
+        "phoneNumber" : [
+                {
+                        "type" : "home",
+                        "number" : 1761266808
+                },
+                {
+                        "type" : "fax",
+                        "number" : 9841911399
+                }
+        ],
+        "emailAddress" : [
+                "Robert@gamil.com",
+                "SRob@gmail.com"
+        ]
+}
+
+
+
+-----------------------------------------------------------------------
+
+Drop Document
+> db.Customer.drop()
+true
+>
+>
+>
