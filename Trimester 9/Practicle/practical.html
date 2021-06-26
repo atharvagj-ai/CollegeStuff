@@ -1,0 +1,31 @@
+<!-- PE29 Vasu Kalariya
+To Draw Rectangle and rotate it at 60 -->
+
+
+<html>
+    <head>
+        <title>D3 tutorial</title>
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+    </head>
+
+    <body>
+        <script>
+            var canvas = d3.select("body")
+            .append("svg")
+            .attr('width', 800)
+            .attr('height', 800);
+
+            var rectangle = canvas.append('rect')
+                            .attr('x', 600)
+                            .attr('y', 20)
+                            .attr('width', 80)
+                            .attr('height', 400)
+                            .attr('fill', 'red')
+
+            rectangle.transition()
+            .duration(1500)
+            .attr("transform", "rotate(60 600,40)");
+            
+        </script>
+    </body>
+</html>

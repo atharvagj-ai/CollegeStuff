@@ -1,0 +1,36 @@
+<!-- CSV File Visulizatio -->
+
+
+<html>
+    <head>
+        <title>D3 tutorial</title>
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+    </head>
+
+    <body>
+        <script>
+            d3.csv('population.csv', function(data){
+
+                var canvas = d3.select('body')
+                                .append('svg')
+                                .attr('width', 1000)
+                                .attr('height', 1000);
+
+                canvas.select('rect')
+                        .data(data)
+                        .enter()
+                            .append('rect')
+                            .attr('width', function (d) { return d.Year)
+                            .attr('height', function (d) { return d.Number)
+                            .attr('y', function(d,i){return i* 5})
+                            .attr('fill','red');
+
+                // var xlable = function (d) { return data['Year']}
+                // var ylable = function (d) { return data['Number']}
+
+
+            })
+
+        </script>
+    </body>
+</html>
