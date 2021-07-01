@@ -26,10 +26,10 @@ syscall
 
 
 section .bss
-GDTR resq 1
 gdtlimit resw 1
-IDTR resq 1
+GDTR resq 1
 idtlimit resw 1
+IDTR resq 1
 LDTR resw 1
 TR resw 1
 MSW resw 1
@@ -44,7 +44,7 @@ _start:
 operate 1,1,msg3,msgl3
 operate 1,1,msg1,msgl1
 mov esi,GDTR
-sgdt [esi]
+sgdt [gdtlimit]
 mov rax,[esi]
 call Display64      ;Call Display64 Procedure
 operate 1,1,newl,1
@@ -59,7 +59,7 @@ operate 1,1,newl,1
 operate 1,1,msg4,msgl4
 operate 1,1,msg1,msgl1
 mov esi,IDTR
-sidt [esi]
+sidt [idtlimit]
 mov rax,[esi]
 call Display64      ;Call Display64 Procedure
 operate 1,1,newl,1
